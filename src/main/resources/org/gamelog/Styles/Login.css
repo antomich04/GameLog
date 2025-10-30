@@ -1,0 +1,39 @@
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 22;
+    -fx-background-radius: 22;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+
+    /* Text selection colors */
+    -fx-highlight-fill: #1C3849;      /* background of selected text */
+    -fx-highlight-text-fill: #FFFFFF; /* color of selected text */
+}
+
+#rootPane{
+    -fx-background-color: #FFFFFF;
+}
+
+#loginBtn{
+    -fx-background-color: #1C3849;
+    -fx-background-radius: 18;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
+
+.forgot-password {
+    -fx-fill: #4a5b85;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 2, 0.3, 1, 1);
+    -fx-cursor: hand;
+}
+
+.regular-text {
+    -fx-fill: #4a5b85;
+}
+
+.highlight-text {
+    -fx-fill: #1C3849;
+}

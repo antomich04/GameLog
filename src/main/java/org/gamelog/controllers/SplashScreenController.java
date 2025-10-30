@@ -1,4 +1,4 @@
-package org.gamelog.gamelog;
+package org.gamelog.controllers;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -19,7 +19,7 @@ public class SplashScreenController{
     @FXML
     public void initialize(){
         //Creates a 3-second delay
-        PauseTransition pause = new PauseTransition(Duration.seconds(3));
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
         pause.setOnFinished(event -> fadeOutSplash());
         pause.play();
@@ -38,7 +38,7 @@ public class SplashScreenController{
     private void switchToStartingPage(){
         try{
             //Loads the starting page FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("starting-page.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/starting-page.fxml"));
             Scene startingScene = new Scene(loader.load());
 
 
