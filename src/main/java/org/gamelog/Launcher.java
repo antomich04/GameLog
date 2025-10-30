@@ -1,4 +1,4 @@
-package org.gamelog.gamelog;
+package org.gamelog;
 
 import javafx.application.Application;
 
