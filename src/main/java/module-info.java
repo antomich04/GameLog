@@ -1,6 +1,7 @@
 module org.gamelog.gamelog {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
 
     opens org.gamelog to javafx.fxml;

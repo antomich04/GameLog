@@ -15,9 +15,9 @@
             <image>
                 <Image url="@../Assets/Logo.png" />
             </image>
-         <VBox.margin>
-            <Insets bottom="-28.0" />
-         </VBox.margin>
+            <VBox.margin>
+                <Insets bottom="-28.0" />
+            </VBox.margin>
         </ImageView>
 
         <Text text="Welcome to GameLog!">
@@ -33,9 +33,6 @@
             <font>
                 <Font name="MS Reference Sans Serif" size="20.0" />
             </font>
-            <VBox.margin>
-                <Insets />
-            </VBox.margin>
         </Text>
 
         <Button fx:id="getStartedBtn" prefHeight="70.0" prefWidth="400.0" text="GET STARTED" textFill="WHITE">
