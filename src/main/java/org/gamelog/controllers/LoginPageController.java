@@ -30,8 +30,7 @@ public class LoginPageController {
     private Text forgotPasswordLink;
     @FXML
     private Text signupLink;
-
-
+    @FXML
     private FXMLLoader loader;
     private String username;
     private String password;
@@ -41,7 +40,6 @@ public class LoginPageController {
         loginBtn.setOnMouseClicked(event -> {
             handleLogin();
         });
-
         forgotPasswordLink.setOnMouseClicked(event -> {
            System.out.println("Forgot Password Link");
         });
