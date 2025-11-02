@@ -1,10 +1,16 @@
 package org.gamelog.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class LoginPageController {
 
@@ -24,11 +30,13 @@ public class LoginPageController {
     private Text forgotPasswordLink;
     @FXML
     private Text signupLink;
-
+    @FXML
+    private FXMLLoader loader;
     private String username;
     private String password;
 
     public void initialize(){
+        loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/sign_up_page.fxml"));
         loginBtn.setOnMouseClicked(event -> {
             handleLogin();
         });
@@ -36,7 +44,14 @@ public class LoginPageController {
            System.out.println("Forgot Password Link");
         });
         signupLink.setOnMouseClicked(event -> {
-            System.out.println("Signup Link");
+            Stage stage = (Stage) signupLink.getScene().getWindow();
+            try {
+                Parent root = loader.load();
+                stage.setScene(new Scene(root));
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
         usernameErrorMessage.setText("");
         passwordErrorMessage.setText("");
