@@ -30,7 +30,8 @@ public class LoginPageController {
     private Text forgotPasswordLink;
     @FXML
     private Text signupLink;
-    @FXML
+
+
     private FXMLLoader loader;
     private String username;
     private String password;
@@ -40,26 +41,20 @@ public class LoginPageController {
         loginBtn.setOnMouseClicked(event -> {
             handleLogin();
         });
+
         forgotPasswordLink.setOnMouseClicked(event -> {
            System.out.println("Forgot Password Link");
         });
-        signupLink.setOnMouseClicked(event -> {
-            Stage stage = (Stage) signupLink.getScene().getWindow();
-            try {
-                Parent root = loader.load();
-                stage.setScene(new Scene(root));
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        signupLink.setOnMouseClicked(event -> goToSignupPage());
+
         usernameErrorMessage.setText("");
         passwordErrorMessage.setText("");
     }
 
     private void handleLogin(){
-        username = usernameInput.getText();
-        password = passwordInput.getText();
+        username = usernameInput.getText().trim();
+        password = passwordInput.getText().trim();
 
         if(username.isEmpty() && password.isEmpty()){
             usernameErrorMessage.setText("*Required field!*");
@@ -72,7 +67,32 @@ public class LoginPageController {
         }else if(password.isEmpty()){
             passwordErrorMessage.setText("*Required field!*");
             usernameErrorMessage.setText("");
+            return;
         }
-        //TODO Den kanei kati otan einai kai ta dyo swsta prepei na sindesoume tin vasi!
+        try {
+            loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void goToSignupPage(){
+        try {
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            Parent root = loader.load();
+
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
