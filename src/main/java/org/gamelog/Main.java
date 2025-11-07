@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-//import org.gamelog.repository.DatabaseInitializer;
+import org.gamelog.repository.DatabaseInitializer;
 
 import java.io.IOException;
 
@@ -13,7 +13,7 @@ public class Main extends Application{
     
     @Override
     public void start(Stage stage) throws IOException {
-      //  DatabaseInitializer.init();
+      DatabaseInitializer.init();
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("Pages/splash-screen.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

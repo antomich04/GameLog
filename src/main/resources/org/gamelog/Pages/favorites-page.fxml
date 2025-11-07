@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/HomePage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.HomePageController">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/FavoritesPage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.FavoritesPageController">
     <left>
         <VBox fx:id="navMenu" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="125.0" BorderPane.alignment="CENTER">
             <children>
@@ -134,7 +134,7 @@
         </VBox>
     </left>
     <center>
-        <TextField prefHeight="72.0" prefWidth="818.0" promptText="HOME PAGE" BorderPane.alignment="CENTER">
+        <TextField prefHeight="72.0" prefWidth="818.0" promptText="Favorites" BorderPane.alignment="CENTER">
             <font>
                 <Font size="34.0" />
             </font>
