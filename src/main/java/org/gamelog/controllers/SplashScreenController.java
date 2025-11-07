@@ -16,8 +16,11 @@ public class SplashScreenController{
     @FXML
     private AnchorPane rootPane;
 
+    private FXMLLoader loader;
+
     @FXML
     public void initialize(){
+        loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/starting-page.fxml"));
         //Creates a 3-second delay
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
 
@@ -38,14 +41,11 @@ public class SplashScreenController{
     private void switchToStartingPage(){
         try{
             //Loads the starting page FXML
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/starting-page.fxml"));
             Scene startingScene = new Scene(loader.load());
 
-
             Stage stage = (Stage) rootPane.getScene().getWindow();
-
-
             stage.setScene(startingScene);
+            stage.show();
 
         }catch(IOException e){
             e.printStackTrace();
