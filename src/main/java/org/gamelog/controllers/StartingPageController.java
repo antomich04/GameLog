@@ -17,8 +17,13 @@ public class StartingPageController{
     @FXML
     private VBox rootPane;
 
+    private FXMLLoader loader;
+
     @FXML
     public void initialize(){
+        loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
+
+
         getStartedBtn.setOnMouseClicked(event -> {
             loadLoginPage();
         });
@@ -26,12 +31,11 @@ public class StartingPageController{
 
     private void loadLoginPage(){
         try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
             Scene loginPage = new Scene(loader.load());
-
 
             Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.setScene(loginPage);
+            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();

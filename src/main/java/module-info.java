@@ -3,6 +3,9 @@ module org.gamelog.gamelog {
     requires javafx.fxml;
     requires java.desktop;
     requires javafx.graphics;
+    requires java.sql;
+    requires io.github.cdimascio.dotenv.java;
+    requires org.postgresql.jdbc;
 
 
     opens org.gamelog to javafx.fxml;

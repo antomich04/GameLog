@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -33,6 +34,8 @@ public class SignUpPageController {
     @FXML
     private Label passwordError;
     @FXML
+    private AnchorPane rootPane;
+
     private FXMLLoader loader;
 
     public void initialize() {
@@ -51,22 +54,22 @@ public class SignUpPageController {
         clearErrorMessages();
 
         if (username.isEmpty()) {
-            usernameError.setText("*Username is required!*");
+            usernameError.setText("*Required field!*");
             usernameError.setVisible(true);
             signedup=false;
         }
 
         if (email.isEmpty()) {
-            emailError.setText("*Email is required!*");
+            emailError.setText("*Required field!*");
             emailError.setVisible(true);
             signedup=false;
-        } else if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+        } else if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[a-z]{2,}$")) {
             emailError.setText("*Please enter a valid email address!*");
             emailError.setVisible(true);
             signedup=false;
         }
         if (password.isEmpty()) {
-            passwordError.setText("*Password is required!*");
+            passwordError.setText("*Required field!*");
             passwordError.setVisible(true);
             signedup=false;
         } else if (password.length() < 6) {
@@ -75,16 +78,28 @@ public class SignUpPageController {
             signedup=false;
         }
         if (signedup){
-            System.out.println("signed up");
+            try{
+                loader =  new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) rootPane.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+
+            }catch(IOException e){
+                e.printStackTrace();
+            }
         }
     }
 
     @FXML
     private void goToLoginPage() {
-        Stage stage = (Stage) loginLink.getScene().getWindow();
         try {
             Parent root = loader.load();
+
+            Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.setScene(new Scene(root));
+            stage.show();
 
         } catch (IOException e) {
             e.printStackTrace();
