@@ -3,10 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -134,10 +136,50 @@
         </VBox>
     </left>
     <center>
-        <TextField prefHeight="72.0" prefWidth="818.0" promptText="Backlog" BorderPane.alignment="CENTER">
-            <font>
-                <Font size="34.0" />
-            </font>
-        </TextField>
+        <VBox alignment="TOP_LEFT" spacing="20" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets bottom="30" left="30" right="30" top="80" />
+            </padding>
+
+            <HBox alignment="CENTER_LEFT" prefWidth="800" spacing="20">
+                <VBox alignment="CENTER_LEFT" spacing="5" HBox.hgrow="ALWAYS">
+                    <Label style="-fx-font-weight: bold;" text="Your Backlog">
+                        <font>
+                            <Font size="28.0" />
+                        </font>
+                    </Label>
+                </VBox>
+
+                <!-- Spacer to push profile to the right -->
+                <Pane HBox.hgrow="ALWAYS" />
+
+                <HBox alignment="CENTER_RIGHT" spacing="20.0">
+                    <!-- Add Icon -->
+                    <ImageView fitHeight="30.0" fitWidth="30.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 1, 0, 0, 0);">
+                        <image>
+                            <Image url="@../Assets/add_icon.png" />
+                        </image>
+                    </ImageView>
+
+                    <!-- Filter Icon -->
+                    <ImageView fitHeight="45.0" fitWidth="45.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 1, 0, 0, 0);">
+                        <image>
+                            <Image url="@../Assets/filter_icon.png" />
+                        </image>
+                    </ImageView>
+                </HBox>
+                <VBox.margin>
+                    <Insets right="20.0" />
+                </VBox.margin>
+            </HBox>
+
+            <VBox alignment="CENTER" prefHeight="600" prefWidth="800" spacing="15">
+                <Label style="-fx-font-weight: bold;" text="Nothing to see here...">
+                    <font>
+                        <Font size="28.0" />
+                    </font>
+                </Label>
+            </VBox>
+        </VBox>
     </center>
 </BorderPane>

@@ -1,3 +1,6 @@
+#rootPane{
+    -fx-background-color: white;
+}
 #navMenu {
     -fx-background-color: #1C3849;
     -fx-alignment: center;
