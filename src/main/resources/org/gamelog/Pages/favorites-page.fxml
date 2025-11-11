@@ -3,19 +3,18 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/HomePage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.HomePageController">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/FavoritesPage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.FavoritesPageController">
     <left>
         <VBox fx:id="navMenu" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="125.0" BorderPane.alignment="CENTER">
             <children>
@@ -145,7 +144,7 @@
 
             <HBox alignment="CENTER_LEFT" prefWidth="800" spacing="20">
                 <VBox alignment="CENTER_LEFT" spacing="5" HBox.hgrow="ALWAYS">
-                    <Label style="-fx-font-weight: bold;" text="Welcome back, antomich04">
+                    <Label style="-fx-font-weight: bold;" text="Favorite Games">
                         <font>
                             <Font size="28.0" />
                         </font>
@@ -155,23 +154,16 @@
                 <!-- Spacer to push profile to the right -->
                 <Pane HBox.hgrow="ALWAYS" />
 
-                <!-- Profile -->
-                <HBox alignment="CENTER_RIGHT" spacing="10">
-                    <StackPane>
-                        <Rectangle arcHeight="10" arcWidth="10" fill="#1C3849" height="55" width="55" />
-                        <Label style="-fx-text-fill: white;" text="M">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                     <StackPane.margin>
-                        <Insets />
-                     </StackPane.margin>
-                        </Label>
-                    </StackPane>
+                <HBox alignment="CENTER_RIGHT" spacing="20.0">
+                    <ImageView fitHeight="45.0" fitWidth="45.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 1, 0, 0, 0);">
+                        <image>
+                            <Image url="@../Assets/filter_icon.png" />
+                        </image>
+                    </ImageView>
                 </HBox>
-            <VBox.margin>
-               <Insets right="20.0" />
-            </VBox.margin>
+                <VBox.margin>
+                    <Insets right="20.0" />
+                </VBox.margin>
             </HBox>
 
             <VBox alignment="CENTER" prefHeight="600" prefWidth="800" spacing="15">
