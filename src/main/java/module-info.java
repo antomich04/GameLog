@@ -6,6 +6,7 @@ module org.gamelog.gamelog {
     requires java.sql;
     requires io.github.cdimascio.dotenv.java;
     requires org.postgresql.jdbc;
+    requires jbcrypt;
 
 
     opens org.gamelog to javafx.fxml;

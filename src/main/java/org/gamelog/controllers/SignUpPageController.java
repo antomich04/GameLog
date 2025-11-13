@@ -11,6 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.gamelog.model.SessionManager;
+import org.gamelog.repository.AuthRepo;
+import org.gamelog.repository.SignupResult;
 
 import java.io.IOException;
 
@@ -37,16 +40,34 @@ public class SignUpPageController {
     private AnchorPane rootPane;
 
     private FXMLLoader loader;
+    private AuthRepo authRepo;
 
     public void initialize() {
         loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
         signUpButton.setOnAction(event -> handleSignUp());
         loginLink.setOnMouseClicked(event -> goToLoginPage());
+        authRepo = new AuthRepo();
+
+        usernameField.setOnKeyTyped(event -> {
+            usernameError.setText("");
+            usernameError.setVisible(false);
+        });
+
+        emailField.setOnKeyTyped(event -> {
+            emailError.setText("");
+            emailError.setVisible(false);
+        });
+
+        passwordField.setOnKeyTyped(event -> {
+            passwordError.setText("");
+            passwordError.setVisible(false);
+        });
+
     }
 
     @FXML
     private void handleSignUp() {
-        boolean signedup=true;
+        boolean validSignup=true;
         String username = usernameField.getText().trim();
         String email = emailField.getText().trim();
         String password = passwordField.getText().trim();
@@ -56,38 +77,51 @@ public class SignUpPageController {
         if (username.isEmpty()) {
             usernameError.setText("*Required field!*");
             usernameError.setVisible(true);
-            signedup=false;
+            validSignup=false;
         }
 
         if (email.isEmpty()) {
             emailError.setText("*Required field!*");
             emailError.setVisible(true);
-            signedup=false;
+            validSignup=false;
         } else if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[a-z]{2,}$")) {
             emailError.setText("*Please enter a valid email address!*");
             emailError.setVisible(true);
-            signedup=false;
+            validSignup=false;
         }
         if (password.isEmpty()) {
             passwordError.setText("*Required field!*");
             passwordError.setVisible(true);
-            signedup=false;
+            validSignup=false;
         } else if (password.length() < 6) {
             passwordError.setText("*Password must be at least 6 characters!*");
             passwordError.setVisible(true);
-            signedup=false;
+            validSignup=false;
         }
-        if (signedup){
-            try{
-                loader =  new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
-                Parent root = loader.load();
+        if (validSignup) {
+            SignupResult result = authRepo.signupUser(username, email, password);
+            if (result.isSuccess()) {
+                try {
+                    SessionManager.createSession(username);
 
-                Stage stage = (Stage) rootPane.getScene().getWindow();
-                stage.setScene(new Scene(root));
-                stage.show();
+                    loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
+                    Parent root = loader.load();
 
-            }catch(IOException e){
-                e.printStackTrace();
+                    Stage stage = (Stage) rootPane.getScene().getWindow();
+                    stage.setScene(new Scene(root));
+                    stage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // Displays specific error messages
+                if (result.getMessage().contains("Username")) {
+                    usernameError.setText(result.getMessage());
+                    usernameError.setVisible(true);
+                } else if (result.getMessage().contains("Email")) {
+                    emailError.setText(result.getMessage());
+                    emailError.setVisible(true);
+                }
             }
         }
     }

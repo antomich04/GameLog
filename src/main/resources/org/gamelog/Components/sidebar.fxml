@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.text.Text?>
+<VBox fx:id="navMenu" alignment="CENTER" xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.gamelog.controllers.SidebarController"
+      stylesheets="@../Styles/Sidebar.css"
+      prefHeight="768.0" prefWidth="125.0">
+
+    <!-- Home Button -->
+    <Button fx:id="homeButton" prefHeight="107.0" prefWidth="124.0" styleClass="sidebarBtn">
+        <graphic>
+            <VBox alignment="CENTER" styleClass="sidebarContent">
+                <children>
+                    <ImageView fitHeight="48.0" fitWidth="48.0">
+                        <image>
+                            <Image url="@../Assets/home_icon.png" />
+                        </image>
+                    </ImageView>
+                    <Text text="Home" styleClass="sidebarText"/>
+                </children>
+                <padding>
+                    <Insets top="16" right="16" bottom="16" left="16"/>
+                </padding>
+            </VBox>
+        </graphic>
+    </Button>
+
+    <!-- Backlog Button -->
+    <Button fx:id="backlogButton" prefHeight="107.0" prefWidth="126.0" styleClass="sidebarBtn">
+        <graphic>
+            <VBox alignment="CENTER" styleClass="sidebarContent">
+                <children>
+                    <ImageView fitHeight="48.0" fitWidth="48.0">
+                        <image>
+                            <Image url="@../Assets/backlog_icon.png" />
+                        </image>
+                    </ImageView>
+                    <Text text="Backlog" styleClass="sidebarText"/>
+                </children>
+                <padding>
+                    <Insets top="16" right="16" bottom="16" left="16"/>
+                </padding>
+            </VBox>
+        </graphic>
+    </Button>
+
+    <!-- Favorites Button -->
+    <Button fx:id="favoritesButton" prefHeight="107.0" prefWidth="128.0" styleClass="sidebarBtn">
+        <graphic>
+            <VBox alignment="CENTER" styleClass="sidebarContent">
+                <children>
+                    <ImageView fitHeight="48.0" fitWidth="48.0">
+                        <image>
+                            <Image url="@../Assets/favorites_icon.png" />
+                        </image>
+                    </ImageView>
+                    <Text text="Favorites" styleClass="sidebarText"/>
+                </children>
+                <padding>
+                    <Insets top="16" right="16" bottom="16" left="16"/>
+                </padding>
+            </VBox>
+        </graphic>
+    </Button>
+
+    <!-- Settings Button -->
+    <Button fx:id="settingsButton" prefHeight="107.0" prefWidth="125.0" styleClass="sidebarBtn">
+        <graphic>
+            <VBox alignment="CENTER" styleClass="sidebarContent">
+                <children>
+                    <ImageView fitHeight="48.0" fitWidth="48.0">
+                        <image>
+                            <Image url="@../Assets/settings_icon.png" />
+                        </image>
+                    </ImageView>
+                    <Text text="Settings" styleClass="sidebarText"/>
+                </children>
+                <padding>
+                    <Insets top="16" right="16" bottom="16" left="16"/>
+                </padding>
+            </VBox>
+        </graphic>
+    </Button>
+
+    <!-- Logout Button -->
+    <Button fx:id="logoutButton" prefHeight="107.0" prefWidth="123.0" styleClass="sidebarBtn">
+        <graphic>
+            <VBox alignment="CENTER" styleClass="sidebarContent">
+                <children>
+                    <ImageView fitHeight="48.0" fitWidth="48.0">
+                        <image>
+                            <Image url="@../Assets/logout_icon.png" />
+                        </image>
+                    </ImageView>
+                    <Text text="Logout" styleClass="sidebarText"/>
+                </children>
+                <padding>
+                    <Insets top="16" right="16" bottom="16" left="16"/>
+                </padding>
+            </VBox>
+        </graphic>
+    </Button>
+</VBox>

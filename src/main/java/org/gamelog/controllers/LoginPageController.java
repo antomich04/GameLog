@@ -9,7 +9,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+import org.gamelog.model.SessionManager;
+import org.gamelog.repository.AuthRepo;
+import org.gamelog.repository.LoginResult;
 import java.io.IOException;
 
 public class LoginPageController {
@@ -32,10 +34,14 @@ public class LoginPageController {
     private Text signupLink;
     @FXML
     private FXMLLoader loader;
+
     private String username;
     private String password;
 
+    private AuthRepo authRepo;
+
     public void initialize(){
+        authRepo = new AuthRepo();
         loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/sign_up_page.fxml"));
         loginBtn.setOnMouseClicked(event -> {
             handleLogin();
@@ -46,39 +52,70 @@ public class LoginPageController {
 
         signupLink.setOnMouseClicked(event -> goToSignupPage());
 
-        usernameErrorMessage.setText("");
-        passwordErrorMessage.setText("");
+        //Event listeners that clear the error messages once the user starts typing again
+        usernameInput.setOnKeyPressed(event -> {
+            usernameErrorMessage.setText("");
+            usernameErrorMessage.setVisible(false);
+        });
+
+        passwordInput.setOnKeyPressed(event -> {
+            passwordErrorMessage.setText("");
+            passwordErrorMessage.setVisible(false);
+        });
     }
 
     private void handleLogin(){
         username = usernameInput.getText().trim();
         password = passwordInput.getText().trim();
 
+        clearErrorMessages();
+
         if(username.isEmpty() && password.isEmpty()){
             usernameErrorMessage.setText("*Required field!*");
             passwordErrorMessage.setText("*Required field!*");
+            usernameErrorMessage.setVisible(true);
+            passwordErrorMessage.setVisible(true);
             return;
         }else if(username.isEmpty()){
             usernameErrorMessage.setText("*Required field!*");
-            passwordErrorMessage.setText("");
+            usernameErrorMessage.setVisible(true);
             return;
         }else if(password.isEmpty()){
             passwordErrorMessage.setText("*Required field!*");
-            usernameErrorMessage.setText("");
+            passwordErrorMessage.setVisible(true);
             return;
         }
-        try {
-            loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
-            Parent root = loader.load();
 
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+        LoginResult result = authRepo.loginUser(username, password);
+        if(result.isSuccess()){
+            try{
+                SessionManager.createSession(username);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+                loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
+                Parent root = loader.load();
+
+                Stage stage = (Stage) rootPane.getScene().getWindow();
+                stage.setScene(new Scene(root));
+                stage.show();
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }else{
+            if (result.getMessage().contains("not found!")) {
+                usernameErrorMessage.setText(result.getMessage());
+                usernameErrorMessage.setVisible(true);
+            }else if(result.getMessage().contains("password")){
+                passwordErrorMessage.setText(result.getMessage());
+                passwordErrorMessage.setVisible(true);
+            }
         }
+    }
 
+    private void clearErrorMessages(){
+        usernameErrorMessage.setText("");
+        passwordErrorMessage.setText("");
+        usernameErrorMessage.setVisible(false);
+        passwordErrorMessage.setVisible(false);
     }
 
     private void goToSignupPage(){
