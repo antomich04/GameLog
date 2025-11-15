@@ -13,7 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.AuthRepo;
-import org.gamelog.repository.SignupResult;
+import org.gamelog.model.SignupResult;
 
 import java.io.IOException;
 
@@ -89,6 +89,7 @@ public class SignUpPageController {
             emailError.setVisible(true);
             validSignup=false;
         }
+
         if (password.isEmpty()) {
             passwordError.setText("*Required field!*");
             passwordError.setVisible(true);
@@ -97,12 +98,22 @@ public class SignUpPageController {
             passwordError.setText("*Password must be at least 6 characters!*");
             passwordError.setVisible(true);
             validSignup=false;
+        }else if (!password.contains("!@#$%^&*")){
+            passwordError.setText("*Password must contain at least one special character!*");
+            passwordError.setVisible(true);
         }
+
         if (validSignup) {
             SignupResult result = authRepo.signupUser(username, email, password);
             if (result.isSuccess()) {
                 try {
                     SessionManager.createSession(username);
+
+                    if(!SessionManager.isActive()){
+                        passwordError.setText("Failed to create session. Please try again.");
+                        passwordError.setVisible(true);
+                        return;
+                    }
 
                     loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
                     Parent root = loader.load();

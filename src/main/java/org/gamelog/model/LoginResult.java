@@ -1,10 +1,10 @@
-package org.gamelog.repository;
+package org.gamelog.model;
 
-public class SignupResult {
+public class LoginResult {
     private boolean success;
     private String message;
 
-    public SignupResult(boolean success, String message) {
+    public LoginResult(boolean success, String message) {
         this.success = success;
         this.message = message;
     }

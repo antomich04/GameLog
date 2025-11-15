@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.AuthRepo;
-import org.gamelog.repository.LoginResult;
+import org.gamelog.model.LoginResult;
 import java.io.IOException;
 
 public class LoginPageController {
@@ -90,6 +90,14 @@ public class LoginPageController {
         if(result.isSuccess()){
             try{
                 SessionManager.createSession(username);
+
+                //Checks if session was created successfully
+                if(!SessionManager.isActive()){
+                    //Session creation failed
+                    passwordErrorMessage.setText("Failed to create session. Please try again.");
+                    passwordErrorMessage.setVisible(true);
+                    return;
+                }
 
                 loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
                 Parent root = loader.load();

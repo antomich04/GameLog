@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.gamelog.model.LoginResult;
+import org.gamelog.model.SignupResult;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class AuthRepo {
