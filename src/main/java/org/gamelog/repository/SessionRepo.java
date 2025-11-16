@@ -8,42 +8,33 @@ import java.util.UUID;
 
 public class SessionRepo {
 
-    public String createSession(String username){
+    public String createSession(String username, String deviceId) {
         String token = UUID.randomUUID().toString();
-        LocalDateTime expiresAt = LocalDateTime.now().plusDays(30); //Session is valid for 1 month
+        LocalDateTime expiresAt = LocalDateTime.now().plusDays(30);
 
-        // First gets the uid for the username
         String getUidStatement = "SELECT get_uid(?)";
-        String createSessionStatement = "SELECT create_session(?, ?, ?, ?)";
+        String createSessionStatement = "SELECT create_session(?, ?, ?, ?, ?)";
 
-        try{
+        try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
 
-            // Gets uid
+            // Gets UID
             int uid;
             try (PreparedStatement uidStmt = conn.prepareStatement(getUidStatement)) {
-
                 uidStmt.setString(1, username);
                 ResultSet rs = uidStmt.executeQuery();
-
-                if (rs.next()) {
-                    uid = rs.getInt(1);
-                } else {
-                    return null; // User not found
-                }
+                if (!rs.next()) return null;
+                uid = rs.getInt(1);
             }
 
             // Creates session
-            try (PreparedStatement statement = conn.prepareStatement(createSessionStatement)) {
-                Timestamp expiration = Timestamp.valueOf(expiresAt);
-                Timestamp now = Timestamp.valueOf(LocalDateTime.now());
-
-                statement.setInt(1, uid);
-                statement.setString(2, token);
-                statement.setTimestamp(3, expiration);
-                statement.setTimestamp(4, now);
-
-                statement.execute();
+            try (PreparedStatement stmt = conn.prepareStatement(createSessionStatement)) {
+                stmt.setInt(1, uid);
+                stmt.setString(2, token);
+                stmt.setTimestamp(3, Timestamp.valueOf(expiresAt));
+                stmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+                stmt.setString(5, deviceId);
+                stmt.execute();
                 return token;
             }
 
@@ -53,24 +44,23 @@ public class SessionRepo {
         }
     }
 
-    public Session getActiveSession(){
-        String getSessionStatement = "SELECT * FROM get_active_session()";
+    public Session getActiveSession(String deviceId) {
+        String sql = "SELECT * FROM get_active_session(?)";
 
-        try{
+        try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
-            PreparedStatement statement = conn.prepareStatement(getSessionStatement);
-            ResultSet rs = statement.executeQuery();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, deviceId);
+
+            ResultSet rs = stmt.executeQuery();
 
             if(rs.next()){
-                String username = rs.getString("username");
-                String token = rs.getString("token");
-                LocalDateTime expiresAt = rs.getTimestamp("expires_at").toLocalDateTime();
-
-                // Checks if session is still valid
-                if (expiresAt.isAfter(LocalDateTime.now())) {
-                    return new Session(username, token);
+                LocalDateTime expires = rs.getTimestamp("expires_at").toLocalDateTime();
+                if(expires.isAfter(LocalDateTime.now())){
+                    return new Session(rs.getString("username"), rs.getString("token"));
                 }
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -11,7 +11,7 @@ import javafx.util.Duration;
 import org.gamelog.model.Session;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.SessionRepo;
-
+import org.gamelog.utils.DeviceUtils;
 import java.io.IOException;
 
 public class SplashScreenController{
@@ -22,21 +22,20 @@ public class SplashScreenController{
     private FXMLLoader loader;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
+        SessionRepo repo = new SessionRepo();
 
-        SessionRepo sessionRepo = new SessionRepo();
-        Session activeSession = sessionRepo.getActiveSession();
+        String deviceId = DeviceUtils.getDeviceId();
+        Session active = repo.getActiveSession(deviceId);
 
-        if(activeSession != null){
-            SessionManager.createSessionFromExisting(activeSession.getUsername(), activeSession.getSessionToken());
+        if(active != null){
+            SessionManager.createSessionFromExisting(active.getUsername(), active.getSessionToken());
             loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
         }else{
             loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/starting-page.fxml"));
         }
 
-        //Creates a 3-second delay
         PauseTransition pause = new PauseTransition(Duration.seconds(1));
-
         pause.setOnFinished(event -> fadeOutSplash());
         pause.play();
     }
