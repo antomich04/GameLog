@@ -1,6 +1,7 @@
 package org.gamelog.model;
 
 import org.gamelog.repository.SessionRepo;
+import org.gamelog.utils.DeviceUtils;
 
 public class SessionManager {
 
@@ -17,15 +18,16 @@ public class SessionManager {
 
     // Creates a new session after successful login/signup
     public static void createSession(String username) {
-        SessionRepo sessionRepo = new SessionRepo();
-        String sessionToken = sessionRepo.createSession(username);
-        instance = new SessionManager(username, sessionToken);
+        SessionRepo repo = new SessionRepo();
+        String deviceId = DeviceUtils.getDeviceId();
+        String token = repo.createSession(username, deviceId);
+        instance = new SessionManager(username, token);
     }
 
 
     // Initializes session from existing session data for app startup
-    public static void createSessionFromExisting(String username, String sessionToken) {
-        instance = new SessionManager(username, sessionToken);
+    public static void createSessionFromExisting(String username, String token) {
+        instance = new SessionManager(username, token);
     }
 
     public static SessionManager getInstance() {
