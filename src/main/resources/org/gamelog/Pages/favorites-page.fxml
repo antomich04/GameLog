@@ -1,140 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/FavoritesPage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.FavoritesPageController">
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/FavoritesPage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.FavoritesPageController">
     <left>
-        <VBox fx:id="navMenu" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="125.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="homeButton" prefHeight="107.0" prefWidth="124.0" styleClass="sidebarBtn">
-                    <graphic>
-                        <VBox alignment="CENTER" prefWidth="112.0" styleClass="sidebarContent">
-                            <children>
-                                <ImageView fitHeight="48.0" fitWidth="48.0">
-                                    <image>
-                                        <Image url="@../Assets/home_icon.png" />
-                                    </image>
-                                </ImageView>
-                                <Text fill="white" text="Home" textAlignment="CENTER" wrappingWidth="55.162109375">
-                                    <font>
-                                        <Font name="MS Reference Sans Serif" size="15.0" />
-                                    </font></Text>
-                            </children>
-                            <padding>
-                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                            </padding>
-                        </VBox>
-                    </graphic>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-                <Button fx:id="backlogButton" prefHeight="107.0" prefWidth="126.0" styleClass="sidebarBtn">
-                    <graphic>
-                        <VBox alignment="CENTER" prefWidth="101.0" styleClass="sidebarContent">
-                            <children>
-                                <ImageView fitHeight="48.0" fitWidth="48.0">
-                                    <image>
-                                        <Image url="@../Assets/backlog_icon.png" />
-                                    </image>
-                                </ImageView>
-                                <Text fill="white" text="Backlog" textAlignment="CENTER" wrappingWidth="59.162109375">
-                                    <font>
-                                        <Font name="MS Reference Sans Serif" size="15.0" />
-                                    </font></Text>
-                            </children>
-                            <padding>
-                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                            </padding>
-                        </VBox>
-                    </graphic>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-                <Button fx:id="favoritesButton" prefHeight="107.0" prefWidth="128.0" styleClass="sidebarBtn">
-                    <graphic>
-                        <VBox alignment="CENTER" styleClass="sidebarContent">
-                            <children>
-                                <ImageView fitHeight="48.0" fitWidth="48.0">
-                                    <image>
-                                        <Image url="@../Assets/favorites_icon.png" />
-                                    </image>
-                                </ImageView>
-                                <Text fill="white" text="Favorites" textAlignment="CENTER" wrappingWidth="69.162109375">
-                                    <font>
-                                        <Font name="MS Reference Sans Serif" size="15.0" />
-                                    </font></Text>
-                            </children>
-                            <padding>
-                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                            </padding>
-                        </VBox>
-                    </graphic>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-                <Button fx:id="settingsButton" prefHeight="107.0" prefWidth="125.0" styleClass="sidebarBtn">
-                    <graphic>
-                        <VBox alignment="CENTER" styleClass="sidebarContent">
-                            <children>
-                                <ImageView fitHeight="48.0" fitWidth="48.0">
-                                    <image>
-                                        <Image url="@../Assets/settings_icon.png" />
-                                    </image>
-                                </ImageView>
-                                <Text fill="white" text="Settings" textAlignment="CENTER" wrappingWidth="62.162109375">
-                                    <font>
-                                        <Font name="MS Reference Sans Serif" size="15.0" />
-                                    </font></Text>
-                            </children>
-                            <padding>
-                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                            </padding>
-                        </VBox>
-                    </graphic>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-                <Button fx:id="logoutButton" prefHeight="107.0" prefWidth="123.0" styleClass="sidebarBtn">
-                    <graphic>
-                        <VBox alignment="CENTER" styleClass="sidebarContent">
-                            <children>
-                                <ImageView fitHeight="48.0" fitWidth="48.0">
-                                    <image>
-                                        <Image url="@../Assets/logout_icon.png" />
-                                    </image>
-                                </ImageView>
-                                <Text fill="white" text="Logout" textAlignment="CENTER" wrappingWidth="52.162109375">
-                                    <font>
-                                        <Font name="MS Reference Sans Serif" size="15.0" />
-                                    </font></Text>
-                            </children>
-                            <padding>
-                                <Insets bottom="16.0" left="16.0" right="16.0" top="16.0" />
-                            </padding>
-                        </VBox>
-                    </graphic>
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor>
-                </Button>
-            </children>
-        </VBox>
+        <fx:include source="navigation-bar.fxml" />
     </left>
     <center>
         <VBox alignment="TOP_LEFT" spacing="20" BorderPane.alignment="CENTER">
@@ -150,20 +28,15 @@
                         </font>
                     </Label>
                 </VBox>
-
-                <!-- Spacer to push profile to the right -->
                 <Pane HBox.hgrow="ALWAYS" />
 
                 <HBox alignment="CENTER_RIGHT" spacing="20.0">
-                    <ImageView fitHeight="45.0" fitWidth="45.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 1, 0, 0, 0);">
+                    <ImageView styleClass="clickableIcons"  fitHeight="45.0" fitWidth="45.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 1, 0, 0, 0);">
                         <image>
                             <Image url="@../Assets/filter_icon.png" />
                         </image>
                     </ImageView>
                 </HBox>
-                <VBox.margin>
-                    <Insets right="20.0" />
-                </VBox.margin>
             </HBox>
 
             <VBox alignment="CENTER" prefHeight="600" prefWidth="800" spacing="15">

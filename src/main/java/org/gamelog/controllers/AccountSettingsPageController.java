@@ -42,14 +42,12 @@ public class AccountSettingsPageController {
         confirmButton.setOnAction(event -> handleConfirm());
         backButton.setOnAction(event -> goToSettingsPage());
 
-        // Set current user data
         setCurrentUserData();
     }
     private void setCurrentUserData() {
         usernameField.setText(originalUsername);
         emailField.setText(originalEmail);
         passwordField.setText(originalPassword);
-
     }
     @FXML
     private void handleConfirm() {
@@ -64,10 +62,9 @@ public class AccountSettingsPageController {
         boolean emailEdited = !email.equals(originalEmail);
         boolean passwordEdited = !password.equals(originalPassword);
 
-        // Validate username
         if (usernameEdited) {
             if (username.isEmpty()) {
-                usernameError.setText("*Username cannot be empty!*");
+                usernameError.setText("*Required Field!*");
                 usernameError.setVisible(true);
                 valid = false;
             } else if (username.length() < 3) {
@@ -76,10 +73,9 @@ public class AccountSettingsPageController {
                 valid = false;
             }
         }
-        // Validate email
         if (emailEdited) {
             if (email.isEmpty()) {
-                emailError.setText("*Email cannot be empty!*");
+                emailError.setText("*Required Field!*");
                 emailError.setVisible(true);
                 valid = false;
             } else if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[a-z]{2,}$")) {
@@ -88,7 +84,6 @@ public class AccountSettingsPageController {
                 valid = false;
             }
         }
-        // Validate password
         if (passwordEdited) {
             if (password.length() < 6) {
                 passwordError.setText("*Password must be at least 6 characters!*");
@@ -96,7 +91,6 @@ public class AccountSettingsPageController {
                 valid = false;
             }
         }
-        // Check if at least one field was actually edited
         boolean anyFieldEdited = usernameEdited || emailEdited || passwordEdited;
         if (!anyFieldEdited) {
             goToSettingsPage();
@@ -109,27 +103,22 @@ public class AccountSettingsPageController {
 
     private void updateAccountSettings(boolean usernameEdited, boolean emailEdited, boolean passwordEdited,
                                        String username, String email, String password) {
-        // TODO: Implement account settings update logic
-
-        System.out.println("Updating account settings:");
 
         if (usernameEdited) {
             System.out.println("Updating username to: " + username);
-            // Update username in database
         }
 
         if (emailEdited) {
             System.out.println("Updating email to: " + email);
-            // Update email in database
         }
 
         if (passwordEdited) {
             System.out.println("Updating password");
-            // Update password in database
+
         }
 
         if (!usernameEdited && !emailEdited && !passwordEdited) {
-            System.out.println("No changes detected");
+
         }
 
         goToSettingsPage();

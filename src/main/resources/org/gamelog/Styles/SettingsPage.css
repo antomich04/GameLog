@@ -1,85 +1,10 @@
-/* ========== NAVIGATION MENU ========== */
-#navMenu {
-    -fx-background-color: #1C3849;
-    -fx-alignment: center;
-    -fx-spacing: 40;
-    -fx-padding: 24 0 24 0;
-}
-
-.sidebarBtn {
-    -fx-background-color: transparent;
-    -fx-cursor: hand;
-    -fx-padding: 0;
-}
-
-.sidebarBtn:hover {
-    -fx-background-color: rgba(255, 255, 255, 0.1);
-}
-
-.sidebarBtn.active {
-    -fx-background-color: rgba(255, 255, 255, 0.25);
-}
-
-.sidebarContent {
-    -fx-alignment: center;
-    -fx-spacing: 6;
-}
-
-/* WHITE sidebar labels */
-.sidebarLabel {
-    -fx-text-fill: white;
-    -fx-font-size: 15px;
-    -fx-font-family: "MS Reference Sans Serif";
-}
-
-/* WHITE sidebar icons */
-.sidebarContent .image-view {
-    -fx-opacity: 1;
-    -fx-smooth: true;
-}
-
-/* ========== GENERAL PAGE STYLES ========== */
 #rootPane {
     -fx-font-family: "Segoe UI", sans-serif;
-
 }
 
-/* Separators */
 .separator *.line {
     -fx-border-color: #e6e6e6;
-    -fx-border-width: 0 0 1 0;
-}
-
-/* ========== PROFILE SECTION ========== */
-#profileName, #profileDate {
-    -fx-text-fill: #000000; /* ensure Mike and Date are black */
-}
-
-#profileInitial {
-    -fx-text-fill: #000000; /* black "M" inside the circle */
-    -fx-font-weight: bold;
-}
-
-/* Profile image shadow */
-.circle {
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 6, 0, 0, 2);
-}
-
-/* ========== SETTINGS BOX ========== */
-.vbox {
-    -fx-background-color: white;
-}
-
-/* Labels inside settings area */
-HBox > .label {
-    -fx-font-size: 18px;
-    -fx-text-fill: #222;
-}
-
-/* Hover effect for settings rows */
-HBox:hover {
-    -fx-background-color: #f9f9f9;
-    -fx-cursor: hand;
+    -fx-border-width: 0 0 2 0;
 }
 
 /* ========== TOGGLE SWITCH ========== */
@@ -95,7 +20,6 @@ HBox:hover {
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 2;
     -fx-cursor: hand;
-    -fx-transition: background-color 0.25s ease-in-out;
 }
 
 .toggle-button:selected .track {
@@ -107,11 +31,8 @@ HBox:hover {
     -fx-background-radius: 50%;
     -fx-pref-width: 22px;
     -fx-pref-height: 22px;
-    -fx-max-width: 22px;
-    -fx-max-height: 22px;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 3, 0, 0, 1);
     -fx-translate-x: 0;
-    -fx-transition: -fx-translate-x 0.25s ease-in-out;
 }
 
 .toggle-button:selected .thumb {
@@ -123,14 +44,12 @@ HBox:hover {
 }
 
 /* ========== DELETE ACCOUNT ========== */
-#deleteAccountLabel {
+.delete-account-text {
     -fx-text-fill: #dc3545;
     -fx-font-weight: bold;
-    -fx-transition: 0.3s;
 }
 
-#deleteAccountLabel:hover {
-    -fx-text-fill: #b02a37;
-    -fx-underline: true;
+/* ========== CLICKABLE AREAS ========== */
+.SettingsOption:hover {
     -fx-cursor: hand;
 }
