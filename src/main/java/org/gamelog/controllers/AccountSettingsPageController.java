@@ -10,7 +10,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.gamelog.model.SessionManager;
+
 import java.io.IOException;
+
 public class AccountSettingsPageController {
 
     @FXML
@@ -31,24 +34,31 @@ public class AccountSettingsPageController {
     private Label passwordError;
     @FXML
     private AnchorPane rootPane;
+    @FXML
+    private Label usernameLetter;
 
     private FXMLLoader loader;
-    private String originalUsername = "Mike Pap";
     private String originalEmail = "MikePap@gmail.com";
     private String originalPassword = "********";
 
     public void initialize() {
+        SessionManager sessionManager = SessionManager.getInstance();
+        String username = sessionManager.getUsername();
+        usernameLetter.setText(String.valueOf(Character.toUpperCase(username.charAt(0))));
+
         loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/settings-page.fxml"));
         confirmButton.setOnAction(event -> handleConfirm());
         backButton.setOnAction(event -> goToSettingsPage());
 
-        setCurrentUserData();
+        setCurrentUserData(username);
     }
-    private void setCurrentUserData() {
-        usernameField.setText(originalUsername);
+
+    private void setCurrentUserData(String username) {
+        usernameField.setText(username);
         emailField.setText(originalEmail);
         passwordField.setText(originalPassword);
     }
+
     @FXML
     private void handleConfirm() {
         boolean valid = true;
@@ -58,9 +68,9 @@ public class AccountSettingsPageController {
 
         clearErrorMessages();
 
-        boolean usernameEdited = !username.equals(originalUsername);
-        boolean emailEdited = !email.equals(originalEmail);
+        boolean usernameEdited = !username.equals(username);
         boolean passwordEdited = !password.equals(originalPassword);
+        boolean anyFieldEdited = usernameEdited || passwordEdited;
 
         if (usernameEdited) {
             if (username.isEmpty()) {
@@ -73,17 +83,7 @@ public class AccountSettingsPageController {
                 valid = false;
             }
         }
-        if (emailEdited) {
-            if (email.isEmpty()) {
-                emailError.setText("*Required Field!*");
-                emailError.setVisible(true);
-                valid = false;
-            } else if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[a-z]{2,}$")) {
-                emailError.setText("*Please enter a valid email address!*");
-                emailError.setVisible(true);
-                valid = false;
-            }
-        }
+
         if (passwordEdited) {
             if (password.length() < 6) {
                 passwordError.setText("*Password must be at least 6 characters!*");
@@ -91,25 +91,23 @@ public class AccountSettingsPageController {
                 valid = false;
             }
         }
-        boolean anyFieldEdited = usernameEdited || emailEdited || passwordEdited;
+
         if (!anyFieldEdited) {
             goToSettingsPage();
             return;
         }
+
         if (valid) {
-            updateAccountSettings(usernameEdited, emailEdited, passwordEdited, username, email, password);
+            updateAccountSettings(usernameEdited, passwordEdited, username, email, password);
         }
+
     }
 
-    private void updateAccountSettings(boolean usernameEdited, boolean emailEdited, boolean passwordEdited,
+    private void updateAccountSettings(boolean usernameEdited, boolean passwordEdited,
                                        String username, String email, String password) {
 
         if (usernameEdited) {
             System.out.println("Updating username to: " + username);
-        }
-
-        if (emailEdited) {
-            System.out.println("Updating email to: " + email);
         }
 
         if (passwordEdited) {
@@ -117,7 +115,7 @@ public class AccountSettingsPageController {
 
         }
 
-        if (!usernameEdited && !emailEdited && !passwordEdited) {
+        if (!usernameEdited && !passwordEdited) {
 
         }
 
