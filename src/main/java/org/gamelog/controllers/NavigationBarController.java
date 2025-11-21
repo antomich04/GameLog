@@ -31,33 +31,32 @@ public class NavigationBarController {
     }
 
     private void handleHomeButton() {
-        navigateToPage("/org/gamelog/Pages/home-page.fxml", "GameLog - Home");
+        navigateToPage("/org/gamelog/Pages/home-page.fxml");
     }
 
     private void handleBacklogButton() {
-        navigateToPage("/org/gamelog/Pages/backlog-page.fxml", "GameLog - Backlog");
+        navigateToPage("/org/gamelog/Pages/backlog-page.fxml");
     }
 
     private void handleFavoritesButton() {
-        navigateToPage("/org/gamelog/Pages/favorites-page.fxml", "GameLog - Favorites");
+        navigateToPage("/org/gamelog/Pages/favorites-page.fxml");
     }
 
     private void handleSettingsButton() {
-        navigateToPage("/org/gamelog/Pages/settings-page.fxml", "GameLog - Settings");
+        navigateToPage("/org/gamelog/Pages/settings-page.fxml");
     }
 
     private void handleLogoutButton() {
         SessionManager.clearSession();
-        navigateToPage("/org/gamelog/Pages/login-page.fxml", "GameLog - Login");
+        navigateToPage("/org/gamelog/Pages/login-page.fxml");
     }
 
-    private void navigateToPage(String fxmlPath, String title) {
+    private void navigateToPage(String fxmlPath) {
         try {
             Parent page = FXMLLoader.load(getClass().getResource(fxmlPath));
             Stage stage = (Stage) homeButton.getScene().getWindow();
             Scene scene = new Scene(page);
             stage.setScene(scene);
-            stage.setTitle(title);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

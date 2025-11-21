@@ -12,7 +12,7 @@
 
 <BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/FavoritesPage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.FavoritesPageController">
     <left>
-        <fx:include source="navigation-bar.fxml" />
+        <fx:include source="../Components/navigation-bar.fxml" />
     </left>
     <center>
         <VBox alignment="TOP_LEFT" spacing="20" BorderPane.alignment="CENTER">
