@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.ToggleButton?>
@@ -16,9 +15,9 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/SettingsPage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.SettingsPageController">
+<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/SettingsPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.SettingsPageController">
     <left>
-        <fx:include source="navigation-bar.fxml" />
+        <fx:include source="../Components/navigation-bar.fxml" />
     </left>
 
     <center>
@@ -28,17 +27,17 @@
             <VBox alignment="CENTER">
                 <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="228.0" prefWidth="835.0" style="-fx-background-color: #2a9d8f;">
                     <Circle fill="#e0e0e0" radius="68.0" stroke="white" strokeWidth="0.0" />
-                    <Label text="M">
+                    <Label fx:id="usernameLetter">
                         <font>
                             <Font size="76.0" />
                         </font>
                     </Label>
                 </StackPane>
                 <VBox alignment="CENTER" prefHeight="117.0" prefWidth="835.0" spacing="5" style="-fx-background-color: white; -fx-padding: 20;">
-                    <Label style="-fx-font-weight: bold;" text="Mike Pap">
+                    <Label fx:id="usernameLabel" style="-fx-font-weight: bold;">
                         <font><Font size="27.0" /></font>
                     </Label>
-                    <Label text="Member since: 2025-11-15" textFill="#555555">
+                    <Label fx:id="memberSinceLabel" textFill="#555555">
                         <font><Font size="17.0" /></font>
                     </Label>
                 </VBox>

@@ -15,19 +15,19 @@ public class SessionRepo {
         String getUidStatement = "SELECT get_uid(?)";
         String createSessionStatement = "SELECT create_session(?, ?, ?, ?, ?)";
 
-        try {
-            Connection conn = DatabaseConnection.getInstance().getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection()) {
 
-            // Gets UID
+            // Get UID
             int uid;
             try (PreparedStatement uidStmt = conn.prepareStatement(getUidStatement)) {
                 uidStmt.setString(1, username);
-                ResultSet rs = uidStmt.executeQuery();
-                if (!rs.next()) return null;
-                uid = rs.getInt(1);
+                try (ResultSet rs = uidStmt.executeQuery()) {
+                    if (!rs.next()) return null;
+                    uid = rs.getInt(1);
+                }
             }
 
-            // Creates session
+            // Create session
             try (PreparedStatement stmt = conn.prepareStatement(createSessionStatement)) {
                 stmt.setInt(1, uid);
                 stmt.setString(2, token);
@@ -35,49 +35,50 @@ public class SessionRepo {
                 stmt.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
                 stmt.setString(5, deviceId);
                 stmt.execute();
-                return token;
             }
 
-        } catch (SQLException e) {
+            return token;
+
+        }catch(SQLException e){
             e.printStackTrace();
             return null;
         }
     }
 
     public Session getActiveSession(String deviceId) {
-        String sql = "SELECT * FROM get_active_session(?)";
+        String activeSessionQuery = "SELECT * FROM get_active_session(?)";
 
-        try {
-            Connection conn = DatabaseConnection.getInstance().getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql);
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(activeSessionQuery)) {
+
             stmt.setString(1, deviceId);
 
-            ResultSet rs = stmt.executeQuery();
-
-            if(rs.next()){
-                LocalDateTime expires = rs.getTimestamp("expires_at").toLocalDateTime();
-                if(expires.isAfter(LocalDateTime.now())){
-                    return new Session(rs.getString("username"), rs.getString("token"));
+            try (ResultSet rs = stmt.executeQuery()) {
+                if(rs.next()){
+                    LocalDateTime expires = rs.getTimestamp("expires_at").toLocalDateTime();
+                    if(expires.isAfter(LocalDateTime.now())){
+                        return new Session(rs.getString("username"), rs.getString("token"));
+                    }
                 }
             }
 
-        } catch (SQLException e) {
+        }catch(SQLException e){
             e.printStackTrace();
         }
         return null;
     }
 
+
     public void deleteSession(String token) {
         String deleteStatement = "SELECT delete_session(?)";
 
-        try{
-            Connection conn = DatabaseConnection.getInstance().getConnection();
-            PreparedStatement statement = conn.prepareStatement(deleteStatement);
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(deleteStatement)) {
 
-            statement.setString(1, token);
-            statement.execute();
+            stmt.setString(1, token);
+            stmt.execute();
 
-        } catch (SQLException e) {
+        }catch(SQLException e){
             e.printStackTrace();
         }
     }

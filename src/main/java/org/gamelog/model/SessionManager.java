@@ -7,7 +7,7 @@ public class SessionManager {
 
     private static SessionManager instance;
 
-    private final String username;
+    private String username;
 
     private final String sessionToken;
 
@@ -43,6 +43,8 @@ public class SessionManager {
     }
 
     public String getUsername() { return username; }
+
+    public void setUsername(String username){ this.username = username ;}
 
     public static boolean isActive() {
         return instance != null;

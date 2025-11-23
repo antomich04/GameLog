@@ -78,6 +78,10 @@ public class SignUpPageController {
             usernameError.setText("*Required field!*");
             usernameError.setVisible(true);
             validSignup=false;
+        } else if (username.length() < 3) {
+            usernameError.setText("*Username must be at least 3 characters!*");
+            usernameError.setVisible(true);
+            validSignup=false;
         }
 
         if (email.isEmpty()) {
@@ -98,9 +102,10 @@ public class SignUpPageController {
             passwordError.setText("*Password must be at least 6 characters!*");
             passwordError.setVisible(true);
             validSignup=false;
-        }else if (!password.contains("!@#$%^&*")){
+        }else if (!password.matches(".*[!@#$%^&*].*")){
             passwordError.setText("*Password must contain at least one special character!*");
             passwordError.setVisible(true);
+            validSignup=false;
         }
 
         if (validSignup) {
