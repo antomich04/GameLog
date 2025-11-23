@@ -69,7 +69,7 @@ public class AuthRepo {
     }
 
 
-    private boolean usernameExists(String username) {
+    public boolean usernameExists(String username) {
         String usernameExistsQuery = "SELECT username_exists(?)";
 
         try (Connection conn = DatabaseConnection.getInstance().getConnection();

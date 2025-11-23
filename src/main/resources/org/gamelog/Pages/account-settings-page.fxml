@@ -33,7 +33,7 @@
 
     <!-- USERNAME -->
     <Text layoutX="198.0" layoutY="340.0" styleClass="field-label" text="Username" />
-    <TextField fx:id="usernameField" layoutX="198.0" layoutY="350.0" prefHeight="55.0" prefWidth="565.0" promptText="Mike Pap" styleClass="text-field">
+    <TextField fx:id="usernameField" layoutX="198.0" layoutY="350.0" prefHeight="55.0" prefWidth="565.0" styleClass="text-field">
       <font>
          <Font size="16.0" />
       </font></TextField>
@@ -41,7 +41,7 @@
 
     <!-- EMAIL -->
     <Text layoutX="198.0" layoutY="460.0" styleClass="field-label" text="Email" />
-    <TextField fx:id="emailField" editable="false" layoutX="198.0" layoutY="470.0" prefHeight="55.0" prefWidth="565.0" promptText="MikePap@gmail.com" styleClass="text-field">
+    <TextField fx:id="emailField" editable="false" layoutX="198.0" layoutY="470.0" prefHeight="55.0" prefWidth="565.0" styleClass="text-field">
       <font>
          <Font size="16.0" />
       </font></TextField>
@@ -49,7 +49,7 @@
 
     <!-- PASSWORD -->
     <Text layoutX="198.0" layoutY="580.0" styleClass="field-label" text="Password" />
-    <PasswordField fx:id="passwordField" layoutX="198.0" layoutY="590.0" prefHeight="55.0" prefWidth="565.0" promptText="***********" styleClass="text-field">
+    <PasswordField fx:id="passwordField" layoutX="198.0" layoutY="590.0" prefHeight="55.0" prefWidth="565.0" styleClass="text-field">
       <font>
          <Font size="16.0" />
       </font></PasswordField>

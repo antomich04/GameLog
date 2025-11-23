@@ -11,7 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.gamelog.model.SessionManager;
-
+import org.gamelog.repository.AuthRepo;
+import org.gamelog.repository.UserRepo;
+import org.mindrot.jbcrypt.BCrypt;
 import java.io.IOException;
 
 public class AccountSettingsPageController {
@@ -38,55 +40,74 @@ public class AccountSettingsPageController {
     private Label usernameLetter;
 
     private FXMLLoader loader;
-    private String originalEmail = "MikePap@gmail.com";
-    private String originalPassword = "********";
+    private String currentEmail;
+    private final String passwordPlaceholder = "********";
+    private String currentPassword;
+    private String currentUsername;
+    SessionManager sessionManager;
 
     public void initialize() {
-        SessionManager sessionManager = SessionManager.getInstance();
-        String username = sessionManager.getUsername();
-        usernameLetter.setText(String.valueOf(Character.toUpperCase(username.charAt(0))));
+        sessionManager = SessionManager.getInstance();
+        currentUsername = sessionManager.getUsername();
+        usernameLetter.setText(String.valueOf(Character.toUpperCase(currentUsername.charAt(0))));
+
+        currentEmail = UserRepo.getEmail(currentUsername);
+        currentPassword = UserRepo.getPassword(currentUsername);
 
         loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/settings-page.fxml"));
         confirmButton.setOnAction(event -> handleConfirm());
         backButton.setOnAction(event -> goToSettingsPage());
 
-        setCurrentUserData(username);
+        setCurrentUserData(currentUsername);
     }
 
     private void setCurrentUserData(String username) {
         usernameField.setText(username);
-        emailField.setText(originalEmail);
-        passwordField.setText(originalPassword);
+        emailField.setText(currentEmail);
+        passwordField.setText(passwordPlaceholder);
     }
 
-    @FXML
     private void handleConfirm() {
         boolean valid = true;
-        String username = usernameField.getText().trim();
-        String email = emailField.getText().trim();
-        String password = passwordField.getText().trim();
+        String newUsername = usernameField.getText().trim();
+        String newPassword = passwordField.getText().trim();
 
         clearErrorMessages();
 
-        boolean usernameEdited = !username.equals(username);
-        boolean passwordEdited = !password.equals(originalPassword);
+        boolean usernameEdited = !newUsername.equals(currentUsername);
+        boolean passwordEdited = !newPassword.equals(passwordPlaceholder);
         boolean anyFieldEdited = usernameEdited || passwordEdited;
 
         if (usernameEdited) {
-            if (username.isEmpty()) {
+            if (newUsername.isEmpty()) {
                 usernameError.setText("*Required Field!*");
                 usernameError.setVisible(true);
                 valid = false;
-            } else if (username.length() < 3) {
+            } else if (newUsername.length() < 3) {
                 usernameError.setText("*Username must be at least 3 characters!*");
                 usernameError.setVisible(true);
                 valid = false;
+            } else if(newUsername.equals(currentUsername)) {
+                usernameError.setText("*New username cannot be the same as the previous one!*");
+                usernameError.setVisible(true);
             }
         }
 
         if (passwordEdited) {
-            if (password.length() < 6) {
+            if (newPassword.isEmpty()) {
+                passwordError.setText("*Required field!*");
+                passwordError.setVisible(true);
+                valid = false;
+            } else if (newPassword.length() < 6) {
                 passwordError.setText("*Password must be at least 6 characters!*");
+                passwordError.setVisible(true);
+                valid = false;
+            } else if (!newPassword.matches(".*[!@#$%^&*].*")){
+                passwordError.setText("*Password must contain at least one special character!*");
+                passwordError.setVisible(true);
+                valid = false;
+            } else if (BCrypt.checkpw(newPassword, currentPassword)) {
+                passwordError.setText("*New password cannot be the same as the current one!*");
                 passwordError.setVisible(true);
                 valid = false;
             }
@@ -98,31 +119,35 @@ public class AccountSettingsPageController {
         }
 
         if (valid) {
-            updateAccountSettings(usernameEdited, passwordEdited, username, email, password);
+            updateAccountSettings(usernameEdited, passwordEdited, newUsername, newPassword);
         }
 
     }
 
-    private void updateAccountSettings(boolean usernameEdited, boolean passwordEdited,
-                                       String username, String email, String password) {
+    private void updateAccountSettings(boolean usernameEdited, boolean passwordEdited, String newUsername, String newPassword) {
+
+        AuthRepo authRepo = new AuthRepo();
 
         if (usernameEdited) {
-            System.out.println("Updating username to: " + username);
+            if(authRepo.usernameExists(newUsername)) {
+                usernameError.setText("*Username already exists!*");
+                usernameError.setVisible(true);
+                usernameEdited = false;
+            }else{
+                UserRepo.updateUsername(currentUsername, newUsername);
+                currentUsername = newUsername;
+                sessionManager.setUsername(newUsername);
+                usernameLetter.setText(String.valueOf(Character.toUpperCase(newUsername.charAt(0))));
+            }
         }
 
         if (passwordEdited) {
-            System.out.println("Updating password");
-
-        }
-
-        if (!usernameEdited && !passwordEdited) {
-
+            UserRepo.updatePassword(currentUsername, BCrypt.hashpw(newPassword, BCrypt.gensalt()));
         }
 
         goToSettingsPage();
     }
 
-    @FXML
     private void goToSettingsPage() {
         try {
             Parent root = loader.load();
