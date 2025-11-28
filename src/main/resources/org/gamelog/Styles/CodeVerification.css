@@ -1,0 +1,65 @@
+#rootPane{
+    -fx-background-color: #FFFFFF;
+}
+
+#backBtn {
+    -fx-background-color: #1C3849;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 10px;
+}
+
+#submitBtn {
+    -fx-background-color: #1C3849;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#resendCodeLink {
+    -fx-fill: #4a5b85;
+    -fx-cursor: hand;
+}
+
+.page-title {
+    -fx-font-family: "MS Reference Sans Serif";
+    -fx-text-fill: #1C3849;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 13;
+    -fx-background-radius: 13;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-highlight-fill: #828282;
+    -fx-highlight-text-fill: #FFFFFF;
+}
+
+.text-field:focused {
+    -fx-border-color: #1C3849;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(28,56,73,0.1), 4, 0.3, 0, 0);
+}
+
+#otpContainer{
+    -fx-spacing: 40px;
+}
+
+.error-label {
+    -fx-text-fill: red;
+    -fx-font-family: "MS Reference Sans Serif";
+    -fx-font-size: 22px;
+}
+
+.otp {
+    -fx-alignment: center;
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-padding: 0;
+}

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 import org.gamelog.model.LoginResult;
 import org.gamelog.model.SignupResult;
 import org.mindrot.jbcrypt.BCrypt;
@@ -89,7 +90,7 @@ public class AuthRepo {
         return false;
     }
 
-    private boolean emailExists(String email) {
+    public boolean emailExists(String email) {
         String emailExistsQuery = "SELECT email_exists(?)";
 
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -105,6 +106,49 @@ public class AuthRepo {
 
         }catch(SQLException e){
             e.printStackTrace();
+        }
+        return false;
+    }
+
+    public String generateAndStoreCode(String email) throws SQLException{
+        //Generates a random 4-digit code
+        String verificationCode = String.format("%04d", new Random().nextInt(10000));
+
+        String storeCodeQuery = "SELECT store_recovery_code(?, ?)";
+
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(storeCodeQuery)) {
+
+            stmt.setString(1, email);
+            stmt.setString(2, verificationCode);
+            stmt.execute();
+
+            return verificationCode;
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
+    public boolean validateRecoveryCode(String email, String enteredCode) throws SQLException {
+        String validationQuery = "SELECT validate_recovery_code(?, ?)";
+
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(validationQuery)) {
+
+            stmt.setString(1, email);
+            stmt.setString(2, enteredCode);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()){
+                return rs.getBoolean(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw e;
         }
         return false;
     }
