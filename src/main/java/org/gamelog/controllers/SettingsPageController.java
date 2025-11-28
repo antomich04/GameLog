@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.gamelog.model.SessionManager;
@@ -12,6 +12,7 @@ import org.gamelog.repository.UserRepo;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.Optional;
 
 public class SettingsPageController {
 
@@ -45,7 +46,6 @@ public class SettingsPageController {
             LocalDate date = ts.toLocalDateTime().toLocalDate();
             memberSinceLabel.setText("Member since: " + date.toString()); //YYYY-MM-DD format
         }
-
         deleteAccountClickableArea.setOnMouseClicked(event -> {
             handleAccountDeletion(username);
         });
@@ -61,12 +61,29 @@ public class SettingsPageController {
     }
 
     private void handleAccountDeletion(String username) {
-        if(UserRepo.deleteUser(username)){
-            SessionManager.clearSession();
-            try{
-                switchScene(FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml")));
-            } catch (IOException e) {
-                e.printStackTrace();
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setTitle("Delete Account");
+        confirmation.setHeaderText("Permanent Account Deletion");
+        confirmation.setContentText("This will permanently delete your account and all data. This action cannot be undone.");
+
+        ButtonType deleteButton = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirmation.getButtonTypes().setAll(deleteButton, cancelButton);
+
+        DialogPane dialogPane = confirmation.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/org/gamelog/Styles/dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add("confirmation");
+
+        Optional<ButtonType> result = confirmation.showAndWait();
+
+        if (result.isPresent() && result.get() == deleteButton) {
+            if(UserRepo.deleteUser(username)){
+                SessionManager.clearSession();
+                try{
+                    switchScene(FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

@@ -1,0 +1,58 @@
+/* ========== CONFIRMATION DIALOG STYLES ========== */
+
+.dialog-pane {
+    -fx-background-color: white;
+    -fx-border-color: #1C3849;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #1C3849;
+    -fx-padding: 15 20 15 20;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.dialog-pane .content.label {
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+    -fx-padding: 20 20 15 20;
+}
+
+.dialog-pane .button-bar {
+    -fx-padding: 15 20 15 20;
+    -fx-spacing: 12;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-radius: 6px;
+    -fx-padding: 8 20 8 20;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.dialog-pane .button-bar .button:default {
+    -fx-background-color: #1C3849;
+    -fx-text-fill: white;
+}
+
+.dialog-pane .button-bar .button:default:hover {
+    -fx-background-color: #2a4d5e;
+}
+
+.dialog-pane .button-bar .button:cancel {
+    -fx-background-color: #6c757d;
+    -fx-text-fill: white;
+}
+
+.dialog-pane .button-bar .button:cancel:hover {
+    -fx-background-color: #5a6268;
+}

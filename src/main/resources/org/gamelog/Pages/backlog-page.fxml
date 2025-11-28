@@ -4,16 +4,16 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/BackLogPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.BackLogPageController">
+<?import javafx.scene.layout.TilePane?>
+<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/BackLogPage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.BackLogPageController">
     <left>
         <fx:include source="../Components/navigation-bar.fxml" />
     </left>
@@ -33,47 +33,49 @@
                 </VBox>
 
                 <HBox alignment="CENTER_RIGHT" spacing="20.0">
-               <Button fx:id="addBacklogItemBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0">
-                  <graphic>
-                          <ImageView fitHeight="30.0" fitWidth="30.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 1, 0, 0, 0);" styleClass="clickableIcons">
-                              <image>
-                                  <Image url="@../Assets/add_icon.png" />
-                              </image>
-                          </ImageView>
-                  </graphic>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </Button>
-               <Button fx:id="filterBacklogItemsBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0">
-                  <graphic>
-      
-                          <ImageView fitHeight="45.0" fitWidth="45.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 1, 0, 0, 0);" styleClass="clickableIcons">
-                              <image>
-                                  <Image url="@../Assets/filter_icon.png" />
-                              </image>
-                          </ImageView>
-                  </graphic>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </Button>
+                    <Button fx:id="addBacklogItemBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0" styleClass="clickableIcons">
+                        <graphic>
+                            <ImageView fitHeight="30.0" fitWidth="30.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 1, 0, 0, 0);">
+                                <image>
+                                    <Image url="@../Assets/add_icon.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                    </Button>
+                    <Button fx:id="filterBacklogItemsBtn" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="48.0" prefWidth="48.0" styleClass="clickableIcons">
+                        <graphic>
+                            <ImageView fitHeight="45.0" fitWidth="45.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 1, 0, 0, 0);">
+                                <image>
+                                    <Image url="@../Assets/filter_icon.png" />
+                                </image>
+                            </ImageView>
+                        </graphic>
+                        <cursor>
+                            <Cursor fx:constant="HAND" />
+                        </cursor>
+                    </Button>
                 </HBox>
             </HBox>
-            <StackPane prefHeight="600.0" prefWidth="800.0">
 
-                <!-- The centered empty label -->
-                <Label fx:id="backlogEmptyLabel" style="-fx-font-weight: bold;">
-                    <font>
-                        <Font size="28.0" />
-                    </font>
-                </Label>
-
-                <!-- The tilepane for cards -->
-                <TilePane fx:id="backlogContainer" alignment="TOP_LEFT" hgap="20" prefColumns="2" vgap="20" StackPane.alignment="TOP_LEFT">
-                </TilePane>
-
-            </StackPane>
+            <ScrollPane fitToWidth="true" prefHeight="600.0" prefWidth="800.0" style="-fx-background: white; -fx-border-color: transparent;">
+                <content>
+                    <VBox fx:id="contentVBox" alignment="CENTER" spacing="20" prefHeight="600.0">
+                        <Label fx:id="backlogEmptyLabel" style="-fx-font-weight: bold;" text="Nothing to see here...">
+                            <font>
+                                <Font size="28.0" />
+                            </font>
+                        </Label>
+                        <TilePane fx:id="backlogContainer" alignment="TOP_LEFT" hgap="80" vgap="40" prefColumns="2" prefTileWidth="300" prefTileHeight="160">
+                            <padding>
+                                <Insets left="20.0" right="20.0" top="20.0" bottom="20.0" />
+                            </padding>
+                        </TilePane>
+                    </VBox>
+                </content>
+            </ScrollPane>
         </VBox>
     </center>
 </BorderPane>
