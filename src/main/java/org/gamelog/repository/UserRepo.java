@@ -77,6 +77,24 @@ public class UserRepo {
         return null;
     }
 
+    public static String getPasswordByEmail(String email){
+        String passwordQuery = "SELECT get_password_by_email(?)";
+
+        try(Connection conn = DatabaseConnection.getInstance().getConnection();
+            PreparedStatement stmt = conn.prepareStatement(passwordQuery)){
+            stmt.setString(1, email);
+
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                return rs.getString(1);
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public static void updateUsername(String currentUsername, String newUsername){
         String updateQuery = "SELECT update_username(?, ?)";
 
@@ -104,6 +122,24 @@ public class UserRepo {
 
         }catch(SQLException e){
             e.printStackTrace();
+        }
+    }
+
+    public static Boolean updatePasswordByEmail(String email, String newPassword) throws SQLException {
+        String updateQuery = "SELECT update_password_by_email(?, ?)";
+
+        try(Connection conn = DatabaseConnection.getInstance().getConnection();
+            PreparedStatement stmt = conn.prepareStatement(updateQuery)){
+            stmt.setString(1, email);
+            stmt.setString(2, newPassword);
+
+            stmt.execute();
+
+            return true;
+
+        }catch(SQLException e){
+            e.printStackTrace();
+            throw e;
         }
     }
 

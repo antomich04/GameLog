@@ -46,8 +46,17 @@ public class LoginPageController {
         loginBtn.setOnMouseClicked(event -> {
             handleLogin();
         });
+
         forgotPasswordLink.setOnMouseClicked(event -> {
-           System.out.println("Forgot Password Link");
+            try {
+                Stage stage = (Stage) rootPane.getScene().getWindow();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/email-submission-page.fxml")));
+                stage.setScene(scene);
+                stage.show();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         });
 
         signupLink.setOnMouseClicked(event -> goToSignupPage());
