@@ -6,13 +6,12 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
 
 public class BackLogPageController {
@@ -22,7 +21,7 @@ public class BackLogPageController {
     @FXML
     private Button filterBacklogItemsBtn;
     @FXML
-    private Label backlogEmptyLabel;
+    private Text backlogEmptyLabel;
     @FXML
     private TilePane backlogContainer;
     @FXML
@@ -39,9 +38,7 @@ public class BackLogPageController {
 
     private void showAddGameModal() {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/org/gamelog/Pages/add_game_modal.fxml")
-            );
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/add_game_modal.fxml"));
 
             VBox modalRoot = loader.load();
             AddGameModalController modalController = loader.getController();
@@ -70,9 +67,8 @@ public class BackLogPageController {
 
     private void addGameCard(String gameName, String platform) {
         try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/org/gamelog/Components/small-card.fxml")
-            );
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Components/small-card.fxml"));
             Node card = loader.load();
             SmallCardController cardController = loader.getController();
             cardController.setCardData(gameName, platform, 0, 20);

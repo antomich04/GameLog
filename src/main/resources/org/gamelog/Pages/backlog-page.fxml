@@ -13,6 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.text.Text?>
 <BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/BackLogPage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.BackLogPageController">
     <left>
         <fx:include source="../Components/navigation-bar.fxml" />
@@ -63,11 +64,11 @@
             <ScrollPane fitToWidth="true" prefHeight="600.0" prefWidth="800.0" style="-fx-background: white; -fx-border-color: transparent;">
                 <content>
                     <VBox fx:id="contentVBox" alignment="CENTER" spacing="20" prefHeight="600.0">
-                        <Label fx:id="backlogEmptyLabel" style="-fx-font-weight: bold;" text="Nothing to see here...">
+                        <Text fx:id="backlogEmptyLabel" style="-fx-font-weight: bold;" text="No games added yet!">
                             <font>
                                 <Font size="28.0" />
                             </font>
-                        </Label>
+                        </Text>
                         <TilePane fx:id="backlogContainer" alignment="TOP_LEFT" hgap="80" vgap="40" prefColumns="2" prefTileWidth="300" prefTileHeight="160">
                             <padding>
                                 <Insets left="20.0" right="20.0" top="20.0" bottom="20.0" />

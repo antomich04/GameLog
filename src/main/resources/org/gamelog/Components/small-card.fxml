@@ -46,7 +46,7 @@
         <Label fx:id="platformText" styleClass="platform-text" text="PC" />
 
         <!-- ACHIEVEMENTS -->
-        <Label fx:id="progressText" styleClass="progress-text" text="🏆 4/20 Achievements" />
+        <Label fx:id="progressText" styleClass="progress-text" text="🏆 0/20 Achievements" />
 
         <!-- PROGRESS BAR CENTERED & VISIBLE -->
         <HBox alignment="CENTER">
@@ -58,7 +58,8 @@
             <Button styleClass="edit-button" text="Edit">
                 <HBox.margin>
                     <Insets top="5.0" />
-                </HBox.margin></Button>
+                </HBox.margin>
+            </Button>
         </HBox>
 
     </VBox>

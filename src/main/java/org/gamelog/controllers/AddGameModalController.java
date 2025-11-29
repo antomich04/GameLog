@@ -6,7 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -28,7 +27,7 @@ public class AddGameModalController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        platformComboBox.getItems().addAll("PS5", "XBOX", "PC");
+        platformComboBox.getItems().addAll("Playstation 4","Playstation 5", "Xbox One", "Xbox Series X", "PC", "Nintendo Switch");
 
         cancelButton.setOnMouseClicked(event -> {
             confirmed = false;
