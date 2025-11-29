@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="160" prefWidth="320" styleClass="game-card" stylesheets="@../Styles/small-card.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.SmallCardController">
+
+    <VBox spacing="6" styleClass="card-content" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
+
+        <!-- TITLE + ICONS -->
+        <HBox alignment="CENTER_LEFT" spacing="14" styleClass="title-row">
+            <Label fx:id="gameTitle" styleClass="game-title" text="Assassin's Creed: Odyssey" />
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <Button styleClass="icon-button" >
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../Assets/heart_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+
+            <Button styleClass="icon-button" fx:id="deleteButton" >
+                <graphic>
+                    <ImageView fitHeight="20.0" fitWidth="20.0" preserveRatio="true">
+                        <image>
+                            <Image url="@../Assets/delete_icon.png" />
+                        </image>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+
+        <!-- PLATFORM (CLOSER TO TITLE) -->
+        <Label fx:id="platformText" styleClass="platform-text" text="PC" />
+
+        <!-- ACHIEVEMENTS -->
+        <Label fx:id="progressText" styleClass="progress-text" text="🏆 4/20 Achievements" />
+
+        <!-- PROGRESS BAR CENTERED & VISIBLE -->
+        <HBox alignment="CENTER">
+            <ProgressBar fx:id="progressBar" maxWidth="Infinity" prefWidth="260" progress="0.2" styleClass="progress-bar" />
+        </HBox>
+
+        <!-- EDIT BUTTON CENTERED -->
+        <HBox alignment="CENTER">
+            <Button styleClass="edit-button" text="Edit">
+                <HBox.margin>
+                    <Insets top="5.0" />
+                </HBox.margin></Button>
+        </HBox>
+
+    </VBox>
+
+</AnchorPane>

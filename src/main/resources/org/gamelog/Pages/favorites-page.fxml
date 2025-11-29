@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.Button?>
 <BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/FavoritesPage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.FavoritesPageController">
     <left>
         <fx:include source="../Components/navigation-bar.fxml" />
@@ -30,13 +31,16 @@
                 </VBox>
                 <Pane HBox.hgrow="ALWAYS" />
 
-                <HBox alignment="CENTER_RIGHT" spacing="20.0">
-                    <ImageView styleClass="clickableIcons"  fitHeight="45.0" fitWidth="45.0" preserveRatio="true" style="-fx-effect: dropshadow(gaussian, black, 1, 0, 0, 0);">
-                        <image>
-                            <Image url="@../Assets/filter_icon.png" />
-                        </image>
-                    </ImageView>
-                </HBox>
+                <Button styleClass="clickableIcons">
+                    <graphic>
+                        <ImageView fitHeight="45.0" fitWidth="45.0" preserveRatio="true">
+                            <image>
+                                <Image url="@../Assets/filter_icon.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+
             </HBox>
 
             <VBox alignment="CENTER" prefHeight="600" prefWidth="800" spacing="15">

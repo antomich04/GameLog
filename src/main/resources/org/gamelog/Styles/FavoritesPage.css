@@ -1,8 +1,23 @@
 #rootPane{
     -fx-background-color: white;
 }
-.clickableIcons{
-    -fx-cursor: hand;
+.clickableIcons {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-padding: 0;
     -fx-cursor: hand;
 }
 
+.clickableIcons:hover {
+    -fx-background-color: transparent;
+}
+
+.clickableIcons:pressed {
+    -fx-background-color: transparent;
+}
+
+.clickableIcons:focused {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
