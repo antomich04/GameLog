@@ -8,6 +8,9 @@ module org.gamelog.gamelog {
     requires org.postgresql.jdbc;
     requires jbcrypt;
     requires jakarta.mail;
+    requires java.net.http;
+    requires java.naming;
+    requires com.fasterxml.jackson.databind;
 
 
     opens org.gamelog to javafx.fxml;

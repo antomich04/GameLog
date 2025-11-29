@@ -11,9 +11,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ProgressIndicator?>
+
 <BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/BackLogPage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.BackLogPageController">
     <left>
         <fx:include source="../Components/navigation-bar.fxml" />
@@ -61,22 +63,36 @@
                 </HBox>
             </HBox>
 
-            <ScrollPane fitToWidth="true" prefHeight="600.0" prefWidth="800.0" style="-fx-background: white; -fx-border-color: transparent;">
-                <content>
-                    <VBox fx:id="contentVBox" alignment="CENTER" spacing="20" prefHeight="600.0">
-                        <Text fx:id="backlogEmptyLabel" style="-fx-font-weight: bold;" text="No games added yet!">
-                            <font>
-                                <Font size="28.0" />
-                            </font>
-                        </Text>
-                        <TilePane fx:id="backlogContainer" alignment="TOP_LEFT" hgap="80" vgap="40" prefColumns="2" prefTileWidth="300" prefTileHeight="160">
-                            <padding>
-                                <Insets left="20.0" right="20.0" top="20.0" bottom="20.0" />
-                            </padding>
-                        </TilePane>
-                    </VBox>
-                </content>
-            </ScrollPane>
+            <StackPane VBox.vgrow="ALWAYS" prefHeight="600.0" prefWidth="800.0">
+
+                <Text fx:id="backlogEmptyLabel" text="No games added yet!" visible="false" managed="false" StackPane.alignment="CENTER" style="-fx-font-weight: bold;">
+                    <font>
+                        <Font size="28.0" />
+                    </font>
+                </Text>
+
+                <ScrollPane fx:id="backlogScrollPane" fitToWidth="true" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER"
+                            style="-fx-background: white; -fx-border-color: transparent;">
+                    <content>
+                        <VBox fx:id="contentVBox" alignment="TOP_LEFT" spacing="20" minHeight="-Infinity" VBox.vgrow="ALWAYS">
+                            <TilePane fx:id="backlogContainer" alignment="TOP_LEFT" hgap="80" vgap="40" prefColumns="2" prefTileWidth="300" prefTileHeight="160" maxHeight="Infinity" minHeight="0">
+                                <padding>
+                                    <Insets left="20.0" right="20.0" top="20.0" bottom="20.0" />
+                                </padding>
+                            </TilePane>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+
+                <VBox fx:id="loadingOverlay" alignment="CENTER" style="-fx-background-color: rgba(255, 255, 255, 0.85);"
+                      visible="false" managed="false" StackPane.alignment="CENTER">
+                    <children>
+                        <ProgressIndicator prefHeight="400" prefWidth="400"/>
+                        <Label text="Fetching Your Backlog..." style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-padding: 10 0 0 0;" />
+                    </children>
+                </VBox>
+
+            </StackPane>
         </VBox>
     </center>
 </BorderPane>

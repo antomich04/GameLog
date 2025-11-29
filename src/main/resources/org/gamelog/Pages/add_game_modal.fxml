@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -18,12 +17,19 @@
 
     <VBox spacing="10">
         <Label text="Game Name:" style="-fx-font-size: 14;"/>
-        <TextField fx:id="gameNameField" promptText="Enter game name..." prefWidth="350" prefHeight="35"/>
+        <ComboBox fx:id="gameSearchComboBox"
+                  promptText="Enter the game name..."
+                  prefWidth="350"
+                  prefHeight="35"
+                  editable="true"/>
     </VBox>
 
     <VBox spacing="10">
         <Label text="Platform:" style="-fx-font-size: 14;"/>
-        <ComboBox fx:id="platformComboBox" promptText="Select platform..." prefWidth="350" prefHeight="35"/>
+        <ComboBox fx:id="platformComboBox"
+                  promptText="Select platform..."
+                  prefWidth="350"
+                  prefHeight="35"/>
     </VBox>
 
     <HBox spacing="15" alignment="CENTER_RIGHT">

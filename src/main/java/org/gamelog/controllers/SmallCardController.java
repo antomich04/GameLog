@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
+import org.gamelog.repository.GamesRepo;
 
 public class SmallCardController {
 
@@ -21,11 +22,12 @@ public class SmallCardController {
     private ProgressBar progressBar;
 
     private Node cardNode;
+    private int backlogId;
 
     @FXML
     public void initialize() {
         deleteButton.setOnAction(e -> {
-            if (cardNode != null && cardNode.getParent() != null) {
+            if (GamesRepo.removeBacklogItem(backlogId) && cardNode != null && cardNode.getParent() != null) {
                 ((Pane) cardNode.getParent()).getChildren().remove(cardNode);
             }
         });
@@ -35,7 +37,9 @@ public class SmallCardController {
         this.cardNode = cardNode;
     }
 
-    public void setCardData(String title, String platform, int achievements, int totalAchievements) {
+    public void setCardData(int backlog_id, String title, String platform, int achievements, int totalAchievements) {
+        this.backlogId = backlog_id;
+
         if (gameTitle != null) gameTitle.setText(title);
         if (platformText != null) platformText.setText(platform);
         if (progressText != null) progressText.setText("🏆 " + achievements + "/" + totalAchievements + " Achievements");
