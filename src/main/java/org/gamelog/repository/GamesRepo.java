@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class GamesRepo {
 
@@ -103,5 +106,54 @@ public class GamesRepo {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public static List<BacklogItem> fetchLatestBacklogItems(String username) {
+        List<BacklogItem> latestItems = new ArrayList<>();
+        ExecutorService apiExecutor = Executors.newFixedThreadPool(2); //Only need a small pool for 2 items
+        List<Future<BacklogItem>> futures = new ArrayList<>();
+
+        String fetchQuery =
+                "SELECT * FROM get_latest_backlog_items(?)";
+
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(fetchQuery)) {
+
+            stmt.setString(1, username);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int backlog_id = rs.getInt(1);
+                    int gid = rs.getInt(2);
+                    int rawg_id = rs.getInt(3);
+                    String gameName = rs.getString(4);
+                    String platform = rs.getString(5);
+                    int progress = rs.getInt(6);
+
+                    Future<BacklogItem> future = apiExecutor.submit(() -> {
+                        int totalAchievements = RawgClient.fetchTotalAchievements(rawg_id);
+                        return new BacklogItem(backlog_id, gid, rawg_id, gameName, platform, progress, totalAchievements);
+                    });
+                    futures.add(future);
+                }
+            }
+
+            //Waits for all concurrent API calls to finish
+            for (Future<BacklogItem> future : futures) {
+                try {
+                    latestItems.add(future.get());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return latestItems;
+
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        } finally {
+            apiExecutor.shutdown();
+        }
     }
 }

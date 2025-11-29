@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -15,7 +16,7 @@
         <fx:include source="../Components/navigation-bar.fxml" />
     </left>
     <center>
-        <VBox alignment="TOP_CENTER" spacing="20" BorderPane.alignment="CENTER">  <!-- Changed to TOP_CENTER -->
+        <VBox alignment="TOP_CENTER" spacing="20" BorderPane.alignment="CENTER">
             <padding>
                 <Insets bottom="30" left="30" right="30" top="80" />
             </padding>
@@ -43,18 +44,28 @@
                 </HBox>
             </HBox>
 
-            <!-- Centered Container for Label and Cards -->
-            <VBox alignment="CENTER" maxWidth="450" spacing="20">  <!-- Added maxWidth -->
-                <!-- Section Title -->
-                <Label style="-fx-font-weight: bold; -fx-font-size: 26px; -fx-text-fill: #333;" text="Latest Games Played">
-               <VBox.margin>
-                  <Insets top="30.0" />
-               </VBox.margin></Label>
+            <StackPane VBox.vgrow="ALWAYS">
 
-                <!-- Cards Container -->
-                <VBox fx:id="cardsContainer" alignment="CENTER" spacing="20">
+                <VBox alignment="CENTER" maxWidth="450" spacing="20">
+                    <Label style="-fx-font-weight: bold; -fx-font-size: 26px; -fx-text-fill: #333;" text="Latest Games Played">
+                        <VBox.margin>
+                            <Insets top="30.0" />
+                        </VBox.margin>
+                    </Label>
+
+                    <VBox fx:id="cardsContainer" alignment="CENTER" spacing="20">
+                    </VBox>
                 </VBox>
-            </VBox>
+
+                <VBox fx:id="loadingOverlay" alignment="CENTER" style="-fx-background-color: rgba(255, 255, 255, 0.85);"
+                      visible="false" managed="false">
+                    <children>
+                        <ProgressIndicator prefHeight="400" prefWidth="400"/>
+                        <Label text="Fetching Latest Games..." style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-padding: 10 0 0 0;" />
+                    </children>
+                </VBox>
+
+            </StackPane>
 
         </VBox>
     </center>

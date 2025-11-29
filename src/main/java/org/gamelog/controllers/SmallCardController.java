@@ -24,17 +24,33 @@ public class SmallCardController {
     private Node cardNode;
     private int backlogId;
 
+    private Runnable onDeleteAction;
+
     @FXML
     public void initialize() {
         deleteButton.setOnAction(e -> {
-            if (GamesRepo.removeBacklogItem(backlogId) && cardNode != null && cardNode.getParent() != null) {
-                ((Pane) cardNode.getParent()).getChildren().remove(cardNode);
+            boolean success = GamesRepo.removeBacklogItem(backlogId);
+
+            if (success) {
+                //Removes the card visually
+                if (cardNode != null && cardNode.getParent() != null) {
+                    ((Pane) cardNode.getParent()).getChildren().remove(cardNode);
+                }
+
+                //Triggers the callback to notify Home Page to refresh
+                if (onDeleteAction != null) {
+                    onDeleteAction.run();
+                }
             }
         });
     }
 
     public void setCardNode(Node cardNode) {
         this.cardNode = cardNode;
+    }
+
+    public void setOnDeleteAction(Runnable onDeleteAction) {
+        this.onDeleteAction = onDeleteAction;
     }
 
     public void setCardData(int backlog_id, String title, String platform, int achievements, int totalAchievements) {
