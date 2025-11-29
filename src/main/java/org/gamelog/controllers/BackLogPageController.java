@@ -3,9 +3,13 @@ package org.gamelog.controllers;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -17,6 +21,8 @@ import org.gamelog.model.SearchResult;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class BackLogPageController {
@@ -33,8 +39,13 @@ public class BackLogPageController {
     private VBox loadingOverlay;
 
     private final String username = SessionManager.getInstance().getUsername();
+    private List<BacklogItem> cachedBacklogItems = new ArrayList<>();   //Used for sorting
+    private String currentSortCriteria = "Newest first";
 
     public void initialize() {
+
+        //Initializes the filtering options
+        setupFilterMenu();
 
         //Fetches the user's backlog
         loadBacklogData();
@@ -44,43 +55,136 @@ public class BackLogPageController {
         });
     }
 
+    private void setupFilterMenu() {
+        ContextMenu sortMenu = new ContextMenu();
+        ToggleGroup sortGroup = new ToggleGroup();
+
+        String[] options = {
+                "Newest first",
+                "Oldest first",
+                "Name (A-Z)",
+                "Name (Z-A)",
+                "Platform (A-Z)",
+                "Platform (Z-A)",
+                "Progress (0% - 100%)",
+                "Progress (100% - 0%)"
+        };
+
+        for (String option : options) {
+            RadioMenuItem item = new RadioMenuItem(option);
+            item.setToggleGroup(sortGroup);
+
+            //Sets the checkmark for the default item
+            if(option.equals(currentSortCriteria)){
+                item.setSelected(true);
+            }
+
+            //Triggers sort when clicked
+            item.setOnAction(e -> {
+                currentSortCriteria = option;
+                sortAndDisplay();
+            });
+
+            sortMenu.getItems().add(item);
+        }
+
+        //Shows the menu when the filter button is clicked
+        filterBacklogItemsBtn.setOnMouseClicked(e -> {
+            sortMenu.show(filterBacklogItemsBtn, Side.BOTTOM, 0, 0);
+        });
+    }
+
     private void loadBacklogData() {
 
-        //Shows the loading screen
-        if (loadingOverlay != null) {
+        if(loadingOverlay != null){
             loadingOverlay.setVisible(true);
             loadingOverlay.setManaged(true);
         }
 
-        //Clears the UI content
+        if(backlogEmptyLabel != null){
+            backlogEmptyLabel.setVisible(false);
+            backlogEmptyLabel.setManaged(false);
+        }
+
         backlogContainer.getChildren().clear();
 
-        //Starts a new thread for network and database work
         Thread backgroundLoader = new Thread(() -> {
+            List<BacklogItem> items = null;
+            try {
+                items = GamesRepo.fetchUserBacklog(username);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
 
-            List<BacklogItem> items = GamesRepo.fetchUserBacklog(username);
-
+            List<BacklogItem> finalItems = items;
             Platform.runLater(() -> {
-
-                if (items != null) {
-                    //Populates the TilePane
-                    for(BacklogItem item : items) {
-                        addGameCard(item.getBacklogId(), item.getGameName(), item.getPlatform(), item.getProgress(), item.getTotalAchievements());
-                    }
+                //Updates the cache with fresh data
+                if(finalItems != null){
+                    cachedBacklogItems = new ArrayList<>(finalItems);
+                }else{
+                    cachedBacklogItems = new ArrayList<>();
                 }
 
-                //Hides the loading screen after all cards are rendered
-                if (loadingOverlay != null) {
+                sortAndDisplay();
+
+                if(loadingOverlay != null){
                     loadingOverlay.setVisible(false);
                     loadingOverlay.setManaged(false);
                 }
-
-                updateEmptyState();
             });
         });
 
         backgroundLoader.setDaemon(true);
         backgroundLoader.start();
+    }
+
+    private void sortAndDisplay() {
+        //Safety check
+        if (cachedBacklogItems == null || cachedBacklogItems.isEmpty()) {
+            updateEmptyState();
+            return;
+        }
+
+
+        //Sorting Logic
+        switch (currentSortCriteria) {
+            case "Name (A-Z)":
+                cachedBacklogItems.sort(Comparator.comparing(BacklogItem::getGameName, String.CASE_INSENSITIVE_ORDER));
+                break;
+            case "Name (Z-A)":
+                cachedBacklogItems.sort(Comparator.comparing(BacklogItem::getGameName, String.CASE_INSENSITIVE_ORDER).reversed());
+                break;
+            case "Platform (A-Z)":
+                cachedBacklogItems.sort(Comparator.comparing(BacklogItem::getPlatform, String.CASE_INSENSITIVE_ORDER));
+                break;
+            case "Platform (Z-A)":
+                cachedBacklogItems.sort(Comparator.comparing(BacklogItem::getPlatform, String.CASE_INSENSITIVE_ORDER).reversed());
+                break;
+            case "Newest first":
+                cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getBacklogId).reversed());
+                break;
+            case "Oldest first":
+                cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getBacklogId));
+                break;
+            case "Progress (0% - 100%)":
+                cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getProgress));
+                break;
+            case "Progress (100% - 0%)":
+                cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getProgress).reversed());
+                break;
+            default:
+                break;
+        }
+
+        //Clears the container visually
+        backlogContainer.getChildren().clear();
+
+        //Re-populates the container with the sorted list
+        for (BacklogItem item : cachedBacklogItems) {
+            addGameCard(item.getBacklogId(), item.getGameName(), item.getPlatform(), item.getProgress(), item.getTotalAchievements());
+        }
+
+        updateEmptyState();
     }
 
     private void showAddGameModal() {

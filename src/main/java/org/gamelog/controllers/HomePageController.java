@@ -18,6 +18,8 @@ import java.util.List;
 public class HomePageController {
 
     @FXML
+    public Label emptyStateLabel;
+    @FXML
     private BorderPane rootPane;
     @FXML
     private Label iconLetter;
@@ -66,7 +68,6 @@ public class HomePageController {
 
             List<BacklogItem> latestItems = null;
             try {
-                //Fetches data
                 latestItems = GamesRepo.fetchLatestBacklogItems(SessionManager.getInstance().getUsername());
             }catch(Exception e){
                 e.printStackTrace();
@@ -76,25 +77,42 @@ public class HomePageController {
             List<BacklogItem> finalLatestItems = latestItems;
             Platform.runLater(() -> {
 
-                if(finalLatestItems != null && !finalLatestItems.isEmpty()){
+                boolean isEmpty = true;
 
+                if(finalLatestItems != null && !finalLatestItems.isEmpty()){
+                    isEmpty = false;
                     //Populates the UI with cards
                     for(BacklogItem item : finalLatestItems){
                         addCardForHome(item);
                     }
                 }
 
+                //Updates visibility for the empty state
+                updateEmptyState(isEmpty);
+
                 //Hides Loading Overlay
                 if(loadingOverlay != null){
                     loadingOverlay.setVisible(false);
                     loadingOverlay.setManaged(false);
                 }
-
             });
         });
 
         backgroundLoader.setDaemon(true);
         backgroundLoader.start();
+    }
+
+    private void updateEmptyState(boolean isEmpty) {
+
+        if (emptyStateLabel != null) {
+            emptyStateLabel.setVisible(isEmpty);
+            emptyStateLabel.setManaged(isEmpty);
+        }
+
+        if (cardsContainer != null) {
+            cardsContainer.setVisible(!isEmpty);
+            cardsContainer.setManaged(!isEmpty);
+        }
     }
 
     private void addCardForHome(BacklogItem item) {
