@@ -156,4 +156,92 @@ public class GamesRepo {
             apiExecutor.shutdown();
         }
     }
+
+    public static boolean toggleFavorite(String username, int gid, String platform){
+        String toggleQuery = "SELECT toggle_favorite_game(?, ?, ?)";
+
+        try(Connection conn = DatabaseConnection.getInstance().getConnection();
+            PreparedStatement stmt = conn.prepareStatement(toggleQuery)){
+
+            stmt.setString(1, username);
+            stmt.setInt(2, gid);
+            stmt.setString(3, platform);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean(1);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean isFavorite(String username, int gid, String platform){
+        String favoriteQuery = "SELECT is_favorite_game(?, ?, ?)";
+
+        try(Connection conn = DatabaseConnection.getInstance().getConnection();
+            PreparedStatement stmt = conn.prepareStatement(favoriteQuery)){
+
+            stmt.setString(1, username);
+            stmt.setInt(2, gid);
+            stmt.setString(3, platform);
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean(1);
+            }
+
+        }catch(SQLException ex){
+            ex.printStackTrace();
+        }
+        return false;
+    }
+
+    public static List<BacklogItem> fetchUserFavorites(String username){
+        List<BacklogItem> favorites = new ArrayList<>();
+
+        ExecutorService apiExecutor = Executors.newFixedThreadPool(10);
+        List<Future<BacklogItem>> futures = new ArrayList<>();
+
+        String fetchQuery = "SELECT * FROM get_user_favorites(?)";
+
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(fetchQuery)) {
+
+            stmt.setString(1, username);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int backlog_id = rs.getInt(1);
+                    int gid = rs.getInt(2);
+                    int rawg_id = rs.getInt(3);
+                    String gameName = rs.getString(4);
+                    String platform = rs.getString(5);
+                    int progress = rs.getInt(6);
+
+                    Future<BacklogItem> future = apiExecutor.submit(() -> {
+                        int totalAchievements = RawgClient.fetchTotalAchievements(rawg_id);
+                        return new BacklogItem(backlog_id, gid, rawg_id, gameName, platform, progress, totalAchievements);
+                    });
+                    futures.add(future);
+                }
+            }
+
+            for (Future<BacklogItem> future : futures) {
+                try {
+                    favorites.add(future.get());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return favorites;
+        } catch(SQLException e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        } finally {
+            apiExecutor.shutdown();
+        }
+    }
+
 }

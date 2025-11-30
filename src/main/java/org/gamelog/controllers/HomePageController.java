@@ -123,6 +123,7 @@ public class HomePageController {
 
             cardController.setCardData(
                     item.getBacklogId(),
+                    item.getGid(),
                     item.getGameName(),
                     item.getPlatform(),
                     item.getProgress(),

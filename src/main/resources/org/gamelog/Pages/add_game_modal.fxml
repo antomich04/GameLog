@@ -9,7 +9,7 @@
 <VBox spacing="20" style="-fx-background-color: white; -fx-padding: 25; -fx-background-radius: 10;"
       stylesheets="@../Styles/Add_Game_Modal.css"
       prefWidth="400" prefHeight="300"
-      xmlns="http://javafx.com/javafx/25"
+      xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.gamelog.controllers.AddGameModalController">
 

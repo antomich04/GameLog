@@ -5,8 +5,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.UserRepo;
 import java.io.IOException;
@@ -65,6 +67,11 @@ public class SettingsPageController {
         confirmation.setTitle("Delete Account");
         confirmation.setHeaderText("Permanent Account Deletion");
         confirmation.setContentText("This will permanently delete your account and all data. This action cannot be undone.");
+
+        //Sets the icon on the dialog box
+        Window window = confirmation.getDialogPane().getScene().getWindow();
+        Stage stage = (Stage) window;
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/gamelog/Assets/Icon.png")));
 
         ButtonType deleteButton = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);

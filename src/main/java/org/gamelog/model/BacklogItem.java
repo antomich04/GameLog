@@ -38,6 +38,5 @@ public class BacklogItem {
     public int getBacklogId() { // NEW GETTER
         return backlog_id;
     }
-
-    public int getRawg_id() { return rawg_id; }
+    public int getGid() { return gid; }
 }

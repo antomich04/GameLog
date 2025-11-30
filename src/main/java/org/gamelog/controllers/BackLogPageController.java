@@ -181,7 +181,7 @@ public class BackLogPageController {
 
         //Re-populates the container with the sorted list
         for (BacklogItem item : cachedBacklogItems) {
-            addGameCard(item.getBacklogId(), item.getGameName(), item.getPlatform(), item.getProgress(), item.getTotalAchievements());
+            addGameCard(item.getBacklogId(), item.getGid(), item.getGameName(), item.getPlatform(), item.getProgress(), item.getTotalAchievements());
         }
 
         updateEmptyState();
@@ -241,13 +241,13 @@ public class BackLogPageController {
         }
     }
 
-    private void addGameCard(int backlog_id, String gameName, String platform, int progress, int totalAchievements) {
+    private void addGameCard(int backlog_id, int gid, String gameName, String platform, int progress, int totalAchievements) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Components/small-card.fxml"));
             Node card = loader.load();
             SmallCardController cardController = loader.getController();
 
-            cardController.setCardData(backlog_id, gameName, platform, progress, totalAchievements);
+            cardController.setCardData(backlog_id, gid, gameName, platform, progress, totalAchievements);
             cardController.setCardNode(card);
 
             backlogContainer.getChildren().add(card);

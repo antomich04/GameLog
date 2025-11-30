@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.Button?>
-<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/FavoritesPage.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.FavoritesPageController">
+<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/FavoritesPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.FavoritesPageController">
     <left>
         <fx:include source="../Components/navigation-bar.fxml" />
     </left>
@@ -29,9 +32,8 @@
                         </font>
                     </Label>
                 </VBox>
-                <Pane HBox.hgrow="ALWAYS" />
 
-                <Button styleClass="clickableIcons">
+                <Button fx:id="filterFavoritesBtn" styleClass="clickableIcons">
                     <graphic>
                         <ImageView fitHeight="45.0" fitWidth="45.0" preserveRatio="true">
                             <image>
@@ -40,16 +42,40 @@
                         </ImageView>
                     </graphic>
                 </Button>
-
             </HBox>
 
-            <VBox alignment="CENTER" prefHeight="600" prefWidth="800" spacing="15">
-                <Label style="-fx-font-weight: bold;" text="Nothing to see here...">
-                    <font>
-                        <Font size="28.0" />
-                    </font>
-                </Label>
-            </VBox>
+            <StackPane VBox.vgrow="ALWAYS" prefHeight="600.0" prefWidth="800.0">
+
+                <ScrollPane fx:id="favoritesScrollPane" fitToWidth="true" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER"
+                            style="-fx-background: white; -fx-border-color: transparent;">
+                    <content>
+                        <VBox fx:id="contentVBox" alignment="CENTER" spacing="20" minHeight="-Infinity" VBox.vgrow="ALWAYS">
+
+                            <Label fx:id="emptyFavoritesLabel" style="-fx-font-weight: bold;" text="Nothing to see here..."
+                                   visible="false" managed="false">
+                                <font>
+                                    <Font size="28.0" />
+                                </font>
+                            </Label>
+
+                            <TilePane fx:id="favoritesContainer" alignment="TOP_LEFT" hgap="80" vgap="40" prefColumns="2" prefTileWidth="300" prefTileHeight="160" maxHeight="Infinity" minHeight="0">
+                                <padding>
+                                    <Insets left="20.0" right="20.0" top="20.0" bottom="20.0" />
+                                </padding>
+                            </TilePane>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+
+                <VBox fx:id="loadingOverlay" alignment="CENTER" style="-fx-background-color: rgba(255, 255, 255, 0.85);"
+                      visible="false" managed="false" StackPane.alignment="CENTER">
+                    <children>
+                        <ProgressIndicator prefHeight="400" prefWidth="400"/>
+                        <Label text="Loading Favorites..." style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-padding: 10 0 0 0;" />
+                    </children>
+                </VBox>
+
+            </StackPane>
         </VBox>
     </center>
 </BorderPane>
