@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="navMenu" alignment="CENTER" prefHeight="768.0" prefWidth="125.0" stylesheets="@../Styles/NavigationBar.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.NavigationBarController">
+<VBox fx:id="navMenu" alignment="CENTER" prefHeight="768.0" prefWidth="125.0" stylesheets="@../Styles/NavigationBar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.NavigationBarController">
     <children>
         <Button fx:id="homeButton" prefHeight="107.0" prefWidth="124.0" styleClass="sidebarBtn">
             <graphic>
