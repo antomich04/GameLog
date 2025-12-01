@@ -53,7 +53,8 @@ public class ChangePasswordController {
 
         updateBtn.setOnMouseClicked(e -> {
 
-            boolean hasInputError = false;
+            boolean hasFirstInputError = false;
+            boolean hasSecondInputError = false;
 
             clearErrorMessages();
 
@@ -63,28 +64,30 @@ public class ChangePasswordController {
             if(newPassword.isEmpty()){
                 passwordErrorMessage1.setText("*Required field!*");
                 passwordErrorMessage1.setVisible(true);
-                hasInputError = true;
+                hasFirstInputError = true;
             }else if(newPassword.length() < 6) {
                 passwordErrorMessage1.setText("*Password must be at least 6 characters!*");
                 passwordErrorMessage1.setVisible(true);
-                hasInputError = true;
+                hasFirstInputError = true;
             }else if(!newPassword.matches(".*[!@#$%^&*].*")){
                 passwordErrorMessage1.setText("*Password must contain at least one special character!*");
                 passwordErrorMessage1.setVisible(true);
-                hasInputError = true;
+                hasFirstInputError = true;
             }
 
-            if(confirmNewPassword.isEmpty()){
-                passwordErrorMessage2.setText("*Required field!*");
-                passwordErrorMessage2.setVisible(true);
-                hasInputError = true;
-            } else if (!confirmNewPassword.equals(newPassword)) {
-                passwordErrorMessage2.setText("*Passwords do not match!*");
-                passwordErrorMessage2.setVisible(true);
-                hasInputError = true;
+            if(!hasFirstInputError){
+                if(confirmNewPassword.isEmpty()){
+                    passwordErrorMessage2.setText("*Required field!*");
+                    passwordErrorMessage2.setVisible(true);
+                    hasSecondInputError = true;
+                } else if (!confirmNewPassword.equals(newPassword)) {
+                    passwordErrorMessage2.setText("*Passwords do not match!*");
+                    passwordErrorMessage2.setVisible(true);
+                    hasSecondInputError = true;
+                }
             }
 
-            if (!hasInputError) {
+            if (!hasFirstInputError && !hasSecondInputError) {
 
                 //Business logic check
                 if(BCrypt.checkpw(newPassword, currentPassword)) {
