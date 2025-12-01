@@ -2,18 +2,25 @@ package org.gamelog.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+import org.gamelog.Main;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.AuthRepo;
 import org.gamelog.repository.UserRepo;
 import org.mindrot.jbcrypt.BCrypt;
+
 import java.io.IOException;
 
 public class AccountSettingsPageController {
@@ -87,7 +94,7 @@ public class AccountSettingsPageController {
                 usernameError.setText("*Username must be at least 3 characters!*");
                 usernameError.setVisible(true);
                 valid = false;
-            } else if(newUsername.equals(currentUsername)) {
+            } else if (newUsername.equals(currentUsername)) {
                 usernameError.setText("*New username cannot be the same as the previous one!*");
                 usernameError.setVisible(true);
             }
@@ -102,7 +109,7 @@ public class AccountSettingsPageController {
                 passwordError.setText("*Password must be at least 6 characters!*");
                 passwordError.setVisible(true);
                 valid = false;
-            } else if (!newPassword.matches(".*[!@#$%^&*].*")){
+            } else if (!newPassword.matches(".*[!@#$%^&*].*")) {
                 passwordError.setText("*Password must contain at least one special character!*");
                 passwordError.setVisible(true);
                 valid = false;
@@ -121,31 +128,72 @@ public class AccountSettingsPageController {
         if (valid) {
             updateAccountSettings(usernameEdited, passwordEdited, newUsername, newPassword);
         }
-
     }
 
     private void updateAccountSettings(boolean usernameEdited, boolean passwordEdited, String newUsername, String newPassword) {
-
         AuthRepo authRepo = new AuthRepo();
+        boolean usernameSuccess = false;
 
+        //Update Username
         if (usernameEdited) {
-            if(authRepo.usernameExists(newUsername)) {
+            if (authRepo.usernameExists(newUsername)) {
                 usernameError.setText("*Username already exists!*");
                 usernameError.setVisible(true);
-                usernameEdited = false;
-            }else{
+                return;
+            } else {
                 UserRepo.updateUsername(currentUsername, newUsername);
                 currentUsername = newUsername;
                 sessionManager.setUsername(newUsername);
                 usernameLetter.setText(String.valueOf(Character.toUpperCase(newUsername.charAt(0))));
+                usernameSuccess = true;
             }
         }
 
+        //Update Password
         if (passwordEdited) {
             UserRepo.updatePassword(currentUsername, BCrypt.hashpw(newPassword, BCrypt.gensalt()));
         }
 
+        //Create Notification
+        if (usernameSuccess && passwordEdited) {
+            showSettingsNotification("Credentials changed successfully");
+        } else if (usernameSuccess) {
+            showSettingsNotification("Username changed successfully");
+        } else if (passwordEdited) {
+            showSettingsNotification("Password changed successfully");
+        }
+
         goToSettingsPage();
+    }
+
+    private void showSettingsNotification(String message) {
+        // Check If Notifications Are Enabled
+        if (!UserRepo.isNotificationsEnabled(currentUsername)) {
+            return;
+        }
+
+        try {
+            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/Logo.png"));
+            ImageView iconView = new ImageView(iconImage);
+            iconView.setFitHeight(90);
+            iconView.setFitWidth(120);
+
+            Notifications.create()
+                    .title("Settings Updated")
+                    .text(message)
+                    .graphic(iconView)
+                    .position(Pos.BOTTOM_RIGHT)
+                    .hideAfter(Duration.seconds(5))
+                    .show();
+
+        } catch (Exception e) {
+            Notifications.create()
+                    .title("Settings Updated")
+                    .text(message)
+                    .position(Pos.BOTTOM_RIGHT)
+                    .hideAfter(Duration.seconds(5))
+                    .show();
+        }
     }
 
     private void goToSettingsPage() {

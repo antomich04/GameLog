@@ -11,6 +11,7 @@ module org.gamelog.gamelog {
     requires java.net.http;
     requires java.naming;
     requires com.fasterxml.jackson.databind;
+    requires org.controlsfx.controls;
 
 
     opens org.gamelog to javafx.fxml;

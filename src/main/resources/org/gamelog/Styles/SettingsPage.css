@@ -13,7 +13,7 @@
 }
 
 .toggle-button .track {
-    -fx-background-color: #d6d6d6;
+    -fx-background-color: #b3b3b3;
     -fx-background-radius: 30px;
     -fx-pref-width: 50px;
     -fx-pref-height: 26px;
@@ -23,7 +23,7 @@
 }
 
 .toggle-button:selected .track {
-    -fx-background-color: #4CAF50;
+    -fx-background-color: #1C3849;
 }
 
 .toggle-button .thumb {

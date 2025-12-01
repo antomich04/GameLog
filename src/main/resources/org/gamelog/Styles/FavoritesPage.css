@@ -30,6 +30,15 @@
     -fx-cursor: hand;
 }
 
+.clickableIcons .image-view {
+    -fx-transition: -fx-scale-x 0.2s, -fx-scale-y 0.2s;
+}
+
+.clickableIcons:hover .image-view {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
 .clickableIcons:hover {
     -fx-background-color: transparent;
 }
@@ -41,4 +50,9 @@
 .clickableIcons:focused {
     -fx-background-color: transparent;
     -fx-border-width: 0;
+}
+
+#emptyFavoritesLabel {
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
 }

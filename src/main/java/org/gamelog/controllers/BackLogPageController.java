@@ -250,8 +250,10 @@ public class BackLogPageController {
             cardController.setCardData(backlog_id, gid, gameName, platform, progress, totalAchievements);
             cardController.setCardNode(card);
 
+            cardController.setOnDeleteAction(() -> {
+                loadBacklogData();
+            });
             backlogContainer.getChildren().add(card);
-            updateEmptyState();
 
         } catch (IOException e) {
             e.printStackTrace();

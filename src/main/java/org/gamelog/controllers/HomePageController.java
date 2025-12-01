@@ -29,9 +29,10 @@ public class HomePageController {
     private VBox cardsContainer;
     @FXML
     private VBox loadingOverlay;
+    @FXML
+    private VBox emptyStateContainer;
 
     public void initialize() {
-
         SessionManager session = SessionManager.getInstance();
         if (session != null) {
             String username = session.getUsername();
@@ -54,8 +55,13 @@ public class HomePageController {
     }
 
     private void loadLatestGames() {
+        // Hide empty state initially
+        if(emptyStateContainer != null){
+            emptyStateContainer.setVisible(false);
+            emptyStateContainer.setManaged(false);
+        }
 
-        //Shows Loading Overlay
+        // Show Loading Overlay
         if(loadingOverlay != null){
             loadingOverlay.setVisible(true);
             loadingOverlay.setManaged(true);
@@ -63,38 +69,36 @@ public class HomePageController {
 
         cardsContainer.getChildren().clear();
 
-        //Starts a new thread for network and database work
+        // Starts a new thread for network and database work
         Thread backgroundLoader = new Thread(() -> {
-
             List<BacklogItem> latestItems = null;
             try {
                 latestItems = GamesRepo.fetchLatestBacklogItems(SessionManager.getInstance().getUsername());
-            }catch(Exception e){
+            } catch(Exception e){
                 e.printStackTrace();
             }
 
-            //Updates the UI
+            // Updates the UI
             List<BacklogItem> finalLatestItems = latestItems;
             Platform.runLater(() -> {
-
                 boolean isEmpty = true;
 
                 if(finalLatestItems != null && !finalLatestItems.isEmpty()){
                     isEmpty = false;
-                    //Populates the UI with cards
+                    // Populates the UI with cards
                     for(BacklogItem item : finalLatestItems){
                         addCardForHome(item);
                     }
                 }
 
-                //Updates visibility for the empty state
-                updateEmptyState(isEmpty);
-
-                //Hides Loading Overlay
+                // Hide Loading Overlay
                 if(loadingOverlay != null){
                     loadingOverlay.setVisible(false);
                     loadingOverlay.setManaged(false);
                 }
+
+                // Update visibility for the empty state
+                updateEmptyState(isEmpty);
             });
         });
 
@@ -103,10 +107,9 @@ public class HomePageController {
     }
 
     private void updateEmptyState(boolean isEmpty) {
-
-        if (emptyStateLabel != null) {
-            emptyStateLabel.setVisible(isEmpty);
-            emptyStateLabel.setManaged(isEmpty);
+        if (emptyStateContainer != null) {
+            emptyStateContainer.setVisible(isEmpty);
+            emptyStateContainer.setManaged(isEmpty);
         }
 
         if (cardsContainer != null) {
@@ -131,16 +134,15 @@ public class HomePageController {
             );
 
             cardController.setOnDeleteAction(() -> {
-                //When a card is deleted, reloads the list to fetch the next latest game
                 loadLatestGames();
             });
 
             cardController.setCardNode(card);
-            card.getStyleClass().add("xlarge"); //Retains styling
+            card.getStyleClass().add("xlarge"); // Retains styling
 
             cardsContainer.getChildren().add(card);
 
-        }catch(IOException e){
+        } catch(IOException e){
             e.printStackTrace();
         }
     }

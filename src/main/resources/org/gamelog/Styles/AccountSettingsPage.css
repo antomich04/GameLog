@@ -43,6 +43,12 @@
     -fx-background-radius: 10px;
 }
 
+.confirm-button:hover,
+.back-button:hover {
+    -fx-background-color: #274b61;
+    -fx-effect: dropshadow(gaussian, rgba(28,56,73,0.3), 6, 0.3, 0, 2);
+}
+
 .error-label {
     -fx-text-fill: red;
     -fx-font-family: "MS Reference Sans Serif";

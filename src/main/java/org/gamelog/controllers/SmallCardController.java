@@ -1,6 +1,7 @@
 package org.gamelog.controllers;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,8 +9,12 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+import org.gamelog.Main;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
+import org.gamelog.repository.UserRepo;
 
 public class SmallCardController {
 
@@ -41,14 +46,17 @@ public class SmallCardController {
     public void initialize() {
         deleteButton.setOnMouseClicked(e -> {
             boolean success = GamesRepo.removeBacklogItem(backlogId);
+            SessionManager sessionManager = SessionManager.getInstance();
+            String username = sessionManager.getUsername();
 
             if (success) {
-                //Removes the card visually
+                // Removes the card visually
                 if (cardNode != null && cardNode.getParent() != null) {
                     ((Pane) cardNode.getParent()).getChildren().remove(cardNode);
+                    showGameDeletionNotification(); // Notification Call
                 }
 
-                //Triggers the callback to notify Home Page to refresh
+                // Triggers the callback to notify Home Page to refresh
                 if (onDeleteAction != null) {
                     onDeleteAction.run();
                 }
@@ -61,6 +69,9 @@ public class SmallCardController {
             boolean newState = GamesRepo.toggleFavorite(username, this.gid, this.platform);
 
             setFavoriteIcon(newState);
+
+            // Show notification for favorite action
+            showFavoriteNotification(newState);
 
             if (onFavoriteToggle != null) {
                 onFavoriteToggle.run();
@@ -102,4 +113,90 @@ public class SmallCardController {
             setFavoriteIcon(isFavorite);
         }
     }
+
+    private void showGameDeletionNotification() {
+        //Check if Notifications Are Enabled
+        String username = SessionManager.getInstance().getUsername();
+        if (!UserRepo.isNotificationsEnabled(username)) {
+            return;
+        }
+
+        String gameName = this.gameTitle != null ? this.gameTitle.getText() : "Unknown Game";
+        String platform = this.platformText != null ? this.platformText.getText() : "Unknown Platform";
+
+        try {
+            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/Logo.png"));
+            ImageView iconView = new ImageView(iconImage);
+            iconView.setFitHeight(90);
+            iconView.setFitWidth(120);
+
+            Notifications.create()
+                    .title("Game Removed")
+                    .text("\"" + gameName + "\" removed from your backlog (" + platform + ")")
+                    .graphic(iconView)
+                    .position(Pos.BOTTOM_RIGHT)
+                    .hideAfter(Duration.seconds(5))
+                    .show();
+        } catch (Exception e) {
+            Notifications.create()
+                    .title("Game Removed")
+                    .text("\"" + gameName + "\" removed from your backlog (" + platform + ")")
+                    .position(Pos.BOTTOM_RIGHT)
+                    .hideAfter(Duration.seconds(5))
+                    .show();
+        }
+    }
+
+    private void showFavoriteNotification(boolean addedToFavorites) {
+        //Check if Notifications Are Enabled
+        String username = SessionManager.getInstance().getUsername();
+        if (!UserRepo.isNotificationsEnabled(username)) {
+            return;
+        }
+
+        String gameName = this.gameTitle != null ? this.gameTitle.getText() : "Unknown Game";
+        String platform = this.platformText != null ? this.platformText.getText() : "Unknown Platform";
+
+        try {
+            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/Logo.png"));
+            ImageView iconView = new ImageView(iconImage);
+            iconView.setFitHeight(90);
+            iconView.setFitWidth(120);
+
+            if (addedToFavorites) {
+                Notifications.create()
+                        .title("Added to Favorites")
+                        .text("\"" + gameName + "\" added to favorites (" + platform + ")")
+                        .graphic(iconView)
+                        .position(Pos.BOTTOM_RIGHT)
+                        .hideAfter(Duration.seconds(5))
+                        .show();
+            } else {
+                Notifications.create()
+                        .title("Removed from Favorites")
+                        .text("\"" + gameName + "\" removed from favorites (" + platform + ")")
+                        .graphic(iconView)
+                        .position(Pos.BOTTOM_RIGHT)
+                        .hideAfter(Duration.seconds(5))
+                        .show();
+            }
+        } catch (Exception e) {
+            if (addedToFavorites) {
+                Notifications.create()
+                        .title("Added to Favorites")
+                        .text("\"" + gameName + "\" added to favorites (" + platform + ")")
+                        .position(Pos.BOTTOM_RIGHT)
+                        .hideAfter(Duration.seconds(5))
+                        .show();
+            } else {
+                Notifications.create()
+                        .title("Removed from Favorites")
+                        .text("\"" + gameName + "\" removed from favorites (" + platform + ")")
+                        .position(Pos.BOTTOM_RIGHT)
+                        .hideAfter(Duration.seconds(5))
+                        .show();
+            }
+        }
+    }
+
 }
