@@ -18,6 +18,12 @@
     -fx-cursor: hand;
 }
 
+#backBtn:hover,
+#submitBtn:hover {
+    -fx-background-color: #274b61;
+    -fx-effect: dropshadow(gaussian, rgba(28,56,73,0.3), 6, 0.3, 0, 2);
+}
+
 #resendCodeLink {
     -fx-fill: #4a5b85;
     -fx-cursor: hand;

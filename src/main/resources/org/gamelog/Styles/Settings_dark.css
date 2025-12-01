@@ -1,0 +1,83 @@
+/* Change all backgrounds EXCEPT navbar and green header */
+.main-container,
+.profile-section,
+.settings-section {
+    -fx-background-color: #0E1C24 !important; /* darker, cohesive base */
+}
+
+/* Keep the green header teal (harmonized) */
+.profile-section StackPane {
+    -fx-background-color: #164f48 !important; /* slightly deeper teal */
+}
+
+/* Change profile circle to dark mode */
+Circle {
+    -fx-fill: #2f3436 !important; /* less neutral, fits palette */
+}
+
+/* Make the letter inside the circle white for contrast */
+.profile-section Label#usernameLetter {
+    -fx-text-fill: #ffffff !important;
+}
+
+/* Text colors */
+.settings-section Label,
+.profile-section Label {
+    -fx-text-fill: #e9f0f1 !important; /* soft off-white for less harshness */
+}
+
+.profile-section Label[textFill="#555555"] {
+    -fx-text-fill: #a8b0b2 !important; /* muted gray for secondary text */
+}
+
+/* Separators */
+.settings-section Separator .line {
+    -fx-border-color: #274a52 !important; /* subtle teal-blue separator */
+}
+
+/* ========== TOGGLE BUTTON (UNCHANGED) ========== */
+.toggle-button {
+    -fx-background-color: transparent;
+}
+
+.toggle-button .track {
+    -fx-background-color: #44484a; /* muted dark track for off state */
+    -fx-background-radius: 30px;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 26px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 2;
+    -fx-cursor: hand;
+}
+
+.toggle-button:selected .track {
+    -fx-background-color: #1f5f56; /* active track uses the teal accent */
+}
+
+.toggle-button .thumb {
+    -fx-background-color: #e6e6e6; /* softer off-white thumb */
+    -fx-background-radius: 50%;
+    -fx-pref-width: 22px;
+    -fx-pref-height: 22px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 3, 0, 0, 1);
+    -fx-translate-x: 0;
+}
+
+.toggle-button:selected .thumb {
+    -fx-translate-x: 24px;
+}
+
+.toggle-button:hover .thumb {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 4, 0, 0, 1);
+    -fx-fill: #ffffff;
+}
+
+/* ========== ICON COLORS ========== */
+.settings-section ImageView {
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.06), 2, 0, 0, 0) !important; /* gentler rim */
+}
+
+/* ========== DELETE BUTTON ========== */
+.settings-section Label[textFill="#dc3545"] {
+    -fx-text-fill: #ff4d4f !important; /* clearer, accessible red */
+}

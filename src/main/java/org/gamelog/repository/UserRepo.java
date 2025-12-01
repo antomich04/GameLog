@@ -143,4 +143,43 @@ public class UserRepo {
         }
     }
 
+    public static boolean isNotificationsEnabled(String username) {
+        // Assumes a stored function named 'get_notifications_enabled' exists
+        String query = "SELECT get_notifications_enabled(?)";
+
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, username);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    // getBoolean returns false if the value is NULL, which is safe here
+                    return rs.getBoolean(1);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Default to false if user not found or error occurs
+        return false;
+    }
+
+    public static void updateNotificationStatus(String username, boolean isEnabled) {
+        String updateQuery = "SELECT update_notification_status(?, ?)";
+
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(updateQuery)) {
+
+            stmt.setString(1, username);
+            stmt.setBoolean(2, isEnabled);
+            stmt.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

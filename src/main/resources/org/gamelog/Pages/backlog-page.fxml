@@ -75,7 +75,12 @@
                             style="-fx-background: white; -fx-border-color: transparent;">
                     <content>
                         <VBox fx:id="contentVBox" alignment="TOP_LEFT" spacing="20" minHeight="-Infinity" VBox.vgrow="ALWAYS">
-                            <TilePane fx:id="backlogContainer" alignment="TOP_LEFT" hgap="80" vgap="40" prefColumns="2" prefTileWidth="300" prefTileHeight="160" maxHeight="Infinity" minHeight="0">
+
+                            <TilePane fx:id="backlogContainer" alignment="TOP_LEFT"
+                                      hgap="25" vgap="30"
+                                      prefColumns="2"
+                                      prefTileWidth="330" prefTileHeight="180"
+                                      maxHeight="Infinity" minHeight="0">
                                 <padding>
                                     <Insets left="20.0" right="20.0" top="20.0" bottom="20.0" />
                                 </padding>
@@ -84,7 +89,7 @@
                     </content>
                 </ScrollPane>
 
-                <VBox fx:id="loadingOverlay" alignment="CENTER" style="-fx-background-color: rgba(255, 255, 255, 0.85);"
+                <VBox fx:id="loadingOverlay" alignment="CENTER" style="-fx-background-color: white;"
                       visible="false" managed="false" StackPane.alignment="CENTER">
                     <children>
                         <ProgressIndicator prefHeight="400" prefWidth="400"/>
