@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.AuthRepo;
 import org.gamelog.model.SignupResult;
-
 import java.io.IOException;
 
 

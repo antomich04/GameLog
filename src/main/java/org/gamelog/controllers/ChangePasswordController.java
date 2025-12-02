@@ -3,13 +3,19 @@ package org.gamelog.controllers;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+import org.gamelog.Main;
 import org.gamelog.repository.UserRepo;
 import org.mindrot.jbcrypt.BCrypt;
 import java.io.IOException;
@@ -19,9 +25,9 @@ public class ChangePasswordController {
     @FXML
     private AnchorPane rootPane;
     @FXML
-    private TextField passwordInput1;
+    private PasswordField passwordInput1;
     @FXML
-    private TextField passwordInput2;
+    private PasswordField passwordInput2;
     @FXML
     private Text passwordErrorMessage1;
     @FXML
@@ -134,12 +140,15 @@ public class ChangePasswordController {
                 updateBtn.setDisable(false);
 
                 if (getValue()) {
-
                     passwordStatusMessage.setText("Password successfully updated! Redirecting...");
                     passwordStatusMessage.setFill(Color.valueOf("#00FF00"));
 
+                    showPasswordUpdateNotification();
+
                     try {
+                        //Pause to allow user to see status/notification
                         Thread.sleep(1500);
+
                         Stage stage = (Stage) rootPane.getScene().getWindow();
                         Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml")));
                         stage.setScene(scene);
@@ -177,5 +186,33 @@ public class ChangePasswordController {
         passwordErrorMessage2.setVisible(false);
         passwordStatusMessage.setText("");
         passwordStatusMessage.setVisible(false);
+    }
+
+    private void showPasswordUpdateNotification() {
+        String successTitle = "Success!";
+        String successText = "Your password has been successfully updated.";
+
+        try {
+            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/Logo.png"));
+            ImageView iconView = new ImageView(iconImage);
+            iconView.setFitHeight(90);
+            iconView.setFitWidth(120);
+
+            Notifications.create()
+                    .title(successTitle)
+                    .text(successText)
+                    .graphic(iconView)
+                    .position(Pos.BOTTOM_RIGHT)
+                    .hideAfter(Duration.seconds(5))
+                    .show();
+        } catch (Exception e) {
+            //Fallback for when the logo image fails to load
+            Notifications.create()
+                    .title(successTitle)
+                    .text(successText)
+                    .position(Pos.BOTTOM_RIGHT)
+                    .hideAfter(Duration.seconds(2))
+                    .show();
+        }
     }
 }
