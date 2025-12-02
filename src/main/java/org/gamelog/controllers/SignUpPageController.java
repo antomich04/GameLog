@@ -169,4 +169,6 @@ public class SignUpPageController {
         emailError.setVisible(false);
         passwordError.setVisible(false);
     }
+
+
 }

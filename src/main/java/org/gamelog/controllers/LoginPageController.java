@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -22,7 +23,7 @@ public class LoginPageController {
     @FXML
     private TextField usernameInput;
     @FXML
-    private TextField passwordInput;
+    private PasswordField passwordInput;
     @FXML
     private Button loginBtn;
     @FXML
