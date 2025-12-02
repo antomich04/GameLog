@@ -76,7 +76,7 @@
                       visible="false" managed="false" StackPane.alignment="CENTER">
                     <children>
                         <ProgressIndicator prefHeight="400" prefWidth="400"/>
-                        <Label text="Loading Favorites..." style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-padding: 10 0 0 0;" />
+                        <Label text="Fetching Favorites..." style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-padding: 10 0 0 0;" />
                     </children>
                 </VBox>
 
