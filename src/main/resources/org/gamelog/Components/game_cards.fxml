@@ -55,7 +55,7 @@
 
         <!-- EDIT BUTTON CENTERED -->
         <HBox alignment="CENTER">
-            <Button styleClass="edit-button" text="Edit">
+            <Button fx:id="editItemBtn" styleClass="edit-button" text="Edit">
                 <HBox.margin>
                     <Insets top="5.0" />
                 </HBox.margin>

@@ -144,6 +144,7 @@ public class HomePageController {
             boolean isDark = SessionManager.getInstance().isDarkMode();
             cardController.setIsDarkMode(isDark);
 
+            cardController.setCallingPageFxml("/org/gamelog/Pages/home-page.fxml");
             cardController.setCardData(
                     item.getBacklogId(),
                     item.getGid(),

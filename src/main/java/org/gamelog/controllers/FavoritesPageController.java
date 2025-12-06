@@ -189,6 +189,7 @@ public class FavoritesPageController {
             boolean isDark = SessionManager.getInstance().isDarkMode();
             cardController.setIsDarkMode(isDark);
 
+            cardController.setCallingPageFxml("/org/gamelog/Pages/favorites-page.fxml");
             cardController.setCardData(backlog_id, gid, gameName, platform, progress, totalAchievements);
             cardController.setCardNode(card);
 
