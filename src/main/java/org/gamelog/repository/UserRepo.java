@@ -182,4 +182,35 @@ public class UserRepo {
         }
     }
 
+    public static boolean isDarkModeEnabled(String username) {
+        String query = "SELECT dark_mode_enabled FROM users WHERE username = ?";
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, username);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getBoolean("dark_mode_enabled");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Default to light mode if error or not found
+    }
+
+    public static void setDarkMode(String username, boolean enabled) {
+        String query = "UPDATE users SET dark_mode_enabled = ? WHERE username = ?";
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setBoolean(1, enabled);
+            pstmt.setString(2, username);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

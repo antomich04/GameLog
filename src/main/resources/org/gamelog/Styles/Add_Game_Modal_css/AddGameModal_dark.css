@@ -1,0 +1,104 @@
+/* ==============================================
+   DARK MODE - ADD GAME MODAL
+   ============================================== */
+
+.modal-root {
+    /* Slightly lighter than root #0E1C24 to pop out */
+    -fx-background-color: #1A2632;
+    -fx-padding: 25;
+    -fx-background-radius: 10;
+    /* Teal border for consistency */
+    -fx-border-color: #195951;
+    -fx-border-width: 1;
+    -fx-border-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 20, 0, 0, 8);
+}
+
+.modal-title {
+    -fx-font-size: 20;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e9f0f1; /* Soft White */
+}
+
+.input-label {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-text-fill: #b0bec5; /* Light Grey */
+}
+
+/* --- COMBO BOXES --- */
+.combo-box {
+    -fx-background-color: #0E1C24; /* Darker than modal */
+    -fx-border-color: #455a64;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 2 5;
+    -fx-font-size: 14;
+}
+
+/* The text inside the combo box editor */
+.combo-box .text-input {
+    -fx-text-fill: white;
+    -fx-background-color: transparent;
+}
+
+.combo-box:focused {
+    -fx-border-color: #2a9d8f; /* Teal Focus */
+    -fx-effect: dropshadow(gaussian, rgba(42, 157, 143, 0.2), 5, 0.3, 0, 0);
+}
+
+/* Arrow button area */
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow {
+    -fx-background-color: #b0bec5;
+}
+
+/* Dropdown List */
+.combo-box .list-view {
+    -fx-background-color: #0E1C24;
+    -fx-border-color: #455a64;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #0E1C24;
+    -fx-text-fill: #e9f0f1;
+    -fx-padding: 8 12;
+}
+
+.combo-box .list-cell:filled:hover {
+    -fx-background-color: #2a9d8f; /* Teal Hover */
+    -fx-text-fill: white;
+}
+
+/* --- BUTTONS --- */
+.button {
+    -fx-background-radius: 5;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-pref-height: 35;
+}
+
+.cancel-button {
+    -fx-background-color: #44484a; /* Muted Dark Grey */
+    -fx-text-fill: white;
+    -fx-pref-width: 100;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #5a6268;
+}
+
+.primary-button {
+    -fx-background-color: #195951; /* Unified Teal */
+    -fx-text-fill: white;
+    -fx-pref-width: 120;
+}
+
+.primary-button:hover {
+    -fx-background-color: #206b61; /* Lighter Teal */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0.3, 0, 1);
+}

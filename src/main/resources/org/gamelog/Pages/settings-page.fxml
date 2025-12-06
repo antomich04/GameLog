@@ -15,17 +15,17 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/SettingsPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.SettingsPageController">
+<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/Settings_css/SettingsPage_dark.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.SettingsPageController">
     <left>
         <fx:include source="../Components/navigation-bar.fxml" />
     </left>
 
     <center>
-        <VBox alignment="TOP_CENTER" spacing="30" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+        <VBox alignment="TOP_CENTER" spacing="30" styleClass="main-container" BorderPane.alignment="CENTER">
             <padding><Insets bottom="40.0" /></padding>
 
             <VBox alignment="CENTER">
-                <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="228.0" prefWidth="835.0" style="-fx-background-color: #2a9d8f;">
+                <StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="228.0" prefWidth="835.0" styleClass="header-background">
                     <Circle fill="#e0e0e0" radius="68.0" stroke="white" strokeWidth="0.0" />
                     <Label fx:id="usernameLetter">
                         <font>
@@ -33,7 +33,8 @@
                         </font>
                     </Label>
                 </StackPane>
-                <VBox alignment="CENTER" prefHeight="117.0" prefWidth="835.0" spacing="5" style="-fx-background-color: white; -fx-padding: 20;">
+
+                <VBox alignment="CENTER" prefHeight="117.0" prefWidth="835.0" spacing="5" styleClass="profile-section" style="-fx-padding: 20;">
                     <Label fx:id="usernameLabel" style="-fx-font-weight: bold;">
                         <font><Font size="27.0" /></font>
                     </Label>
@@ -43,12 +44,12 @@
                 </VBox>
             </VBox>
 
-            <VBox prefWidth="700" spacing="20" style="-fx-background-color: white; -fx-border-radius: 4;">
+            <VBox prefWidth="700" spacing="20" styleClass="settings-section" style="-fx-border-radius: 4;">
 
                 <Separator />
                 <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-min-height: 32;">
                     <HBox fx:id="accountClickableArea" alignment="CENTER_LEFT" spacing="15" style="-fx-cursor: hand;">
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fx:id="accountIcon" fitHeight="30.0" fitWidth="30.0">
                             <image><Image url="@../Assets/account_icon.png" /></image>
                         </ImageView>
                         <Label style="-fx-font-weight: bold;" text="Account">
@@ -68,7 +69,7 @@
 
                 <HBox alignment="CENTER_LEFT" prefWidth="700" spacing="15" style="-fx-min-height: 32;">
                     <HBox alignment="CENTER_LEFT" spacing="15">
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fx:id="darkModeIcon" fitHeight="30.0" fitWidth="30.0">
                             <image><Image url="@../Assets/dark_mode_icon.png" /></image>
                         </ImageView>
                         <Label style="-fx-font-weight: bold;" text="Dark Mode">
@@ -95,10 +96,9 @@
                 </HBox>
                 <Separator />
 
-                <!-- Notifications -->
                 <HBox alignment="CENTER_LEFT" prefWidth="700" spacing="15" style="-fx-min-height: 32;">
                     <HBox alignment="CENTER_LEFT" spacing="15">
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fx:id="notificationsIcon" fitHeight="30.0" fitWidth="30.0">
                             <image><Image url="@../Assets/notifications_icon.png" /></image>
                         </ImageView>
                         <Label style="-fx-font-weight: bold;" text="Notifications">
@@ -127,7 +127,7 @@
 
                 <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-min-height: 32;">
                     <HBox fx:id="aboutClickableArea" alignment="CENTER_LEFT" spacing="15" style="-fx-cursor: hand;">
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fx:id="aboutIcon" fitHeight="30.0" fitWidth="30.0">
                             <image><Image url="@../Assets/about_icon.png" /></image>
                         </ImageView>
                         <Label style="-fx-font-weight: bold;" text="About">
@@ -146,7 +146,7 @@
 
                 <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-min-height: 32;">
                     <HBox fx:id="deleteAccountClickableArea" alignment="CENTER_LEFT" spacing="15" style="-fx-cursor: hand;">
-                        <ImageView fitHeight="30.0" fitWidth="30.0">
+                        <ImageView fx:id="deleteIcon" fitHeight="30.0" fitWidth="30.0">
                             <image><Image url="@../Assets/delete_account_icon.png" /></image>
                         </ImageView>
                         <Label style="-fx-font-weight: bold;" text="Delete Account" textFill="#dc3545">

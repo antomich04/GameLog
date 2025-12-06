@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.AuthRepo;
 import org.gamelog.model.SignupResult;
+import org.gamelog.repository.UserRepo; // Added Import
+import org.gamelog.utils.ThemeManager; // Added Import
 
 import java.io.IOException;
 
@@ -120,8 +122,14 @@ public class SignUpPageController {
                         return;
                     }
 
+                    boolean isDark = UserRepo.isDarkModeEnabled(username);
+                    SessionManager.getInstance().setDarkMode(isDark);
+
                     loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
                     Parent root = loader.load();
+
+                    // 3. Apply Theme
+                    ThemeManager.applyTheme(root, "Home");
 
                     Stage stage = (Stage) rootPane.getScene().getWindow();
                     stage.setScene(new Scene(root));
@@ -161,6 +169,4 @@ public class SignUpPageController {
         emailError.setVisible(false);
         passwordError.setVisible(false);
     }
-
-
 }

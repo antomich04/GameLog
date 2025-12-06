@@ -1,0 +1,70 @@
+/* ==============================================
+   DARK MODE SIGN UP PAGE
+   ============================================== */
+
+#rootPane {
+    -fx-background-color: #0E1C24;
+}
+
+/* --- LOGO SWAP --- */
+#logoImage {
+    -fx-image: url("../../Assets/Logo_dark.png");
+}
+
+/* --- TEXT FIELDS --- */
+.text-field {
+    /* Dark input background */
+    -fx-background-color: #1A2632;
+    -fx-border-color: #455a64;
+    -fx-border-width: 1;
+    -fx-border-radius: 22;
+    -fx-background-radius: 22;
+    -fx-background-insets: 0;
+
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #a8b0b2;
+}
+
+.text-field:focused, .password-field:focused {
+    /* Teal focus border */
+    -fx-border-color: #2a9d8f;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(42, 157, 143, 0.2), 6, 0.3, 0, 0);
+}
+
+/* --- LABELS --- */
+.input-label {
+    -fx-fill: #e9f0f1; /* Soft White */
+}
+
+.error-label {
+    -fx-text-fill: #ff4d4f; /* Bright Red */
+    -fx-font-family: "MS Reference Sans Serif";
+    -fx-font-size: 16px;
+}
+
+/* --- BUTTONS --- */
+#signUpButton {
+    -fx-background-color: #1C3849;
+    -fx-background-radius: 18;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 18;
+}
+
+#signUpButton:hover {
+    -fx-background-color: #274b61;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.2), 6, 0.3, 0, 2);
+}
+
+/* --- LINKS --- */
+.regular-text {
+    -fx-fill: #a8b0b2; /* Muted Grey */
+}
+
+.highlight-text {
+    -fx-fill: #2a9d8f; /* Teal Accent */
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}

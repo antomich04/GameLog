@@ -1,0 +1,81 @@
+#rootPane{
+    -fx-background-color: #FFFFFF;
+}
+
+/* --- TEXT --- */
+.page-title {
+    -fx-font-family: "MS Reference Sans Serif";
+    -fx-text-fill: #1C3849;
+    -fx-font-weight: bold;
+}
+
+#resendCodeLink {
+    -fx-fill: #4a5b85;
+    -fx-cursor: hand;
+}
+
+#resendCodeLink:hover {
+    -fx-fill: #274b61;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 2, 0.3, 0, 1);
+}
+
+.error-label {
+    -fx-fill: red; /* Text node uses -fx-fill */
+    -fx-font-family: "MS Reference Sans Serif";
+    -fx-font-size: 22px;
+}
+
+/* --- INPUTS (OTP) --- */
+.text-field {
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: #000000;
+    -fx-border-width: 1;
+    -fx-border-radius: 13;
+    -fx-background-radius: 13;
+    -fx-background-insets: 0;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-highlight-fill: #1C3849;
+    -fx-highlight-text-fill: #FFFFFF;
+    -fx-text-fill: black;
+}
+
+.text-field:focused {
+    -fx-border-color: #1C3849;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(28,56,73,0.1), 4, 0.3, 0, 0);
+}
+
+.otp {
+    -fx-alignment: center;
+    -fx-font-size: 48px;
+    -fx-font-weight: bold;
+    -fx-padding: 0;
+}
+
+#otpContainer{
+    -fx-spacing: 40px;
+}
+
+/* --- BUTTONS --- */
+#backBtn {
+    -fx-background-color: #1C3849;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 10px;
+}
+
+#submitBtn {
+    -fx-background-color: #1C3849;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+#backBtn:hover,
+#submitBtn:hover {
+    -fx-background-color: #274b61;
+    -fx-effect: dropshadow(gaussian, rgba(28,56,73,0.3), 6, 0.3, 0, 2);
+}

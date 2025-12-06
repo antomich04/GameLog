@@ -6,17 +6,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="20" style="-fx-background-color: white; -fx-padding: 25; -fx-background-radius: 10;"
-      stylesheets="@../Styles/Add_Game_Modal.css"
+<VBox fx:id="rootPane" spacing="20" styleClass="modal-root"
       prefWidth="400" prefHeight="300"
       xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.gamelog.controllers.AddGameModalController">
 
-    <Label text="Add New Game" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+    <Label text="Add New Game" styleClass="modal-title"/>
 
     <VBox spacing="10">
-        <Label text="Game Name:" style="-fx-font-size: 14;"/>
+        <Label text="Game Name:" styleClass="input-label"/>
         <ComboBox fx:id="gameSearchComboBox"
                   promptText="Enter the game name..."
                   prefWidth="350"
@@ -25,7 +24,7 @@
     </VBox>
 
     <VBox spacing="10">
-        <Label text="Platform:" style="-fx-font-size: 14;"/>
+        <Label text="Platform:" styleClass="input-label"/>
         <ComboBox fx:id="platformComboBox"
                   promptText="Select platform..."
                   prefWidth="350"
@@ -33,9 +32,7 @@
     </VBox>
 
     <HBox spacing="15" alignment="CENTER_RIGHT">
-        <Button fx:id="cancelButton" text="Cancel"
-                style="-fx-background-color: #6c757d; -fx-text-fill: white; -fx-pref-width: 100; -fx-pref-height: 35;"/>
-        <Button fx:id="addGameButton" text="Add Game"
-                style="-fx-background-color: #1C3849; -fx-text-fill: white; -fx-pref-width: 120; -fx-pref-height: 35;"/>
+        <Button fx:id="cancelButton" text="Cancel" styleClass="cancel-button"/>
+        <Button fx:id="addGameButton" text="Add Game" styleClass="primary-button"/>
     </HBox>
 </VBox>

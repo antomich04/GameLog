@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -20,6 +21,8 @@ import org.gamelog.model.BacklogItem;
 import org.gamelog.model.SearchResult;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
+import org.gamelog.utils.ThemeManager;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -27,6 +30,8 @@ import java.util.List;
 
 public class BackLogPageController {
 
+    @FXML
+    private BorderPane rootPane; // Added to apply theme
     @FXML
     private Button addBacklogItemBtn;
     @FXML
@@ -43,6 +48,8 @@ public class BackLogPageController {
     private String currentSortCriteria = "Newest first";
 
     public void initialize() {
+        // 1. APPLY THEME
+        ThemeManager.applyTheme(rootPane, "Backlog");
 
         //Initializes the filtering options
         setupFilterMenu();
@@ -243,9 +250,14 @@ public class BackLogPageController {
 
     private void addGameCard(int backlog_id, int gid, String gameName, String platform, int progress, int totalAchievements) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Components/small-card.fxml"));
+            // FIX: Changed "game-card.fxml" to "game_cards.fxml" to match your file structure
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Components/game_cards.fxml"));
             Node card = loader.load();
-            SmallCardController cardController = loader.getController();
+            GameCardsController cardController = loader.getController();
+
+            // CRITICAL: Pass Theme State to the card so icons render correctly
+            boolean isDark = SessionManager.getInstance().isDarkMode();
+            cardController.setIsDarkMode(isDark);
 
             cardController.setCardData(backlog_id, gid, gameName, platform, progress, totalAchievements);
             cardController.setCardNode(card);

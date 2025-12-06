@@ -6,11 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import org.gamelog.model.BacklogItem;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
+import org.gamelog.utils.ThemeManager;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -18,6 +21,8 @@ import java.util.List;
 
 public class FavoritesPageController {
 
+    @FXML
+    private BorderPane rootPane;
     @FXML
     private Button filterFavoritesBtn;
     @FXML
@@ -33,11 +38,11 @@ public class FavoritesPageController {
 
     @FXML
     public void initialize() {
+        // 1. APPLY THEME
+        ThemeManager.applyTheme(rootPane, "Favorites");
 
         setupFilterMenu();
         loadFavoritesData();
-
-
     }
 
     private void setupFilterMenu() {
@@ -125,7 +130,7 @@ public class FavoritesPageController {
             return;
         }
 
-        // Sorting Logic (Identical to Backlog Page)
+        // Sorting Logic
         switch (currentSortCriteria) {
             case "Name (A-Z)":
                 cachedFavoriteItems.sort(Comparator.comparing(BacklogItem::getGameName, String.CASE_INSENSITIVE_ORDER));
@@ -175,9 +180,14 @@ public class FavoritesPageController {
 
     private void addFavoriteCard(int backlog_id, int gid, String gameName, String platform, int progress, int totalAchievements) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Components/small-card.fxml"));
+            // FIX: Updated path to match file structure: "game_cards.fxml"
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Components/game_cards.fxml"));
             Node card = loader.load();
-            SmallCardController cardController = loader.getController();
+            GameCardsController cardController = loader.getController();
+
+            // Pass Theme State
+            boolean isDark = SessionManager.getInstance().isDarkMode();
+            cardController.setIsDarkMode(isDark);
 
             cardController.setCardData(backlog_id, gid, gameName, platform, progress, totalAchievements);
             cardController.setCardNode(card);
