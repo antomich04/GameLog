@@ -159,6 +159,14 @@ public class CodeVerificationController {
         //Disables interaction and shows loading
         submitBtn.setDisable(true);
         resendCode.setDisable(true);
+        otp1.clear();
+        otp2.clear();
+        otp3.clear();
+        otp4.clear();
+        otp1.setDisable(true);
+        otp2.setDisable(true);
+        otp3.setDisable(true);
+        otp4.setDisable(true);
         codeErrorMessage.setText("Sending new code...");
         codeErrorMessage.setVisible(true);
 
@@ -178,6 +186,10 @@ public class CodeVerificationController {
 
                 submitBtn.setDisable(false);
                 resendCode.setDisable(false);
+                otp1.setDisable(false);
+                otp2.setDisable(false);
+                otp3.setDisable(false);
+                otp4.setDisable(false);
                 codeErrorMessage.setText("New code sent successfully!");
             }
 

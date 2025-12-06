@@ -14,9 +14,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.gamelog.repository.UserRepo;
-import org.gamelog.utils.ThemeManager; // Import ThemeManager
+import org.gamelog.utils.ThemeManager;
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -44,11 +43,22 @@ public class ChangePasswordController {
     private String confirmNewPassword;
 
     public void initialize() {
-        backBtn.setOnMouseClicked(e -> navigateToLogin());
+
+        backBtn.setOnMouseClicked(e -> {
+            try{
+                Stage  stage = (Stage) rootPane.getScene().getWindow();
+                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml")));
+                stage.setScene(scene);
+                stage.show();
+            }catch(IOException ex){
+                ex.printStackTrace();
+            }
+        });
 
         updateBtn.setOnMouseClicked(e -> {
 
-            boolean hasInputError = false;
+            boolean hasFirstInputError = false;
+            boolean hasSecondInputError = false;
 
             clearErrorMessages();
 
@@ -58,28 +68,31 @@ public class ChangePasswordController {
             if(newPassword.isEmpty()){
                 passwordErrorMessage1.setText("*Required field!*");
                 passwordErrorMessage1.setVisible(true);
-                hasInputError = true;
+                hasFirstInputError = true;
             }else if(newPassword.length() < 6) {
                 passwordErrorMessage1.setText("*Password must be at least 6 characters!*");
                 passwordErrorMessage1.setVisible(true);
-                hasInputError = true;
+                hasFirstInputError = true;
             }else if(!newPassword.matches(".*[!@#$%^&*].*")){
                 passwordErrorMessage1.setText("*Password must contain at least one special character!*");
                 passwordErrorMessage1.setVisible(true);
-                hasInputError = true;
+                hasFirstInputError = true;
             }
 
-            if(confirmNewPassword.isEmpty()){
-                passwordErrorMessage2.setText("*Required field!*");
-                passwordErrorMessage2.setVisible(true);
-                hasInputError = true;
-            } else if (!confirmNewPassword.equals(newPassword)) {
-                passwordErrorMessage2.setText("*Passwords do not match!*");
-                passwordErrorMessage2.setVisible(true);
-                hasInputError = true;
+            if(!hasFirstInputError){
+                if(confirmNewPassword.isEmpty()){
+                    passwordErrorMessage2.setText("*Required field!*");
+                    passwordErrorMessage2.setVisible(true);
+                    hasSecondInputError = true;
+                } else if (!confirmNewPassword.equals(newPassword)) {
+                    passwordErrorMessage2.setText("*Passwords do not match!*");
+                    passwordErrorMessage2.setVisible(true);
+                    hasSecondInputError = true;
+                }
             }
 
-            if (!hasInputError) {
+            if (!hasFirstInputError && !hasSecondInputError) {
+
                 //Business logic check
                 if(BCrypt.checkpw(newPassword, currentPassword)) {
                     passwordErrorMessage1.setText("*New password cannot be the same as the current one!*");
@@ -113,7 +126,9 @@ public class ChangePasswordController {
         Task<Boolean> updateTask = new Task<>() {
             @Override
             protected Boolean call() throws Exception {
+
                 String newHashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+
                 return UserRepo.updatePasswordByEmail(email, newHashedPassword);
             }
 
@@ -123,14 +138,30 @@ public class ChangePasswordController {
                 updateBtn.setDisable(false);
 
                 if (getValue()) {
+
                     passwordStatusMessage.setText("Password successfully updated! Redirecting...");
                     passwordStatusMessage.setFill(Color.valueOf("#00FF00"));
 
-                    
-                    PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
-                    delay.setOnFinished(e -> navigateToLogin());
+                    PauseTransition delay = getPauseTransition();
                     delay.play();
+
+
                 }
+            }
+
+            private PauseTransition getPauseTransition() {
+                PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+                delay.setOnFinished(e -> {
+                    try {
+                        Stage stage = (Stage) rootPane.getScene().getWindow();
+                        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml")));
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
+                return delay;
             }
 
             @Override
@@ -139,6 +170,7 @@ public class ChangePasswordController {
                 updateBtn.setDisable(false);
 
                 Throwable ex = getException();
+
                 String displayMessage = (ex instanceof SQLException)
                         ? "*Database error during update. Please try again.*"
                         : "*An unexpected error occurred during verification.*";
@@ -150,20 +182,6 @@ public class ChangePasswordController {
         };
 
         new Thread(updateTask).start();
-    }
-
-    private void navigateToLogin() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
     }
 
     private void clearErrorMessages() {
