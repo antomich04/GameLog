@@ -4,6 +4,7 @@ import jakarta.mail.MessagingException;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -12,6 +13,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.gamelog.repository.AuthRepo;
 import org.gamelog.utils.EmailSender;
+import org.gamelog.utils.ThemeManager; // Import ThemeManager
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -35,7 +38,13 @@ public class EmailSubmissionController {
         backBtn.setOnMouseClicked(e -> {
             try{
                 Stage stage = (Stage) rootPane.getScene().getWindow();
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml")));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
+                Parent root = loader.load();
+
+                // 2. APPLY THEME TO LOGIN
+                ThemeManager.applyTheme(root, "Login");
+
+                Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
             }catch(IOException ex){
@@ -92,7 +101,9 @@ public class EmailSubmissionController {
                         Stage stage = (Stage) rootPane.getScene().getWindow();
 
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/code-verification-page.fxml"));
-                        Scene scene = new Scene(loader.load());
+                        Parent root = loader.load();
+
+                        Scene scene = new Scene(root);
 
                         //Passes the email to the next controller
                         CodeVerificationController fpc = loader.getController();

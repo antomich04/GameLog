@@ -8,12 +8,13 @@ public class SessionManager {
     private static SessionManager instance;
 
     private String username;
-
+    private boolean isDarkMode;
     private final String sessionToken;
 
     private SessionManager(String username, String sessionToken) {
         this.username = username;
         this.sessionToken = sessionToken;
+        this.isDarkMode = false;
     }
 
     // Creates a new session after successful login/signup
@@ -23,7 +24,6 @@ public class SessionManager {
         String token = repo.createSession(username, deviceId);
         instance = new SessionManager(username, token);
     }
-
 
     // Initializes session from existing session data for app startup
     public static void createSessionFromExisting(String username, String token) {
@@ -42,11 +42,29 @@ public class SessionManager {
         }
     }
 
-    public String getUsername() { return username; }
+    // Setter for Dark Mode
+    public void setDarkMode(boolean darkMode) {
+        this.isDarkMode = darkMode;
+    }
 
-    public void setUsername(String username){ this.username = username ;}
+    // Getter for Dark Mode
+    public boolean isDarkMode() {
+        return isDarkMode;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public static boolean isActive() {
         return instance != null;
+    }
+
+    public String getSessionToken() {
+        return sessionToken;
     }
 }

@@ -1,0 +1,91 @@
+/* ==============================================
+   DARK MODE - ACCOUNT SETTINGS PAGE
+   Unified Teal Color: #195951
+   ============================================== */
+
+#rootPane {
+    -fx-background-color: #0E1C24;
+}
+
+/* --- HEADER (UNIFIED TEAL) --- */
+/* UPDATED: Added insets:0 and effect:null to ensure flatness */
+.header-background {
+    -fx-background-color: #195951;
+    -fx-background-insets: 0;
+    -fx-effect: null;
+}
+
+/* --- PROFILE CIRCLE --- */
+#profileCircle {
+    -fx-fill: #2f3436;
+}
+
+#usernameLetter {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 76px;
+}
+
+/* --- TEXT --- */
+.page-title {
+    -fx-font-family: "MS Reference Sans Serif";
+    -fx-font-size: 32px;
+    -fx-text-fill: #e9f0f1;
+    -fx-font-weight: bold;
+}
+
+.field-label {
+    -fx-font-family: "MS Reference Sans Serif";
+    -fx-font-size: 22px;
+    -fx-fill: #e9f0f1;
+}
+
+/* --- INPUT FIELDS --- */
+.text-field {
+    -fx-background-color: #1A2632;
+    -fx-border-color: #455a64;
+    -fx-border-width: 1;
+    -fx-border-radius: 13;
+    -fx-background-radius: 13;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+}
+
+.text-field:focused {
+    -fx-border-color: #2a9d8f;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(42, 157, 143, 0.2), 6, 0.3, 0, 0);
+}
+
+/* --- BUTTONS --- */
+.confirm-button {
+    -fx-background-color: #1C3849;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 8;
+}
+
+.back-button {
+    -fx-background-color: #1C3849;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 10px;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 10;
+}
+
+.confirm-button:hover,
+.back-button:hover {
+    -fx-background-color: #274b61;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.2), 6, 0.3, 0, 2);
+}
+
+/* --- ERRORS --- */
+.error-label {
+    -fx-text-fill: #ff4d4f;
+    -fx-font-family: "MS Reference Sans Serif";
+    -fx-font-size: 16px;
+}

@@ -1,0 +1,75 @@
+/* ==============================================
+   DARK MODE FAVORITES PAGE STYLES
+   ============================================== */
+
+#rootPane {
+    -fx-background-color: #0E1C24; /* Dark background */
+}
+
+/* --- TEXT STYLES --- */
+.page-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: #e9f0f1; /* Soft White */
+}
+
+#emptyFavoritesLabel {
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a8b0b2; /* Muted Grey */
+}
+
+/* --- CLICKABLE ICON ANIMATION & SWAP --- */
+.clickableIcons {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.clickableIcons .image-view {
+    -fx-transition: -fx-scale-x 0.2s, -fx-scale-y 0.2s;
+    /* Optional: Add faint glow for visibility against dark bg */
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.1), 5, 0, 0, 0);
+}
+
+.clickableIcons:hover .image-view {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.3), 8, 0, 0, 0);
+}
+
+/* Swap black filter icon for white version in Dark Mode */
+#filterIcon {
+    -fx-image: url("../../Assets/filter_dark_icon.png");
+}
+
+/* --- SCROLL PANE --- */
+/* Ensure scrollpane area is transparent so dark root shows through */
+.scroll-pane,
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+/* Hide scrollbars for cleaner look */
+.scroll-pane .scroll-bar:vertical,
+.scroll-pane .scroll-bar:horizontal,
+.scroll-pane .scroll-bar:vertical .track,
+.scroll-pane .scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+}
+
+/* --- LOADING OVERLAY --- */
+.loading-overlay {
+    /* Dark semi-transparent background */
+    -fx-background-color: rgba(14, 28, 36, 0.90);
+}
+
+.loading-label {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 0 0 0;
+    -fx-text-fill: #e9f0f1; /* Soft White */
+}

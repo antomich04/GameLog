@@ -9,67 +9,71 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="rootPane" minHeight="-Infinity" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/CodeVerification.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.CodeVerificationController">
-   <children>
-      <Button id="backBtn" fx:id="backBtn" layoutX="60.0" layoutY="90.0" prefHeight="45.0" prefWidth="45.0" text="&lt;">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button id="submitBtn" fx:id="submitBtn" layoutX="348.0" layoutY="545.0" prefHeight="50.0" prefWidth="264.0" text="SUBMIT">
-         <font>
-            <Font name="MS Reference Sans Serif" size="28.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-       <Label layoutX="245.0" layoutY="207.0" styleClass="page-title" text="A verification code has been sent to your email." wrapText="true">
-           <font>
-               <Font name="MS Reference Sans Serif" size="20.0" />
-           </font>
-       </Label>
-      <Label layoutX="335.0" layoutY="238.0" styleClass="page-title" text="Please enter the code below">
-         <font>
-            <Font name="MS Reference Sans Serif" size="20.0" />
-         </font>
-      </Label>
-      <HBox id="otpContainer" alignment="CENTER" layoutX="266.0" layoutY="330.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="440.0">
-         <children>
-            <TextField fx:id="otp1" prefHeight="90.0" prefWidth="65.0" styleClass="otp">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="otp2" prefHeight="90.0" prefWidth="65.0" styleClass="otp">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="otp3" prefHeight="90.0" prefWidth="65.0" styleClass="otp">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="otp4" prefHeight="90.0" prefWidth="65.0" styleClass="otp">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </TextField>
-         </children>
-      </HBox>
-      <Text id="resendCodeLink" fx:id="resendCode" fill="#4a5b85" layoutX="408.0" layoutY="645.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resend Code">
-         <font>
-            <Font name="MS Reference Sans Serif" size="24.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Text>
-       <HBox id="errorMessageContainer" alignment="CENTER" layoutX="0.0" layoutY="470.0" prefHeight="25.0" prefWidth="960.0">
-           <children>
-               <Text fx:id="codeErrorMessage" fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error-label" />
-           </children>
-       </HBox>
-   </children>
+<!-- CHANGED: Pointing to dark css -->
+<AnchorPane fx:id="rootPane" minHeight="-Infinity" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/Code_Verification_css/CodeVerification.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.CodeVerificationController">
+    <children>
+        <Button id="backBtn" fx:id="backBtn" layoutX="60.0" layoutY="90.0" prefHeight="45.0" prefWidth="45.0" text="&lt;">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
+        <Button id="submitBtn" fx:id="submitBtn" layoutX="348.0" layoutY="545.0" prefHeight="50.0" prefWidth="264.0" text="SUBMIT">
+            <font>
+                <Font name="MS Reference Sans Serif" size="28.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
+        <Label layoutX="245.0" layoutY="207.0" styleClass="page-title" text="A verification code has been sent to your email." wrapText="true">
+            <font>
+                <Font name="MS Reference Sans Serif" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="335.0" layoutY="238.0" styleClass="page-title" text="Please enter the code below">
+            <font>
+                <Font name="MS Reference Sans Serif" size="20.0" />
+            </font>
+        </Label>
+        <HBox id="otpContainer" alignment="CENTER" layoutX="266.0" layoutY="330.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="130.0" prefWidth="440.0">
+            <children>
+                <TextField fx:id="otp1" prefHeight="90.0" prefWidth="65.0" styleClass="otp">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="otp2" prefHeight="90.0" prefWidth="65.0" styleClass="otp">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="otp3" prefHeight="90.0" prefWidth="65.0" styleClass="otp">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="otp4" prefHeight="90.0" prefWidth="65.0" styleClass="otp">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </TextField>
+            </children>
+        </HBox>
+
+        <Text id="resendCodeLink" fx:id="resendCode" layoutX="408.0" layoutY="645.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Resend Code">
+            <font>
+                <Font name="MS Reference Sans Serif" size="24.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Text>
+
+        <HBox id="errorMessageContainer" alignment="CENTER" layoutX="0.0" layoutY="470.0" prefHeight="25.0" prefWidth="960.0">
+            <children>
+                <!-- REMOVED inline fill="RED" -->
+                <Text fx:id="codeErrorMessage" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="error-label" />
+            </children>
+        </HBox>
+    </children>
 </AnchorPane>

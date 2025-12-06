@@ -2,6 +2,11 @@
     -fx-background-color: white;
 }
 
+.page-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
 .scroll-pane {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -9,6 +14,7 @@
 
 .scroll-pane .viewport {
     -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 .scroll-pane .scroll-bar:vertical,
@@ -21,22 +27,21 @@
     -fx-background-color: transparent;
 }
 
-.clickableIcons:hover .image-view {
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
-    -fx-transition: -fx-scale-x 0.2s, -fx-scale-y 0.2s;
-}
-
-.clickableIcons .image-view {
-    -fx-transition: -fx-scale-x 0.2s, -fx-scale-y 0.2s;
-}
-
 .clickableIcons {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-border-width: 0;
     -fx-padding: 0;
     -fx-cursor: hand;
+}
+
+.clickableIcons .image-view {
+    -fx-transition: -fx-scale-x 0.2s, -fx-scale-y 0.2s;
+}
+
+.clickableIcons:hover .image-view {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
 }
 
 .clickableIcons:hover {
@@ -50,4 +55,16 @@
 .clickableIcons:focused {
     -fx-background-color: transparent;
     -fx-border-width: 0;
+}
+
+#emptyFavoritesLabel {
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+}
+
+.loading-label {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 0 0 0;
+    -fx-text-fill: black;
 }

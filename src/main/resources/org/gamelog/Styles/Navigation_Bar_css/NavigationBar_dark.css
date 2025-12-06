@@ -1,0 +1,38 @@
+#navMenu {
+    /* distinct deep blue, separates from the #195951 header */
+    -fx-background-color: #132632;
+    -fx-alignment: center;
+    -fx-spacing: 40;
+    -fx-padding: 24 0 24 0;
+    /* subtle shadow to define the edge */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 0);
+}
+
+.sidebarBtn {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+}
+
+.sidebarBtn:hover {
+    /* Lighter blue on hover for feedback */
+    -fx-background-color: #1f3b4d;
+}
+
+.sidebarBtn.active {
+    /* Distinct overlay for the active tab */
+    -fx-background-color: rgba(255, 255, 255, 0.15);
+}
+
+.sidebarContent {
+    -fx-alignment: center;
+    -fx-spacing: 6;
+}
+
+/* --- TEXT --- */
+.sidebar-text {
+    -fx-fill: #e9f0f1; /* Soft White */
+    -fx-font-family: "MS Reference Sans Serif";
+    -fx-font-size: 15px;
+    -fx-text-alignment: center;
+}

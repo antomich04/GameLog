@@ -1,0 +1,101 @@
+/* ==============================================
+   LIGHT MODE BACKLOG PAGE
+   ============================================== */
+
+#rootPane{
+    -fx-background-color: white;
+}
+
+/* --- TEXT STYLES --- */
+.page-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+.empty-label {
+    -fx-font-weight: bold;
+    -fx-fill: black;
+}
+
+/* --- SCROLL PANE --- */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical,
+.scroll-pane .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical .track,
+.scroll-pane .scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+}
+
+/* --- ICONS --- */
+.clickableIcons {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.clickableIcons:hover {
+    -fx-background-color: transparent;
+}
+
+.clickableIcons:pressed {
+    -fx-background-color: transparent;
+}
+
+.clickableIcons:focused {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+/* Animation Base */
+.clickableIcons .image-view {
+    -fx-transition: -fx-scale-x 0.2s, -fx-scale-y 0.2s;
+}
+
+/* Generic Animation Hover */
+.clickableIcons:hover #filterIcon {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.4), 8, 0, 0, 0);
+}
+
+.clickableIcons:hover #addIcon {
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.4), 8, 0, 0, 0);
+}
+
+/* Specific Add Icon Scale (Base) */
+.clickableIcons #addIcon {
+    -fx-scale-x: 0.7;
+    -fx-scale-y: 0.7;
+}
+
+.clickableIcons:hover #addIcon {
+    -fx-scale-x: 0.85;
+    -fx-scale-y: 0.85;
+}
+
+/* --- LOADING --- */
+.loading-overlay {
+    -fx-background-color: white;
+}
+
+.loading-label {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 0 0 0;
+    -fx-text-fill: black;
+}

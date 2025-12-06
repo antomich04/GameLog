@@ -8,19 +8,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="rootPane" stylesheets="@../Styles/StartingPage.css" alignment="CENTER" prefHeight="768.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.StartingPageController">
+<VBox fx:id="rootPane" stylesheets="@../Styles/Starting_Page_css/StartingPage.css" alignment="CENTER" prefHeight="768.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.StartingPageController">
 
     <children>
-        <ImageView fitHeight="300.0" fitWidth="500.0" preserveRatio="true">
+        <ImageView fx:id="logoImage" fitHeight="300.0" fitWidth="500.0" preserveRatio="true">
             <image>
-                <Image url="@../Assets/Logo.png" />
+                <Image url="@../Assets/logo.png" />
             </image>
             <VBox.margin>
                 <Insets bottom="-28.0" />
             </VBox.margin>
         </ImageView>
 
-        <Text text="Welcome to GameLog!">
+        <Text styleClass="title-text" text="Welcome to GameLog!">
             <font>
                 <Font name="MS Reference Sans Serif" size="40.0" />
             </font>
@@ -29,13 +29,13 @@
             </VBox.margin>
         </Text>
 
-        <Text fill="#4a5b85" text="Track your games, achievements, and progress with ease." textAlignment="CENTER" wrappingWidth="360.0">
+        <Text styleClass="subtitle-text" text="Track your games, achievements, and progress with ease." textAlignment="CENTER" wrappingWidth="360.0">
             <font>
                 <Font name="MS Reference Sans Serif" size="20.0" />
             </font>
         </Text>
 
-        <Button fx:id="getStartedBtn" prefHeight="70.0" prefWidth="400.0" text="GET STARTED" textFill="WHITE">
+        <Button fx:id="getStartedBtn" prefHeight="70.0" prefWidth="400.0" text="GET STARTED">
             <font>
                 <Font name="MS Reference Sans Serif" size="32.0" />
             </font>

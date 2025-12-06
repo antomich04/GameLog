@@ -1,0 +1,48 @@
+#rootPane {
+    -fx-background-color: #0E1C24; /* Dark Background */
+}
+
+/* --- TEXT STYLES --- */
+.welcome-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: #e9f0f1; /* Soft White */
+}
+
+.section-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 26px;
+    -fx-text-fill: #e9f0f1; /* Soft White */
+}
+
+.empty-label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #a8b0b2;
+}
+
+/* --- LOADING --- */
+.loading-overlay {
+    -fx-background-color: #0E1C24; /* Match background */
+}
+
+.loading-label {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 0 0 0;
+    -fx-text-fill: #e9f0f1;
+}
+
+/* --- USER ICON --- */
+#userIconRect {
+    -fx-fill: #2f3436; /* Dark Grey (Matches Settings Profile) */
+    -fx-stroke-width: 1;
+}
+
+#User_icon {
+    -fx-cursor: hand;
+}
+
+#User_icon:hover #userIconRect {
+    -fx-fill: #3e4446; /* Slightly lighter grey on hover */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0.3, 0, 2);
+}

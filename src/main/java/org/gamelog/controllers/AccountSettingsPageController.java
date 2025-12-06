@@ -19,12 +19,15 @@ import org.gamelog.Main;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.AuthRepo;
 import org.gamelog.repository.UserRepo;
+import org.gamelog.utils.ThemeManager;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 
 public class AccountSettingsPageController {
 
+    @FXML
+    private AnchorPane rootPane;
     @FXML
     private TextField usernameField;
     @FXML
@@ -42,30 +45,31 @@ public class AccountSettingsPageController {
     @FXML
     private Label passwordError;
     @FXML
-    private AnchorPane rootPane;
-    @FXML
     private Label usernameLetter;
 
-    private FXMLLoader loader;
-    private String currentEmail;
     private final String passwordPlaceholder = "********";
+    private String currentEmail;
     private String currentPassword;
     private String currentUsername;
-    SessionManager sessionManager;
+    private SessionManager sessionManager;
 
     public void initialize() {
         sessionManager = SessionManager.getInstance();
         currentUsername = sessionManager.getUsername();
-        usernameLetter.setText(String.valueOf(Character.toUpperCase(currentUsername.charAt(0))));
+
+        if (currentUsername != null && !currentUsername.isEmpty()) {
+            usernameLetter.setText(String.valueOf(Character.toUpperCase(currentUsername.charAt(0))));
+        }
 
         currentEmail = UserRepo.getEmail(currentUsername);
         currentPassword = UserRepo.getPassword(currentUsername);
 
-        loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/settings-page.fxml"));
+        // Setup Buttons
         confirmButton.setOnAction(event -> handleConfirm());
         backButton.setOnAction(event -> goToSettingsPage());
 
         setCurrentUserData(currentUsername);
+        ThemeManager.applyTheme(rootPane, "AccountSettings");
     }
 
     private void setCurrentUserData(String username) {
@@ -134,12 +138,12 @@ public class AccountSettingsPageController {
         AuthRepo authRepo = new AuthRepo();
         boolean usernameSuccess = false;
 
-        //Update Username
+        // Update Username
         if (usernameEdited) {
             if (authRepo.usernameExists(newUsername)) {
                 usernameError.setText("*Username already exists!*");
                 usernameError.setVisible(true);
-                return;
+                return; // Stop execution on duplicate username
             } else {
                 UserRepo.updateUsername(currentUsername, newUsername);
                 currentUsername = newUsername;
@@ -149,12 +153,12 @@ public class AccountSettingsPageController {
             }
         }
 
-        //Update Password
+        // Update Password
         if (passwordEdited) {
             UserRepo.updatePassword(currentUsername, BCrypt.hashpw(newPassword, BCrypt.gensalt()));
         }
 
-        //Create Notification
+        // Create Notification based on what was updated
         if (usernameSuccess && passwordEdited) {
             showSettingsNotification("Credentials changed successfully");
         } else if (usernameSuccess) {
@@ -173,7 +177,7 @@ public class AccountSettingsPageController {
         }
 
         try {
-            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/Logo.png"));
+            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/logo.png"));
             ImageView iconView = new ImageView(iconImage);
             iconView.setFitHeight(90);
             iconView.setFitWidth(120);
@@ -198,7 +202,12 @@ public class AccountSettingsPageController {
 
     private void goToSettingsPage() {
         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/settings-page.fxml"));
             Parent root = loader.load();
+
+            // APPLY THEME
+            ThemeManager.applyTheme(root, "Settings");
+
             Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

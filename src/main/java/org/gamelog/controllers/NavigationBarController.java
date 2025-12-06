@@ -5,11 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.gamelog.model.SessionManager;
+import org.gamelog.utils.ThemeManager; // Import ThemeManager
+
 import java.io.IOException;
 
 public class NavigationBarController {
+
+    @FXML
+    private VBox navMenu;
 
     @FXML
     private Button homeButton;
@@ -22,41 +28,38 @@ public class NavigationBarController {
     @FXML
     private Button logoutButton;
 
+    @FXML
     public void initialize() {
-        homeButton.setOnMouseClicked(event -> handleHomeButton());
-        backlogButton.setOnMouseClicked(event -> handleBacklogButton());
-        favoritesButton.setOnMouseClicked(event -> handleFavoritesButton());
-        settingsButton.setOnMouseClicked(event -> handleSettingsButton());
-        logoutButton.setOnMouseClicked(event -> handleLogoutButton());
+        ThemeManager.applyTheme(navMenu, "NavBar");
+
+        homeButton.setOnMouseClicked(e -> navigateTo("/org/gamelog/Pages/home-page.fxml", "Home"));
+        backlogButton.setOnMouseClicked(e -> navigateTo("/org/gamelog/Pages/backlog-page.fxml", "Backlog"));
+        favoritesButton.setOnMouseClicked(e -> navigateTo("/org/gamelog/Pages/favorites-page.fxml", "Favorites"));
+        settingsButton.setOnMouseClicked(e -> navigateTo("/org/gamelog/Pages/settings-page.fxml", "Settings"));
+        logoutButton.setOnMouseClicked(e -> handleLogout());
     }
 
-    private void handleHomeButton() {
-        navigateToPage("/org/gamelog/Pages/home-page.fxml");
-    }
-
-    private void handleBacklogButton() {
-        navigateToPage("/org/gamelog/Pages/backlog-page.fxml");
-    }
-
-    private void handleFavoritesButton() {
-        navigateToPage("/org/gamelog/Pages/favorites-page.fxml");
-    }
-
-    private void handleSettingsButton() {
-        navigateToPage("/org/gamelog/Pages/settings-page.fxml");
-    }
-
-    private void handleLogoutButton() {
-        SessionManager.clearSession();
-        navigateToPage("/org/gamelog/Pages/login-page.fxml");
-    }
-
-    private void navigateToPage(String fxmlPath) {
+    private void navigateTo(String fxmlPath, String themeKey) {
         try {
-            Parent page = FXMLLoader.load(getClass().getResource(fxmlPath));
-            Stage stage = (Stage) homeButton.getScene().getWindow();
-            Scene scene = new Scene(page);
-            stage.setScene(scene);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+            //Apply Theme
+            ThemeManager.applyTheme(root, themeKey);
+
+            Stage stage = (Stage) navMenu.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleLogout() {
+        SessionManager.clearSession();
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
+            Stage stage = (Stage) navMenu.getScene().getWindow();
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
