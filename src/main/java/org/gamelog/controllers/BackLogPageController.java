@@ -24,7 +24,6 @@ import org.gamelog.model.SearchResult;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
 import org.gamelog.repository.UserRepo;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -172,10 +171,10 @@ public class BackLogPageController {
                 cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getBacklogId));
                 break;
             case "Progress (0% - 100%)":
-                cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getProgress));
+                cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getSortableProgressScore));
                 break;
             case "Progress (100% - 0%)":
-                cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getProgress).reversed());
+                cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getSortableProgressScore).reversed());
                 break;
             default:
                 break;
@@ -236,7 +235,7 @@ public class BackLogPageController {
                     updateEmptyState();
 
                 }else{
-                    javafx.scene.control.Alert alert = new Alert(javafx.scene.control.Alert.AlertType.ERROR);
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Adding Game");
                     alert.setHeaderText(null);
                     alert.setContentText("This game and platform combination is already in your backlog, or a database error occurred. Please try again or check your existing list.");
@@ -284,6 +283,7 @@ public class BackLogPageController {
             Node card = loader.load();
             SmallCardController cardController = loader.getController();
 
+            cardController.setCallingPageFxml("/org/gamelog/Pages/backlog-page.fxml");
             cardController.setCardData(backlog_id, gid, gameName, platform, progress, totalAchievements);
             cardController.setCardNode(card);
 

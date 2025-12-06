@@ -1,23 +1,31 @@
 package org.gamelog.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 import org.gamelog.Main;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
 import org.gamelog.repository.UserRepo;
+import java.io.IOException;
 
 public class SmallCardController {
 
+    @FXML
+    private AnchorPane rootPane;
     @FXML
     private Button deleteButton;
     @FXML
@@ -30,6 +38,8 @@ public class SmallCardController {
     private Label progressText;
     @FXML
     private ProgressBar progressBar;
+    @FXML
+    private Button editItemBtn;
 
     private Node cardNode;
     private int backlogId;
@@ -37,6 +47,10 @@ public class SmallCardController {
     private String platform;
     private Runnable onDeleteAction;
     private Runnable onFavoriteToggle;
+    private String callingPageFxml;
+    private int achievedCount;
+    private int totalAchievements;
+    String username = SessionManager.getInstance().getUsername();
 
     //Used for different favorite states
     private static final String FILLED_HEART_URL = "/org/gamelog/Assets/filled_heart_icon.png";
@@ -46,8 +60,6 @@ public class SmallCardController {
     public void initialize() {
         deleteButton.setOnMouseClicked(e -> {
             boolean success = GamesRepo.removeBacklogItem(backlogId);
-            SessionManager sessionManager = SessionManager.getInstance();
-            String username = sessionManager.getUsername();
 
             if (success) {
                 // Removes the card visually
@@ -77,6 +89,14 @@ public class SmallCardController {
                 onFavoriteToggle.run();
             }
         });
+
+        editItemBtn.setOnMouseClicked(e -> {
+            openEditItemPage(this.backlogId);
+        });
+    }
+
+    public void setCallingPageFxml(String fxmlPath) {
+        this.callingPageFxml = fxmlPath;
     }
 
     private void setFavoriteIcon(boolean isFavorite) {
@@ -101,11 +121,13 @@ public class SmallCardController {
         this.backlogId = backlog_id;
         this.gid = gid;
         this.platform = platform;
+        this.achievedCount = achievements;
+        this.totalAchievements = totalAchievements;
 
         if (gameTitle != null) gameTitle.setText(title);
         if (platformText != null) platformText.setText(platform);
-        if (progressText != null) progressText.setText("🏆 " + achievements + "/" + totalAchievements + " Achievements");
-        if (progressBar != null) progressBar.setProgress((double) achievements / totalAchievements);
+
+        updateProgressDisplay(this.achievedCount, this.totalAchievements);
 
         String username = SessionManager.getInstance().getUsername();
         if (username != null) {
@@ -114,9 +136,73 @@ public class SmallCardController {
         }
     }
 
+    private void openEditItemPage(int backlogId) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/edit-item-page.fxml"));
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            Scene editScene = new Scene(loader.load());
+
+            EditItemController controller = loader.getController();
+            controller.setBacklogId(backlogId);
+
+            //Passes the previous page path
+            if (this.callingPageFxml != null) {
+                controller.setPreviousPage(this.callingPageFxml);
+            }
+
+            controller.setOnDataUpdated(this::refreshCardProgress);
+
+            stage.setScene(editScene);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void refreshCardProgress() {
+        Thread refreshThread = new Thread(() -> {
+            String username = SessionManager.getInstance().getUsername();
+
+            this.achievedCount = GamesRepo.getAchievedCount(username, this.gid);
+
+            Platform.runLater(() -> {
+                updateProgressDisplay(this.achievedCount, this.totalAchievements);
+            });
+        });
+
+        refreshThread.setDaemon(true);
+        refreshThread.start();
+    }
+
+    private void updateProgressDisplay(int achieved, int total) {
+
+        if (total <= 0) {
+            if (progressText != null) progressText.setText("🏆 No achievements available!");
+
+            if (progressBar != null){
+                progressBar.setProgress(1.0);
+                progressBar.getStyleClass().remove("progress-bar");
+                progressBar.getStyleClass().add("completed-progress-bar");
+            }
+            return;
+        }
+
+        double progress = (double) achieved / total;
+
+        if (progressText != null) progressText.setText("🏆 " + achieved + "/" + total + " Achievements");
+
+        if (progressBar != null) {
+            progressBar.setProgress(progress);
+            if(progressBar.getProgress() == 1.0){
+                progressBar.getStyleClass().remove("progress-bar");
+                progressBar.getStyleClass().add("completed-progress-bar");
+            }
+        }
+    }
+
     private void showGameDeletionNotification() {
-        //Check if Notifications Are Enabled
-        String username = SessionManager.getInstance().getUsername();
+        //Checks if Notifications Are Enabled
         if (!UserRepo.isNotificationsEnabled(username)) {
             return;
         }
@@ -125,7 +211,7 @@ public class SmallCardController {
         String platform = this.platformText != null ? this.platformText.getText() : "Unknown Platform";
 
         try {
-            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/Logo.png"));
+            Image iconImage = new Image(getClass().getResourceAsStream("/org/gamelog/Assets/Logo.png"));
             ImageView iconView = new ImageView(iconImage);
             iconView.setFitHeight(90);
             iconView.setFitWidth(120);
@@ -148,8 +234,7 @@ public class SmallCardController {
     }
 
     private void showFavoriteNotification(boolean addedToFavorites) {
-        //Check if Notifications Are Enabled
-        String username = SessionManager.getInstance().getUsername();
+        //Checks if Notifications Are Enabled
         if (!UserRepo.isNotificationsEnabled(username)) {
             return;
         }
@@ -158,7 +243,7 @@ public class SmallCardController {
         String platform = this.platformText != null ? this.platformText.getText() : "Unknown Platform";
 
         try {
-            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/Logo.png"));
+            Image iconImage = new Image(getClass().getResourceAsStream("/org/gamelog/Assets/Logo.png"));
             ImageView iconView = new ImageView(iconImage);
             iconView.setFitHeight(90);
             iconView.setFitWidth(120);

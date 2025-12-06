@@ -1,6 +1,7 @@
 package org.gamelog.utils;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.gamelog.model.GameInfo;
 import org.gamelog.model.SearchResult;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,6 +22,7 @@ public class RawgClient {
     private static final HttpClient CLIENT = HttpClient.newHttpClient();
     private static final String API_BASE_URL = "https://api.rawg.io/api/";
     private static final String API_KEY = dotenv.get("API_KEY");
+    private static final int MAX_ACHIEVEMENTS_LIMIT = 50;
 
     public static List<SearchResult> searchGames(String query) {
         String encodedQuery = query.replace(" ", "+");
@@ -106,7 +108,41 @@ public class RawgClient {
         return platforms;
     }
 
-    public static int fetchTotalAchievements(int rawg_id){
+    public static List<String> fetchGameAchievements(int rawgId) {
+        List<String> achievementNames = new ArrayList<>();
+
+        String url = API_BASE_URL + "games/" + rawgId + "/achievements?key=" + API_KEY + "&page_size=" + MAX_ACHIEVEMENTS_LIMIT;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .timeout(Duration.ofSeconds(10))
+                .GET()
+                .build();
+
+        try {
+            HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                JsonNode rootNode = MAPPER.readTree(response.body());
+                JsonNode resultsNode = rootNode.path("results");
+
+                if (resultsNode.isArray()) {
+                    for (JsonNode achievementNode : resultsNode) {
+                        String name = achievementNode.path("name").asText();
+                        if (!name.isEmpty()) {
+                            achievementNames.add(name);
+                        }
+                    }
+                }
+            }
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return achievementNames;
+    }
+
+    public static int fetchTotalAchievementCount(int rawg_id){
         String url = API_BASE_URL + "games/" + rawg_id + "?key=" + API_KEY;
 
         HttpRequest request = HttpRequest.newBuilder()
@@ -121,17 +157,52 @@ public class RawgClient {
             if (response.statusCode() == 200) {
                 JsonNode rootNode = MAPPER.readTree(response.body());
 
-                //Extracts achievements count
                 int achievementCount = rootNode.path("achievements_count").asInt();
 
-                return Math.max(achievementCount, 1);
+                if (achievementCount == 0) {
+                    return 0;
+                }
+
+                return Math.min(achievementCount, MAX_ACHIEVEMENTS_LIMIT);
 
             }
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-        return 20;  //Fallback value (Mockup)
+        return 0;  //Fallback value
+    }
+
+    public static GameInfo fetchGameDetails(int rawgId) {
+        String url = API_BASE_URL + "games/" + rawgId + "?key=" + API_KEY;
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .timeout(Duration.ofSeconds(10))
+                .GET()
+                .build();
+
+        try {
+            HttpResponse<String> response = CLIENT.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                JsonNode rootNode = MAPPER.readTree(response.body());
+
+                double rating = rootNode.path("rating").asDouble();
+                Double gameRating = (rating > 0.0) ? rating : null;
+
+                //Gets release date as "yyyy-MM-dd"
+                String releaseDate = rootNode.path("released").asText(null);
+
+                String coverImageUrl = rootNode.path("background_image").asText(null);
+
+                return new GameInfo(gameRating, releaseDate, coverImageUrl);
+            }
+
+        } catch(IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+        return new GameInfo(null, null, null);
     }
 
 }

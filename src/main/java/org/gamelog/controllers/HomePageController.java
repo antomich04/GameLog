@@ -124,6 +124,7 @@ public class HomePageController {
             Pane card = loader.load();
             SmallCardController cardController = loader.getController();
 
+            cardController.setCallingPageFxml("/org/gamelog/Pages/home-page.fxml");
             cardController.setCardData(
                     item.getBacklogId(),
                     item.getGid(),

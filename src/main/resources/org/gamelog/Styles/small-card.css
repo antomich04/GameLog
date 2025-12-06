@@ -43,7 +43,23 @@
     -fx-control-inner-background: #e0e0e0;
 }
 
+.completed-progress-bar {
+    -fx-pref-width: 300;
+    -fx-pref-height: 10px;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-control-inner-background: #e0e0e0;
+}
+
 .progress-bar > .track {
+    -fx-background-radius: 8;
+    -fx-background-color: #e0e0e0;
+    -fx-pref-height: 10px;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.completed-progress-bar > .track {
     -fx-background-radius: 8;
     -fx-background-color: #e0e0e0;
     -fx-pref-height: 10px;
@@ -54,6 +70,14 @@
 .progress-bar > .bar {
     -fx-background-radius: 8;
     -fx-background-color: #1C3849;
+    -fx-pref-height: 10px;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.completed-progress-bar > .bar {
+    -fx-background-radius: 8;
+    -fx-background-color: #4CAF50;
     -fx-pref-height: 10px;
     -fx-padding: 0;
     -fx-background-insets: 0;
@@ -126,7 +150,23 @@
     -fx-control-inner-background: #e0e0e0;
 }
 
+.game-card.xlarge .completed-progress-bar {
+    -fx-pref-width: 520px;
+    -fx-pref-height: 12px;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-control-inner-background: #e0e0e0;
+}
+
 .game-card.xlarge .progress-bar > .track {
+    -fx-background-radius: 8;
+    -fx-background-color: #e0e0e0;
+    -fx-pref-height: 12px;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.game-card.xlarge .completed-progress-bar > .track {
     -fx-background-radius: 8;
     -fx-background-color: #e0e0e0;
     -fx-pref-height: 12px;
@@ -137,6 +177,14 @@
 .game-card.xlarge .progress-bar > .bar {
     -fx-background-radius: 8;
     -fx-background-color: #1C3849;
+    -fx-pref-height: 12px;
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+
+.game-card.xlarge .completed-progress-bar > .bar {
+    -fx-background-radius: 8;
+    -fx-background-color: #4CAF50;
     -fx-pref-height: 12px;
     -fx-padding: 0;
     -fx-background-insets: 0;

@@ -179,6 +179,7 @@ public class FavoritesPageController {
             Node card = loader.load();
             SmallCardController cardController = loader.getController();
 
+            cardController.setCallingPageFxml("/org/gamelog/Pages/favorites-page.fxml");
             cardController.setCardData(backlog_id, gid, gameName, platform, progress, totalAchievements);
             cardController.setCardNode(card);
 
