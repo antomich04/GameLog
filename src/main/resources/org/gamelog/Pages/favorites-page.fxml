@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/FavoritesPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.FavoritesPageController">
+<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/Favorites_Page_css/FavoritesPage_dark.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.FavoritesPageController">
     <left>
         <fx:include source="../Components/navigation-bar.fxml" />
     </left>
@@ -26,7 +26,7 @@
 
             <HBox alignment="CENTER_LEFT" prefWidth="800" spacing="20">
                 <VBox alignment="CENTER_LEFT" spacing="5" HBox.hgrow="ALWAYS">
-                    <Label style="-fx-font-weight: bold;" text="Favorite Games">
+                    <Label styleClass="page-title" text="Favorite Games">
                         <font>
                             <Font size="28.0" />
                         </font>
@@ -35,7 +35,7 @@
 
                 <Button fx:id="filterFavoritesBtn" styleClass="clickableIcons">
                     <graphic>
-                        <ImageView fitHeight="45.0" fitWidth="45.0" preserveRatio="true">
+                        <ImageView fx:id="filterIcon" fitHeight="45.0" fitWidth="45.0" preserveRatio="true">
                             <image>
                                 <Image url="@../Assets/filter_icon.png" />
                             </image>
@@ -46,8 +46,7 @@
 
             <StackPane VBox.vgrow="ALWAYS" prefHeight="600.0" prefWidth="800.0">
 
-                <!-- Empty label - moved to main StackPane level -->
-                <Label fx:id="emptyFavoritesLabel" style="-fx-font-weight: bold;" text="Nothing to see here..."
+                <Label fx:id="emptyFavoritesLabel" styleClass="empty-label" text="Nothing to see here..."
                        visible="false" managed="false" StackPane.alignment="CENTER">
                     <font>
                         <Font size="28.0" />
@@ -55,7 +54,7 @@
                 </Label>
 
                 <ScrollPane fx:id="favoritesScrollPane" fitToWidth="true" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER"
-                            style="-fx-background: white; -fx-border-color: transparent;">
+                            style="-fx-border-color: transparent;">
                     <content>
                         <VBox fx:id="contentVBox" alignment="TOP_LEFT" spacing="20" minHeight="-Infinity" VBox.vgrow="ALWAYS">
 
@@ -72,11 +71,11 @@
                     </content>
                 </ScrollPane>
 
-                <VBox fx:id="loadingOverlay" alignment="CENTER" style="-fx-background-color: rgba(255, 255, 255, 0.85);"
+                <VBox fx:id="loadingOverlay" styleClass="loading-overlay" alignment="CENTER"
                       visible="false" managed="false" StackPane.alignment="CENTER">
                     <children>
                         <ProgressIndicator prefHeight="400" prefWidth="400"/>
-                        <Label text="Loading Favorites..." style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-padding: 10 0 0 0;" />
+                        <Label styleClass="loading-label" text="Loading Favorites..." />
                     </children>
                 </VBox>
 

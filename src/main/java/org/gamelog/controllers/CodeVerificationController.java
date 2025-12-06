@@ -4,6 +4,7 @@ import jakarta.mail.MessagingException;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -12,6 +13,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.gamelog.repository.AuthRepo;
 import org.gamelog.utils.EmailSender;
+import org.gamelog.utils.ThemeManager; // Import ThemeManager
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -43,7 +46,6 @@ public class CodeVerificationController {
     private AuthRepo authRepo;
 
     public void initialize() {
-
         otpFields = Arrays.asList(otp1, otp2, otp3, otp4);
         authRepo = new AuthRepo();
 
@@ -51,8 +53,14 @@ public class CodeVerificationController {
 
         backBtn.setOnMouseClicked(e -> {
             try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
+                Parent root = loader.load();
+
+                // 2. APPLY
+                ThemeManager.applyTheme(root, "Login");
+
                 Stage stage =  (Stage) rootPane.getScene().getWindow();
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml")));
+                Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
             }catch(IOException ex){
@@ -222,16 +230,18 @@ public class CodeVerificationController {
                 if (getValue()) {
                     codeErrorMessage.setText("");
 
-                     try {
-                         Stage stage = (Stage) rootPane.getScene().getWindow();
-                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/change-password-page.fxml"));
-                         Scene scene = new Scene(loader.load());
-                         ChangePasswordController cpc = loader.getController();
-                         cpc.setEmail(email); //Passes email for the final update
-                         stage.setScene(scene);
-                         stage.show();
-                     } catch (IOException ex) {
-                         ex.printStackTrace();
+                    try {
+                        Stage stage = (Stage) rootPane.getScene().getWindow();
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/change-password-page.fxml"));
+                        Parent root = loader.load();
+
+                        Scene scene = new Scene(root);
+                        ChangePasswordController cpc = loader.getController();
+                        cpc.setEmail(email); //Passes email for the final update
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
                     }
 
                 } else {

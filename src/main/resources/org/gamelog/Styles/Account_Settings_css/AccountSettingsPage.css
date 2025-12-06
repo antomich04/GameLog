@@ -1,17 +1,25 @@
 #rootPane {
     -fx-background-color: #FFFFFF;
 }
+
+/* --- ADDED: Header Class --- */
+.header-background {
+    -fx-background-color: #2A9D8F;
+}
+
 .page-title {
     -fx-font-family: "MS Reference Sans Serif";
     -fx-font-size: 32px;
     -fx-text-fill: #1C3849;
     -fx-font-weight: bold;
 }
+
 .field-label {
     -fx-font-family: "MS Reference Sans Serif";
     -fx-font-size: 22px;
     -fx-fill: #000000;
 }
+
 .text-field {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #000000;
@@ -23,17 +31,21 @@
     -fx-highlight-fill: #828282;
     -fx-highlight-text-fill: #FFFFFF;
 }
+
 .text-field:focused {
     -fx-border-color: #1C3849;
     -fx-border-width: 2;
     -fx-effect: dropshadow(gaussian, rgba(28,56,73,0.1), 4, 0.3, 0, 0);
 }
+
+/* --- BUTTONS --- */
 .confirm-button {
     -fx-background-color: #1C3849;
     -fx-background-radius: 8;
     -fx-text-fill: white;
     -fx-cursor: hand;
 }
+
 .back-button {
     -fx-background-color: #1C3849;
     -fx-text-fill: #ffffff;
@@ -54,10 +66,12 @@
     -fx-font-family: "MS Reference Sans Serif";
     -fx-font-size: 16px;
 }
+
 #profileCircle {
     -fx-fill: #D9D9D9;
 }
-#profileInitial {
+
+#usernameLetter {
     -fx-text-fill: black;
-    -fx-font-size: 64px;
+    -fx-font-size: 76px;
 }

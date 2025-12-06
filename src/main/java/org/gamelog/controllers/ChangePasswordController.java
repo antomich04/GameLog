@@ -1,8 +1,10 @@
 package org.gamelog.controllers;
 
+import javafx.animation.PauseTransition;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -10,8 +12,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.gamelog.repository.UserRepo;
+import org.gamelog.utils.ThemeManager; // Import ThemeManager
 import org.mindrot.jbcrypt.BCrypt;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -39,17 +44,7 @@ public class ChangePasswordController {
     private String confirmNewPassword;
 
     public void initialize() {
-
-        backBtn.setOnMouseClicked(e -> {
-            try{
-                Stage  stage = (Stage) rootPane.getScene().getWindow();
-                Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml")));
-                stage.setScene(scene);
-                stage.show();
-            }catch(IOException ex){
-                ex.printStackTrace();
-            }
-        });
+        backBtn.setOnMouseClicked(e -> navigateToLogin());
 
         updateBtn.setOnMouseClicked(e -> {
 
@@ -85,7 +80,6 @@ public class ChangePasswordController {
             }
 
             if (!hasInputError) {
-
                 //Business logic check
                 if(BCrypt.checkpw(newPassword, currentPassword)) {
                     passwordErrorMessage1.setText("*New password cannot be the same as the current one!*");
@@ -110,7 +104,7 @@ public class ChangePasswordController {
         this.currentPassword = UserRepo.getPasswordByEmail(email);
     }
 
-    private void  updatePasswordAsync(String newPassword) {
+    private void updatePasswordAsync(String newPassword) {
         updateBtn.setDisable(true);
 
         passwordStatusMessage.setText("Updating password...");
@@ -119,9 +113,7 @@ public class ChangePasswordController {
         Task<Boolean> updateTask = new Task<>() {
             @Override
             protected Boolean call() throws Exception {
-
                 String newHashedPassword = BCrypt.hashpw(newPassword, BCrypt.gensalt());
-
                 return UserRepo.updatePasswordByEmail(email, newHashedPassword);
             }
 
@@ -131,19 +123,13 @@ public class ChangePasswordController {
                 updateBtn.setDisable(false);
 
                 if (getValue()) {
-
                     passwordStatusMessage.setText("Password successfully updated! Redirecting...");
                     passwordStatusMessage.setFill(Color.valueOf("#00FF00"));
 
-                    try {
-                        Thread.sleep(1500);
-                        Stage stage = (Stage) rootPane.getScene().getWindow();
-                        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml")));
-                        stage.setScene(scene);
-                        stage.show();
-                    } catch (IOException | InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
+                    
+                    PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
+                    delay.setOnFinished(e -> navigateToLogin());
+                    delay.play();
                 }
             }
 
@@ -153,7 +139,6 @@ public class ChangePasswordController {
                 updateBtn.setDisable(false);
 
                 Throwable ex = getException();
-
                 String displayMessage = (ex instanceof SQLException)
                         ? "*Database error during update. Please try again.*"
                         : "*An unexpected error occurred during verification.*";
@@ -165,6 +150,20 @@ public class ChangePasswordController {
         };
 
         new Thread(updateTask).start();
+    }
+
+    private void navigateToLogin() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void clearErrorMessages() {

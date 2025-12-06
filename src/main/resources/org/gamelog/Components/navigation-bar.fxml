@@ -9,18 +9,20 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="navMenu" alignment="CENTER" prefHeight="768.0" prefWidth="125.0" stylesheets="@../Styles/NavigationBar.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.NavigationBarController">
+<VBox fx:id="navMenu" alignment="CENTER" prefHeight="768.0" prefWidth="125.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.NavigationBarController">
     <children>
         <Button fx:id="homeButton" prefHeight="107.0" prefWidth="124.0" styleClass="sidebarBtn">
             <graphic>
                 <VBox alignment="CENTER" prefWidth="112.0" styleClass="sidebarContent">
                     <children>
-                        <ImageView fitHeight="48.0" fitWidth="48.0">
+                        <!-- Added fx:id="homeIcon" -->
+                        <ImageView fx:id="homeIcon" fitHeight="48.0" fitWidth="48.0">
                             <image>
                                 <Image url="@../Assets/home_icon.png" />
                             </image>
                         </ImageView>
-                        <Text fill="white" text="Home" textAlignment="CENTER" wrappingWidth="55.162109375">
+                        <!-- Removed fill="white", Added styleClass="sidebar-text" -->
+                        <Text styleClass="sidebar-text" text="Home" textAlignment="CENTER" wrappingWidth="55.162109375">
                             <font>
                                 <Font name="MS Reference Sans Serif" size="15.0" />
                             </font>
@@ -39,12 +41,12 @@
             <graphic>
                 <VBox alignment="CENTER" prefWidth="101.0" styleClass="sidebarContent">
                     <children>
-                        <ImageView fitHeight="48.0" fitWidth="48.0">
+                        <ImageView fx:id="backlogIcon" fitHeight="48.0" fitWidth="48.0">
                             <image>
                                 <Image url="@../Assets/backlog_icon.png" />
                             </image>
                         </ImageView>
-                        <Text fill="white" text="Backlog" textAlignment="CENTER" wrappingWidth="59.162109375">
+                        <Text styleClass="sidebar-text" text="Backlog" textAlignment="CENTER" wrappingWidth="59.162109375">
                             <font>
                                 <Font name="MS Reference Sans Serif" size="15.0" />
                             </font>
@@ -63,12 +65,12 @@
             <graphic>
                 <VBox alignment="CENTER" styleClass="sidebarContent">
                     <children>
-                        <ImageView fitHeight="48.0" fitWidth="48.0">
+                        <ImageView fx:id="favoritesIcon" fitHeight="48.0" fitWidth="48.0">
                             <image>
                                 <Image url="@../Assets/favorites_icon.png" />
                             </image>
                         </ImageView>
-                        <Text fill="white" text="Favorites" textAlignment="CENTER" wrappingWidth="69.162109375">
+                        <Text styleClass="sidebar-text" text="Favorites" textAlignment="CENTER" wrappingWidth="69.162109375">
                             <font>
                                 <Font name="MS Reference Sans Serif" size="15.0" />
                             </font>
@@ -87,12 +89,12 @@
             <graphic>
                 <VBox alignment="CENTER" styleClass="sidebarContent">
                     <children>
-                        <ImageView fitHeight="48.0" fitWidth="48.0">
+                        <ImageView fx:id="settingsIcon" fitHeight="48.0" fitWidth="48.0">
                             <image>
                                 <Image url="@../Assets/settings_icon.png" />
                             </image>
                         </ImageView>
-                        <Text fill="white" text="Settings" textAlignment="CENTER" wrappingWidth="62.162109375">
+                        <Text styleClass="sidebar-text" text="Settings" textAlignment="CENTER" wrappingWidth="62.162109375">
                             <font>
                                 <Font name="MS Reference Sans Serif" size="15.0" />
                             </font>
@@ -111,12 +113,12 @@
             <graphic>
                 <VBox alignment="CENTER" styleClass="sidebarContent">
                     <children>
-                        <ImageView fitHeight="48.0" fitWidth="48.0">
+                        <ImageView fx:id="logoutIcon" fitHeight="48.0" fitWidth="48.0">
                             <image>
                                 <Image url="@../Assets/logout_icon.png" />
                             </image>
                         </ImageView>
-                        <Text fill="white" text="Logout" textAlignment="CENTER" wrappingWidth="52.162109375">
+                        <Text styleClass="sidebar-text" text="Logout" textAlignment="CENTER" wrappingWidth="52.162109375">
                             <font>
                                 <Font name="MS Reference Sans Serif" size="15.0" />
                             </font>

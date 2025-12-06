@@ -1,0 +1,36 @@
+/* ==============================================
+   DARK MODE STARTING PAGE
+   ============================================== */
+
+#rootPane {
+    -fx-background-color: #0E1C24;
+}
+
+/* --- LOGO SWAP --- */
+#logoImage {
+    -fx-image: url("../../Assets/Logo_dark.png");
+}
+
+/* --- TEXT --- */
+.title-text {
+    -fx-fill: #e9f0f1; /* Soft White */
+}
+
+.subtitle-text {
+    -fx-fill: #a8b0b2; /* Muted Grey */
+}
+
+/* --- BUTTON --- */
+#getStartedBtn {
+    -fx-background-color: #1C3849;
+    -fx-background-radius: 18;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 18;
+}
+
+#getStartedBtn:hover {
+    -fx-background-color: #274b61;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.2), 6, 0.3, 0, 2);
+}

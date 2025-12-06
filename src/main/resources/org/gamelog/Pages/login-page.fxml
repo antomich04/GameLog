@@ -10,43 +10,50 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/Login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.LoginPageController">
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/Login_css/Login.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.LoginPageController">
     <children>
-        <ImageView fitHeight="210.0" fitWidth="310.0" layoutX="325.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+        <ImageView fx:id="logoImage" fitHeight="210.0" fitWidth="310.0" layoutX="325.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../Assets/Logo.png" />
+                <Image url="@../Assets/logo.png" />
             </image>
         </ImageView>
-        <Text layoutX="198.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+
+        <Text layoutX="198.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="input-label" text="Username">
             <font>
                 <Font name="MS Reference Sans Serif" size="24.0" />
             </font>
         </Text>
+
         <TextField fx:id="usernameInput" layoutX="198.0" layoutY="223.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="565.0" styleClass="text-field">
             <font>
                 <Font name="MS Reference Sans Serif" size="24.0" />
             </font>
         </TextField>
-        <Text fx:id="usernameErrorMessage" fill="RED" layoutX="200.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0">
+
+        <Text fx:id="usernameErrorMessage" styleClass="error-text" layoutX="200.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0">
             <font>
                 <Font name="MS Reference Sans Serif" size="16.0" />
             </font>
         </Text>
-        <Text layoutX="198.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+
+        <Text layoutX="198.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="input-label" text="Password">
             <font>
                 <Font name="MS Reference Sans Serif" size="24.0" />
             </font>
         </Text>
+
         <PasswordField fx:id="passwordInput" layoutX="198.0" layoutY="369.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="565.0" styleClass="text-field">
             <font>
                 <Font name="MS Reference Sans Serif" size="24.0" />
             </font>
         </PasswordField>
-        <Text fx:id="passwordErrorMessage" fill="RED" layoutX="200.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0">
+
+        <Text fx:id="passwordErrorMessage" styleClass="error-text" layoutX="200.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0">
             <font>
                 <Font name="MS Reference Sans Serif" size="16.0" />
             </font>
         </Text>
+
         <Button fx:id="loginBtn" layoutX="200.0" layoutY="491.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="60.0" prefWidth="560.0" text="LOG IN">
             <font>
                 <Font name="MS Reference Sans Serif" size="32.0" />
@@ -55,7 +62,8 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Text fx:id="forgotPasswordLink" fill="#4a5b85" layoutX="374.0" layoutY="605.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="forgot-password" text="Forgot Password?">
+
+        <Text fx:id="forgotPasswordLink" layoutX="374.0" layoutY="605.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="forgot-password" text="Forgot Password?">
             <font>
                 <Font name="MS Reference Sans Serif" size="24.0" />
             </font>
@@ -63,13 +71,14 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Text>
+
         <TextFlow layoutX="336.0" layoutY="621.0">
-            <Text fill="#4a5b85" styleClass="regular-text" text="Don't have an account? ">
+            <Text styleClass="regular-text" text="Don't have an account? ">
                 <font>
                     <Font name="MS Reference Sans Serif" size="18.0" />
                 </font>
             </Text>
-            <Text fx:id="signupLink" fill="#1C3849" styleClass="highlight-text" text="Sign up">
+            <Text fx:id="signupLink" styleClass="highlight-text" text="Sign up">
                 <font>
                     <Font name="MS Reference Sans Serif" size="18.0" />
                 </font>

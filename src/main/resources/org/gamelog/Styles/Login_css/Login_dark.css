@@ -1,0 +1,80 @@
+/* ==============================================
+   DARK MODE LOGIN PAGE
+   ============================================== */
+
+#rootPane {
+    -fx-background-color: #0E1C24;
+}
+
+/* --- LOGO SWAP --- */
+#logoImage {
+    /* Ensure you have this file in assets! */
+    -fx-image: url("../../Assets/Logo_dark.png");
+}
+
+/* --- TEXT FIELDS --- */
+.text-field {
+    /* Dark input background */
+    -fx-background-color: #1A2632;
+    -fx-border-color: #455a64;
+    -fx-border-width: 1;
+    -fx-border-radius: 22;
+    -fx-background-radius: 22;
+    -fx-background-insets: 0;
+
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #a8b0b2;
+}
+
+.text-field:focused {
+    /* Teal focus border */
+    -fx-border-color: #2a9d8f;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(42, 157, 143, 0.2), 6, 0.3, 0, 0);
+}
+
+/* --- LABELS --- */
+.input-label {
+    -fx-fill: #e9f0f1; /* Soft White */
+}
+
+.error-text {
+    -fx-fill: #ff4d4f; /* Bright Red */
+}
+
+/* --- BUTTONS --- */
+#loginBtn {
+    /* Keep Dark Blue for brand consistency, or use #2a9d8f for pop */
+    -fx-background-color: #1C3849;
+    -fx-background-radius: 18;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 18;
+}
+
+#loginBtn:hover {
+    -fx-background-color: #274b61;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.2), 6, 0.3, 0, 2);
+}
+
+/* --- LINKS --- */
+.forgot-password {
+    -fx-fill: #78909c; /* Muted Blue-Grey */
+    -fx-cursor: hand;
+}
+
+.regular-text {
+    -fx-fill: #a8b0b2; /* Muted Grey */
+}
+
+.highlight-text {
+    -fx-fill: #2a9d8f; /* Teal Accent for Signup */
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+#forgotPasswordLink:hover {
+    -fx-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.3), 3, 0.3, 0, 0);
+}

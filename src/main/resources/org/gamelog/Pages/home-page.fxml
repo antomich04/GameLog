@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/HomePage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.HomePageController">
+<BorderPane fx:id="rootPane" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/Home_Page_css/HomePage_dark.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.HomePageController">
     <left>
         <fx:include source="../Components/navigation-bar.fxml" />
     </left>
@@ -23,7 +23,7 @@
 
             <HBox alignment="CENTER_LEFT" prefWidth="800" spacing="20">
                 <VBox alignment="CENTER_LEFT" spacing="5" HBox.hgrow="ALWAYS">
-                    <Label fx:id="welcomeLabel" style="-fx-font-weight: bold;">
+                    <Label fx:id="welcomeLabel" styleClass="welcome-label">
                         <font>
                             <Font size="28.0" />
                         </font>
@@ -34,7 +34,7 @@
 
                 <HBox alignment="CENTER_RIGHT" spacing="10">
                     <StackPane fx:id="User_icon">
-                        <Rectangle fx:id="userIconRect" arcHeight="10" arcWidth="10" fill="#1C3849" height="55" width="55" />
+                        <Rectangle fx:id="userIconRect" arcHeight="10" arcWidth="10" height="55" width="55" />
                         <Label fx:id="iconLetter" style="-fx-text-fill: white;">
                             <font>
                                 <Font size="24.0" />
@@ -46,36 +46,32 @@
 
             <StackPane VBox.vgrow="ALWAYS">
 
-                <!-- Latest Games Title - ALWAYS VISIBLE -->
-                <Label fx:id="latestGamesTitle" style="-fx-font-weight: bold; -fx-font-size: 26px; -fx-text-fill: #333;" text="Latest Games Played" StackPane.alignment="TOP_CENTER">
+                <Label fx:id="latestGamesTitle" styleClass="section-title" text="Latest Games Played" StackPane.alignment="TOP_CENTER">
                     <StackPane.margin>
                         <Insets top="30.0" />
                     </StackPane.margin>
                 </Label>
 
-                <!-- Empty state content - shown ONLY when no games -->
                 <VBox fx:id="emptyStateContainer" alignment="CENTER" managed="false" maxWidth="450" spacing="20" visible="false" StackPane.alignment="CENTER">
-                    <Label fx:id="emptyStateLabel" style="-fx-font-size: 22px; -fx-font-style: italic;" text="No games played so far!">
+                    <Label fx:id="emptyStateLabel" styleClass="empty-label" text="No games played so far!">
                         <VBox.margin>
-                            <Insets top="60.0" /> <!-- Increased top margin to account for the title -->
+                            <Insets top="60.0" />
                         </VBox.margin>
                     </Label>
                 </VBox>
 
-                <!-- Loading overlay -->
-                <VBox fx:id="loadingOverlay" alignment="CENTER" managed="false" style="-fx-background-color: white;" visible="false" StackPane.alignment="CENTER">
+                <VBox fx:id="loadingOverlay" styleClass="loading-overlay" alignment="CENTER" managed="false" visible="false" StackPane.alignment="CENTER">
                     <children>
                         <ProgressIndicator prefHeight="400" prefWidth="400" />
-                        <Label style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-padding: 10 0 0 0;" text="Fetching Latest Games..." />
+                        <Label styleClass="loading-label" text="Fetching Latest Games..." />
                     </children>
                 </VBox>
 
-                <!-- Main content container -->
                 <VBox alignment="CENTER" maxWidth="450" spacing="20" StackPane.alignment="CENTER">
                     <VBox fx:id="cardsContainer" alignment="CENTER" spacing="20">
-                  <VBox.margin>
-                     <Insets top="30.0" />
-                  </VBox.margin></VBox>
+                        <VBox.margin>
+                            <Insets top="30.0" />
+                        </VBox.margin></VBox>
                 </VBox>
 
             </StackPane>

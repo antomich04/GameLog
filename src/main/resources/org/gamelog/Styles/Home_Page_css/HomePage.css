@@ -1,0 +1,46 @@
+#rootPane {
+    -fx-background-color: white;
+}
+
+/* --- TEXT STYLES --- */
+.welcome-label {
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+}
+
+.section-title {
+    -fx-font-weight: bold;
+    -fx-font-size: 26px;
+    -fx-text-fill: #333333; /* Dark Grey */
+}
+
+.empty-label {
+    -fx-font-size: 22px;
+    -fx-font-style: italic;
+    -fx-text-fill: black;
+}
+
+/* --- LOADING --- */
+.loading-overlay {
+    -fx-background-color: white;
+}
+.loading-label {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 0 0 0;
+    -fx-text-fill: black;
+}
+
+/* --- USER ICON --- */
+#userIconRect {
+    -fx-fill: #1C3849; /* Standard Blue */
+}
+
+#User_icon {
+    -fx-cursor: hand;
+}
+
+#User_icon:hover #userIconRect {
+    -fx-fill: #274b61; /* Hover Blue */
+    -fx-effect: dropshadow(gaussian, rgba(28,56,73,0.3), 6, 0.3, 0, 2);
+}

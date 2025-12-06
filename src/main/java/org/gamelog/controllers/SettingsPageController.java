@@ -3,11 +3,13 @@ package org.gamelog.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Node; // Import Node
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -16,6 +18,8 @@ import org.controlsfx.control.Notifications;
 import org.gamelog.Main;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.UserRepo;
+import org.gamelog.utils.ThemeManager;
+
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -24,9 +28,15 @@ import java.util.Optional;
 public class SettingsPageController {
 
     @FXML
+    private BorderPane rootPane;
+
+    @FXML
     private HBox accountClickableArea;
     @FXML
     private HBox deleteAccountClickableArea;
+    @FXML
+    private HBox aboutClickableArea;
+
     @FXML
     private Label usernameLabel;
     @FXML
@@ -36,25 +46,20 @@ public class SettingsPageController {
 
     @FXML
     private ToggleButton notificationsToggle;
+    @FXML
+    private ToggleButton darkModeToggle;
+
+    private SessionManager sessionManager;
 
     public void initialize() {
-        SessionManager sessionManager = SessionManager.getInstance();
+        sessionManager = SessionManager.getInstance();
         String username = sessionManager.getUsername();
 
-        boolean isEnabled = UserRepo.isNotificationsEnabled(username);
-        notificationsToggle.setSelected(isEnabled);
-
-        // Notification Toggle Button
-        notificationsToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            UserRepo.updateNotificationStatus(username, newValue);
-        });
-
-        accountClickableArea.setOnMouseClicked(event -> {
-            handleAccountClick();
-        });
-
+        // --- 1. Load User Info ---
         usernameLabel.setText(username);
-        usernameLetter.setText(String.valueOf(Character.toUpperCase(username.charAt(0))));
+        if (username != null && !username.isEmpty()) {
+            usernameLetter.setText(String.valueOf(Character.toUpperCase(username.charAt(0))));
+        }
 
         Timestamp ts = UserRepo.getCreationDate(username);
         if (ts != null) {
@@ -62,41 +67,100 @@ public class SettingsPageController {
             memberSinceLabel.setText("Member since: " + date.toString());
         }
 
+        // --- 2. Notifications Logic ---
+        boolean isNotifEnabled = UserRepo.isNotificationsEnabled(username);
+        notificationsToggle.setSelected(isNotifEnabled);
+
+        notificationsToggle.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            UserRepo.updateNotificationStatus(username, newValue);
+        });
+
+        // --- 3. Dark Mode Logic ---
+        boolean isDark = sessionManager.isDarkMode();
+        darkModeToggle.setSelected(isDark);
+
+        // Apply theme immediately to this page
+        ThemeManager.applyTheme(rootPane, "Settings");
+
+        // Handle Toggle Switch
+        darkModeToggle.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            handleDarkModeSwitch(newVal, username);
+        });
+
+        // --- 4. Navigation Handlers ---
+        accountClickableArea.setOnMouseClicked(event -> {
+            handleAccountClick();
+        });
+
         deleteAccountClickableArea.setOnMouseClicked(event -> {
             handleAccountDeletion(username);
         });
+
+        if (aboutClickableArea != null) {
+            aboutClickableArea.setOnMouseClicked(e -> System.out.println("About clicked"));
+        }
+    }
+
+    private void handleDarkModeSwitch(boolean isEnabled, String username) {
+        UserRepo.setDarkMode(username, isEnabled);
+        sessionManager.setDarkMode(isEnabled);
+        ThemeManager.applyTheme(rootPane, "Settings");
+
+        Node navBarNode = rootPane.getLeft();
+        if (navBarNode instanceof Parent) {
+            ThemeManager.applyTheme((Parent) navBarNode, "NavBar");
+        }
     }
 
     private void handleAccountClick() {
         try {
-            Parent accountPage = FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/account-settings-page.fxml"));
-            switchScene(accountPage);
+            navigateTo("/org/gamelog/Pages/account-settings-page.fxml", "AccountSettings");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void navigateTo(String fxmlPath, String themeKey) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            // Apply theme to the NEW page
+            ThemeManager.applyTheme(root, themeKey);
+
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private void handleAccountDeletion(String username) {
-
-
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle("Delete Account");
         confirmation.setHeaderText("Permanent Account Deletion");
         confirmation.setContentText("This will permanently delete your account and all data. This action cannot be undone.");
 
+        // Set Icon
         Window window = confirmation.getDialogPane().getScene().getWindow();
         Stage stage = (Stage) window;
         try {
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/gamelog/Assets/Icon.png")));
         } catch (Exception ignored) {}
 
+        // Custom Buttons
         ButtonType deleteButton = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         confirmation.getButtonTypes().setAll(deleteButton, cancelButton);
 
+        // Apply CSS to Dialog (Light or Dark based on Session)
         DialogPane dialogPane = confirmation.getDialogPane();
         try {
-            dialogPane.getStylesheets().add(getClass().getResource("/org/gamelog/Styles/dialogs.css").toExternalForm());
+            boolean isDark = SessionManager.getInstance().isDarkMode();
+            String cssPath = isDark ? "/org/gamelog/Styles/Dialog_dark.css" : "/org/gamelog/Styles/dialogs.css";
+
+            dialogPane.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
             dialogPane.getStyleClass().add("confirmation");
         } catch (Exception ignored) {}
 
@@ -109,11 +173,15 @@ public class SettingsPageController {
                 SessionManager.clearSession();
 
                 if (shouldNotify) {
-                    showAccountDeletionNotification(username); //Create Notification
+                    showAccountDeletionNotification(username);
                 }
 
                 try {
-                    switchScene(FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml")));
+                    // Return to Login Screen
+                    Parent loginRoot = FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
+                    Stage currentStage = (Stage) rootPane.getScene().getWindow();
+                    currentStage.setScene(new Scene(loginRoot));
+                    currentStage.show();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -123,7 +191,7 @@ public class SettingsPageController {
 
     private void showAccountDeletionNotification(String username) {
         try {
-            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/Logo.png"));
+            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/logo.png"));
             ImageView iconView = new ImageView(iconImage);
             iconView.setFitHeight(90);
             iconView.setFitWidth(120);
@@ -144,12 +212,5 @@ public class SettingsPageController {
                     .hideAfter(Duration.seconds(5))
                     .show();
         }
-    }
-
-    private void switchScene(Parent root) {
-        Stage stage = (Stage) accountClickableArea.getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
     }
 }

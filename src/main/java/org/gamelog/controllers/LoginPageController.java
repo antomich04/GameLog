@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.AuthRepo;
 import org.gamelog.model.LoginResult;
+import org.gamelog.repository.UserRepo; // Added Import
+import org.gamelog.utils.ThemeManager; // Added Import
+
 import java.io.IOException;
 
 public class LoginPageController {
@@ -108,8 +111,15 @@ public class LoginPageController {
                     return;
                 }
 
+                boolean isDark = UserRepo.isDarkModeEnabled(username);
+                SessionManager.getInstance().setDarkMode(isDark);
+                // -------------------------------
+
                 loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
                 Parent root = loader.load();
+
+                // 3. Apply theme
+                ThemeManager.applyTheme(root, "Home");
 
                 Stage stage = (Stage) rootPane.getScene().getWindow();
                 stage.setScene(new Scene(root));

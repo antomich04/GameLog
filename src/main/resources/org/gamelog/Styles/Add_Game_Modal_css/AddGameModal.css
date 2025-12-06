@@ -1,87 +1,49 @@
-VBox {
+/* ==============================================
+   LIGHT MODE - ADD GAME MODAL
+   ============================================== */
+
+.modal-root {
     -fx-background-color: white;
-    -fx-padding: 20;
+    -fx-padding: 25;
     -fx-background-radius: 10;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 15, 0, 0, 5);
 }
 
-Label {
-    -fx-font-size: 18;
+.modal-title {
+    -fx-font-size: 20;
     -fx-font-weight: bold;
     -fx-text-fill: #1C3849;
 }
 
-VBox > VBox > Label {
+.input-label {
     -fx-font-size: 14;
     -fx-font-weight: bold;
     -fx-text-fill: #333;
 }
 
-TextField {
+/* --- COMBO BOXES --- */
+.combo-box {
     -fx-background-color: #f8f9fa;
     -fx-border-color: #dee2e6;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
-    -fx-padding: 8 12;
+    -fx-padding: 2 5; /* Adjusted padding */
     -fx-font-size: 14;
 }
 
-TextField:focused {
+.combo-box:focused {
     -fx-border-color: #1C3849;
     -fx-background-color: white;
 }
 
-ComboBox {
-    -fx-background-color: #f8f9fa;
-    -fx-border-color: #dee2e6;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-padding: 8 12;
-    -fx-font-size: 14;
-}
-
-ComboBox .arrow-button {
-    -fx-background-color: #e9ecef;
-    -fx-border-radius: 0 5 5 0;
-}
-
-ComboBox .list-cell {
+.combo-box .list-cell {
     -fx-background-color: white;
     -fx-text-fill: #333;
-    -fx-padding: 8 12;
 }
 
-ComboBox .list-view {
+.combo-box .list-view {
     -fx-background-color: white;
     -fx-border-color: #dee2e6;
-    -fx-background-radius: 5;
-    -fx-border-radius: 5;
-}
-
-Button {
-    -fx-background-radius: 5;
-    -fx-padding: 8 16;
-    -fx-font-size: 14;
-    -fx-font-weight: bold;
-    -fx-cursor: hand;
-}
-
-Button[text="Cancel"] {
-    -fx-background-color: #6c757d;
-    -fx-text-fill: white;
-}
-
-Button[text="Cancel"]:hover {
-    -fx-background-color: #5a6268;
-}
-
-Button[text="Add Game"] {
-    -fx-background-color: #1C3849;
-    -fx-text-fill: white;
-}
-
-Button[text="Add Game"]:hover {
-    -fx-background-color: #152836;
 }
 
 .combo-box .list-cell:filled:hover {
@@ -89,6 +51,31 @@ Button[text="Add Game"]:hover {
     -fx-text-fill: black;
 }
 
-.combo-box-base, .combo-box .list-cell:filled:hover {
+/* --- BUTTONS --- */
+.button {
+    -fx-background-radius: 5;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
     -fx-cursor: hand;
+    -fx-pref-height: 35;
+}
+
+.cancel-button {
+    -fx-background-color: #6c757d;
+    -fx-text-fill: white;
+    -fx-pref-width: 100;
+}
+
+.cancel-button:hover {
+    -fx-background-color: #5a6268;
+}
+
+.primary-button {
+    -fx-background-color: #1C3849;
+    -fx-text-fill: white;
+    -fx-pref-width: 120;
+}
+
+.primary-button:hover {
+    -fx-background-color: #152836;
 }

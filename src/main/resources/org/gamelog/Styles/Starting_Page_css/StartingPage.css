@@ -1,0 +1,25 @@
+#rootPane {
+    -fx-background-color: #FFFFFF;
+}
+
+/* --- TEXT --- */
+.title-text {
+    -fx-fill: black;
+}
+
+.subtitle-text {
+    -fx-fill: #4a5b85;
+}
+
+/* --- BUTTON --- */
+#getStartedBtn {
+    -fx-background-color: #1C3849;
+    -fx-background-radius: 18;
+    -fx-cursor: hand;
+    -fx-text-fill: white;
+}
+
+#getStartedBtn:hover {
+    -fx-background-color: #274b61;
+    -fx-effect: dropshadow(gaussian, rgba(28,56,73,0.3), 6, 0.3, 0, 2);
+}
