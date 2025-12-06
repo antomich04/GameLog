@@ -55,7 +55,6 @@ public class BackLogPageController {
     private String currentSortCriteria = "Newest first";
 
     public void initialize() {
-        // 1. APPLY THEME
         ThemeManager.applyTheme(rootPane, "Backlog");
 
         //Initializes the filtering options
@@ -289,12 +288,10 @@ public class BackLogPageController {
 
     private void addGameCard(int backlog_id, int gid, String gameName, String platform, int progress, int totalAchievements) {
         try {
-            // FIX: Changed "game-card.fxml" to "game_cards.fxml" to match your file structure
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Components/game_cards.fxml"));
             Node card = loader.load();
             GameCardsController cardController = loader.getController();
 
-            // CRITICAL: Pass Theme State to the card so icons render correctly
             boolean isDark = SessionManager.getInstance().isDarkMode();
             cardController.setIsDarkMode(isDark);
 

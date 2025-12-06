@@ -14,7 +14,6 @@ import org.gamelog.model.BacklogItem;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
 import org.gamelog.utils.ThemeManager;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -36,7 +35,6 @@ public class HomePageController {
     private VBox emptyStateContainer;
 
     public void initialize() {
-        // 1. APPLY THEME
         // This page handles its own theme application upon loading.
         ThemeManager.applyTheme(rootPane, "Home");
 
@@ -53,9 +51,6 @@ public class HomePageController {
             try{
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/settings-page.fxml"));
                 Parent root = loader.load();
-
-                // Note: We do NOT need to apply the theme here manually.
-                // The SettingsPageController's initialize() method will handle it.
 
                 Stage stage = (Stage) rootPane.getScene().getWindow();
                 Scene scene = new Scene(root);
@@ -138,9 +133,6 @@ public class HomePageController {
             Pane card = loader.load();
             GameCardsController cardController = loader.getController();
 
-            // CRITICAL: Pass Theme State to the card
-            // GameCards are dynamic components, so we must tell them the current theme state
-            // so they can decide between the White border heart (Dark Mode) or Black border heart (Light Mode).
             boolean isDark = SessionManager.getInstance().isDarkMode();
             cardController.setIsDarkMode(isDark);
 

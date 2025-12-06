@@ -42,12 +42,10 @@ public class SessionManager {
         }
     }
 
-    // Setter for Dark Mode
     public void setDarkMode(boolean darkMode) {
         this.isDarkMode = darkMode;
     }
 
-    // Getter for Dark Mode
     public boolean isDarkMode() {
         return isDarkMode;
     }

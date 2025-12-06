@@ -8,7 +8,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.gamelog.utils.ThemeManager;
-
 import java.io.IOException;
 
 public class StartingPageController {
@@ -21,7 +20,6 @@ public class StartingPageController {
 
     @FXML
     public void initialize() {
-        // 1. APPLY THEME TO CURRENT PAGE
         ThemeManager.applyTheme(rootPane, "Starting");
 
         getStartedBtn.setOnMouseClicked(event -> {
@@ -34,7 +32,6 @@ public class StartingPageController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
             Parent root = loader.load();
 
-            // 2. APPLY THEME
             ThemeManager.applyTheme(root, "Login");
 
             Stage stage = (Stage) rootPane.getScene().getWindow();

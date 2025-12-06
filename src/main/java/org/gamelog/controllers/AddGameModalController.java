@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
@@ -14,14 +15,13 @@ import javafx.scene.control.skin.ComboBoxListViewSkin;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import org.gamelog.repository.UserRepo;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import org.gamelog.model.SearchResult;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
 import org.gamelog.utils.RawgClient;
-import org.gamelog.utils.ThemeManager; // Import ThemeManager
+import org.gamelog.utils.ThemeManager;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 public class AddGameModalController implements Initializable {
 
     @FXML
-    private VBox rootPane; // Ensure your FXML root element has fx:id="rootPane"
+    private VBox rootPane;
     @FXML
     private ComboBox<SearchResult> gameSearchComboBox;
     @FXML
@@ -57,7 +57,7 @@ public class AddGameModalController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // 1. APPLY THEME
+
         ThemeManager.applyTheme(rootPane, "AddGameModal");
 
         platformComboBox.setDisable(true); //Disables until a game is selected
@@ -145,7 +145,7 @@ public class AddGameModalController implements Initializable {
         gameSearchComboBox.skinProperty().addListener((obs, oldSkin, newSkin) -> {
 
             if (newSkin instanceof ComboBoxListViewSkin<?> skin) {
-                javafx.scene.Node popupContent = skin.getPopupContent();
+                Node popupContent = skin.getPopupContent();
 
                 if (popupContent instanceof ListView<?> listView) {
                     EventHandler<KeyEvent> blockSpace = e -> {

@@ -2,7 +2,6 @@
     -fx-background-color: #FFFFFF;
 }
 
-/* --- TEXT FIELDS --- */
 .text-field {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #000000;
@@ -23,7 +22,6 @@
     -fx-effect: dropshadow(gaussian, rgba(28, 56, 73, 0.1), 4, 0.3, 0, 0);
 }
 
-/* --- LABELS --- */
 .input-label {
     -fx-fill: black;
 }
@@ -34,7 +32,6 @@
     -fx-font-size: 16px;
 }
 
-/* --- BUTTONS --- */
 #signUpButton {
     -fx-background-color: #1C3849;
     -fx-background-radius: 18;
@@ -47,7 +44,6 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0.3, 1, 1);
 }
 
-/* --- LINKS --- */
 .regular-text {
     -fx-fill: #4a5b85;
 }

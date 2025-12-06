@@ -14,9 +14,8 @@ import javafx.stage.Stage;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.AuthRepo;
 import org.gamelog.model.SignupResult;
-import org.gamelog.repository.UserRepo; // Added Import
-import org.gamelog.utils.ThemeManager; // Added Import
-
+import org.gamelog.repository.UserRepo;
+import org.gamelog.utils.ThemeManager;
 import java.io.IOException;
 
 
@@ -128,7 +127,6 @@ public class SignUpPageController {
                     loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
                     Parent root = loader.load();
 
-                    // 3. Apply Theme
                     ThemeManager.applyTheme(root, "Home");
 
                     Stage stage = (Stage) rootPane.getScene().getWindow();

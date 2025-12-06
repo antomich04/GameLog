@@ -15,13 +15,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-import org.gamelog.Main;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.AuthRepo;
 import org.gamelog.repository.UserRepo;
 import org.gamelog.utils.ThemeManager;
 import org.mindrot.jbcrypt.BCrypt;
-
 import java.io.IOException;
 
 public class AccountSettingsPageController {
@@ -177,7 +175,7 @@ public class AccountSettingsPageController {
         }
 
         try {
-            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/logo.png"));
+            Image iconImage = new Image(getClass().getResourceAsStream("/org/gamelog/Assets/logo.png"));
             ImageView iconView = new ImageView(iconImage);
             iconView.setFitHeight(90);
             iconView.setFitWidth(120);
@@ -205,7 +203,6 @@ public class AccountSettingsPageController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/settings-page.fxml"));
             Parent root = loader.load();
 
-            // APPLY THEME
             ThemeManager.applyTheme(root, "Settings");
 
             Stage stage = (Stage) rootPane.getScene().getWindow();

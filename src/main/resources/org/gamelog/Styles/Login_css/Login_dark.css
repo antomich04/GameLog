@@ -1,18 +1,12 @@
-/* ==============================================
-   DARK MODE LOGIN PAGE
-   ============================================== */
-
 #rootPane {
     -fx-background-color: #0E1C24;
 }
 
-/* --- LOGO SWAP --- */
 #logoImage {
     /* Ensure you have this file in assets! */
     -fx-image: url("../../Assets/Logo_dark.png");
 }
 
-/* --- TEXT FIELDS --- */
 .text-field {
     /* Dark input background */
     -fx-background-color: #1A2632;
@@ -33,7 +27,6 @@
     -fx-effect: dropshadow(gaussian, rgba(42, 157, 143, 0.2), 6, 0.3, 0, 0);
 }
 
-/* --- LABELS --- */
 .input-label {
     -fx-fill: #e9f0f1; /* Soft White */
 }
@@ -42,7 +35,6 @@
     -fx-fill: #ff4d4f; /* Bright Red */
 }
 
-/* --- BUTTONS --- */
 #loginBtn {
     /* Keep Dark Blue for brand consistency, or use #2a9d8f for pop */
     -fx-background-color: #1C3849;
@@ -58,7 +50,6 @@
     -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.2), 6, 0.3, 0, 2);
 }
 
-/* --- LINKS --- */
 .forgot-password {
     -fx-fill: #78909c; /* Muted Blue-Grey */
     -fx-cursor: hand;

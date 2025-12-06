@@ -1,12 +1,7 @@
-/* ==============================================
-   DARK MODE FAVORITES PAGE STYLES
-   ============================================== */
-
 #rootPane {
     -fx-background-color: #0E1C24; /* Dark background */
 }
 
-/* --- TEXT STYLES --- */
 .page-title {
     -fx-font-weight: bold;
     -fx-text-fill: #e9f0f1; /* Soft White */
@@ -19,7 +14,6 @@
     -fx-text-fill: #a8b0b2; /* Muted Grey */
 }
 
-/* --- CLICKABLE ICON ANIMATION & SWAP --- */
 .clickableIcons {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
@@ -40,20 +34,16 @@
     -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.3), 8, 0, 0, 0);
 }
 
-/* Swap black filter icon for white version in Dark Mode */
 #filterIcon {
     -fx-image: url("../../Assets/filter_dark_icon.png");
 }
 
-/* --- SCROLL PANE --- */
-/* Ensure scrollpane area is transparent so dark root shows through */
 .scroll-pane,
 .scroll-pane .viewport {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 
-/* Hide scrollbars for cleaner look */
 .scroll-pane .scroll-bar:vertical,
 .scroll-pane .scroll-bar:horizontal,
 .scroll-pane .scroll-bar:vertical .track,
@@ -61,7 +51,6 @@
     -fx-background-color: transparent;
 }
 
-/* --- LOADING OVERLAY --- */
 .loading-overlay {
     /* Dark semi-transparent background */
     -fx-background-color: rgba(14, 28, 36, 0.90);
@@ -72,4 +61,44 @@
     -fx-font-weight: bold;
     -fx-padding: 10 0 0 0;
     -fx-text-fill: #e9f0f1; /* Soft White */
+}
+
+.context-menu {
+    -fx-background-color: #1A2632; /* Slightly lighter than root for contrast */
+    -fx-border-color: #455a64;
+    -fx-border-width: 1;
+    -fx-background-radius: 5;
+    -fx-padding: 5 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);
+}
+
+.menu-item,
+.radio-menu-item {
+    -fx-padding: 8 15 8 15;
+    -fx-background-color: transparent;
+}
+
+.menu-item .label,
+.radio-menu-item .label {
+    -fx-text-fill: #e9f0f1; /* Soft White */
+}
+
+/* Hover State */
+.menu-item:focused,
+.menu-item:hover,
+.radio-menu-item:focused,
+.radio-menu-item:hover {
+    -fx-background-color: #243542; /* A subtle hover color */
+    -fx-cursor: hand;
+}
+
+/* Selected State (for RadioMenuItem) */
+.radio-menu-item:selected .label {
+    -fx-text-fill: #2a9d8f; /* Teal color for the selected item text */
+    -fx-font-weight: bold;
+}
+
+.radio-menu-item:selected:focused,
+.radio-menu-item:selected:hover {
+    -fx-background-color: #243542; /* Maintain subtle hover background */
 }

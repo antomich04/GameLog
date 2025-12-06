@@ -1,10 +1,7 @@
-/* Dark Mode Background */
 #rootPane {
     -fx-background-color: #0E1C24;
 }
 
-/* Swap the logo to the white version */
 #logoImage {
-    /* Go up one level from Styles, then into Assets */
     -fx-image: url("../../Assets/logo_dark.png");
 }

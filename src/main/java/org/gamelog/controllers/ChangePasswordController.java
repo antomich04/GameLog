@@ -4,7 +4,6 @@ import javafx.animation.PauseTransition;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,11 +15,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-import org.gamelog.Main;
 import org.gamelog.repository.UserRepo;
-import org.gamelog.utils.ThemeManager;
 import org.mindrot.jbcrypt.BCrypt;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -205,7 +201,7 @@ public class ChangePasswordController {
         String successText = "Your password has been successfully updated.";
 
         try {
-            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/Logo.png"));
+            Image iconImage = new Image(getClass().getResourceAsStream("/org/gamelog/Assets/Logo.png"));
             ImageView iconView = new ImageView(iconImage);
             iconView.setFitHeight(90);
             iconView.setFitWidth(120);

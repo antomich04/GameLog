@@ -8,15 +8,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.gamelog.model.SessionManager;
-import org.gamelog.utils.ThemeManager; // Import ThemeManager
-
+import org.gamelog.utils.ThemeManager;
 import java.io.IOException;
 
 public class NavigationBarController {
 
     @FXML
     private VBox navMenu;
-
     @FXML
     private Button homeButton;
     @FXML

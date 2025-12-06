@@ -1,12 +1,7 @@
-/* ==============================================
-   LIGHT MODE BACKLOG PAGE
-   ============================================== */
-
 #rootPane{
     -fx-background-color: white;
 }
 
-/* --- TEXT STYLES --- */
 .page-title {
     -fx-font-weight: bold;
     -fx-text-fill: black;
@@ -17,7 +12,6 @@
     -fx-fill: black;
 }
 
-/* --- SCROLL PANE --- */
 .scroll-pane {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -37,7 +31,6 @@
     -fx-background-color: transparent;
 }
 
-/* --- ICONS --- */
 .clickableIcons {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
@@ -98,4 +91,12 @@
     -fx-font-weight: bold;
     -fx-padding: 10 0 0 0;
     -fx-text-fill: black;
+}
+
+.menu-item:focused,
+.menu-item:hover,
+.radio-menu-item:focused,
+.radio-menu-item:hover {
+    -fx-background-color: #1C3849;
+    -fx-cursor: hand;
 }

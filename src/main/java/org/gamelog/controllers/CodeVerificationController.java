@@ -13,8 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.gamelog.repository.AuthRepo;
 import org.gamelog.utils.EmailSender;
-import org.gamelog.utils.ThemeManager; // Import ThemeManager
-
+import org.gamelog.utils.ThemeManager;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -56,7 +55,6 @@ public class CodeVerificationController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
                 Parent root = loader.load();
 
-                // 2. APPLY
                 ThemeManager.applyTheme(root, "Login");
 
                 Stage stage =  (Stage) rootPane.getScene().getWindow();

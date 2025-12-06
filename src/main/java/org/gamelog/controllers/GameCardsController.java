@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.Parent; // Import Parent
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -17,12 +17,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-import org.gamelog.Main;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
 import org.gamelog.repository.UserRepo;
 import java.io.IOException;
-import org.gamelog.utils.ThemeManager; // Import ThemeManager
+import org.gamelog.utils.ThemeManager;
 
 public class GameCardsController {
 
@@ -56,10 +55,8 @@ public class GameCardsController {
     private int totalAchievements;
     String username = SessionManager.getInstance().getUsername();
 
-    // Default to false (Light) to avoid flash of dark content
     private boolean isDarkMode = false;
 
-    // --- DEFINED IMAGE PATHS ---
     private static final String FILLED_HEART_URL = "/org/gamelog/Assets/filled_heart_icon.png";
     private static final String EMPTY_HEART_LIGHT_URL = "/org/gamelog/Assets/heart_icon.png";
     private static final String EMPTY_HEART_DARK_URL = "/org/gamelog/Assets/favorites_icon.png";
@@ -128,7 +125,7 @@ public class GameCardsController {
                 heartIconView.setImage(newImage);
             }
         } catch (Exception e) {
-            System.err.println("Error loading image asset: " + url);
+            e.printStackTrace();
         }
     }
 
@@ -141,13 +138,11 @@ public class GameCardsController {
             setFavoriteIcon(isFavorite);
         }
 
-        // 2. Update the CSS for the card itself
         applyThemeToCard();
     }
 
     public void setCardNode(Node cardNode) {
         this.cardNode = cardNode;
-        // Apply the theme
         applyThemeToCard();
     }
 
@@ -259,7 +254,6 @@ public class GameCardsController {
         String platform = this.platformText != null ? this.platformText.getText() : "Unknown Platform";
 
         try {
-            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/logo.png"));
             Image iconImage = new Image(getClass().getResourceAsStream("/org/gamelog/Assets/Logo.png"));
             ImageView iconView = new ImageView(iconImage);
             iconView.setFitHeight(90);

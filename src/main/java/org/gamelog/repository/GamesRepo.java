@@ -249,9 +249,9 @@ public class GamesRepo {
         }
     }
 
-    public static boolean updateGameInfo(int gid, GameInfo details) {
+    public static void updateGameInfo(int gid, GameInfo details) {
         if (details == null) {
-            return false;
+            return;
         }
 
         String updateQuery = "SELECT update_game_info(?, ?, ?, ?)";
@@ -273,14 +273,13 @@ public class GamesRepo {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getBoolean(1);
+                    rs.getBoolean(1);
                 }
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     public static DetailedBacklogItem fetchDetailedBacklogItem(int backlogId) {
@@ -411,7 +410,7 @@ public class GamesRepo {
         return false;
     }
 
-    public static boolean updateBacklogProgress(String username, int gid, int newAchievedCount) {
+    public static void updateBacklogProgress(String username, int gid, int newAchievedCount) {
         String updateQuery = "SELECT update_backlog_progress_by_username(?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -422,13 +421,14 @@ public class GamesRepo {
             stmt.setInt(3, newAchievedCount);
 
             try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) return rs.getBoolean(1);
+                if (rs.next()) {
+                    rs.getBoolean(1);
+                }
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     public static int getAchievedCount(String username, int gid) {

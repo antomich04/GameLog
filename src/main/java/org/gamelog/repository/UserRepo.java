@@ -144,7 +144,6 @@ public class UserRepo {
     }
 
     public static boolean isNotificationsEnabled(String username) {
-        // Assumes a stored function named 'get_notifications_enabled' exists
         String query = "SELECT get_notifications_enabled(?)";
 
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -154,7 +153,6 @@ public class UserRepo {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    // getBoolean returns false if the value is NULL, which is safe here
                     return rs.getBoolean(1);
                 }
             }
@@ -183,7 +181,7 @@ public class UserRepo {
     }
 
     public static boolean isDarkModeEnabled(String username) {
-        String query = "SELECT dark_mode_enabled FROM users WHERE username = ?";
+        String query = "SELECT is_dark_mode_enabled(?)";
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
@@ -191,7 +189,7 @@ public class UserRepo {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getBoolean("dark_mode_enabled");
+                return rs.getBoolean(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -200,13 +198,13 @@ public class UserRepo {
     }
 
     public static void setDarkMode(String username, boolean enabled) {
-        String query = "UPDATE users SET dark_mode_enabled = ? WHERE username = ?";
+        String query = "SELECT set_dark_mode(?, ?)";
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setBoolean(1, enabled);
             pstmt.setString(2, username);
-            pstmt.executeUpdate();
+            pstmt.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();

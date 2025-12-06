@@ -12,10 +12,9 @@ import javafx.util.Duration;
 import org.gamelog.model.Session;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.SessionRepo;
-import org.gamelog.repository.UserRepo; // Added Import
+import org.gamelog.repository.UserRepo;
 import org.gamelog.utils.DeviceUtils;
-import org.gamelog.utils.ThemeManager; // Added Import
-
+import org.gamelog.utils.ThemeManager;
 import java.io.IOException;
 
 public class SplashScreenController {
@@ -65,7 +64,6 @@ public class SplashScreenController {
         try {
             Parent root = loader.load();
 
-            // 3. Apply Theme
             ThemeManager.applyTheme(root, nextThemeKey);
 
             Scene nextScene = new Scene(root);

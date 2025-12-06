@@ -2,7 +2,6 @@
     -fx-background-color: #FFFFFF;
 }
 
-/* --- TEXT --- */
 .title-text {
     -fx-fill: black;
 }
@@ -11,7 +10,6 @@
     -fx-fill: #4a5b85;
 }
 
-/* --- BUTTON --- */
 #getStartedBtn {
     -fx-background-color: #1C3849;
     -fx-background-radius: 18;

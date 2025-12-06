@@ -391,8 +391,8 @@ public class EditItemController {
     }
 
     private void populateUI(DetailedBacklogItem item) {
-        //Sets all UI elements based on the final item data
 
+        //Sets all UI elements based on the final item data
         gameTitle.setText(item.getGameName());
         gamePlatforms.setText(limitPlatformText(item.getPlatform()));
 

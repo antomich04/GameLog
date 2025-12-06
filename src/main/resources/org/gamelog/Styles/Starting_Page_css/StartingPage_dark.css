@@ -1,17 +1,11 @@
-/* ==============================================
-   DARK MODE STARTING PAGE
-   ============================================== */
-
 #rootPane {
     -fx-background-color: #0E1C24;
 }
 
-/* --- LOGO SWAP --- */
 #logoImage {
     -fx-image: url("../../Assets/Logo_dark.png");
 }
 
-/* --- TEXT --- */
 .title-text {
     -fx-fill: #e9f0f1; /* Soft White */
 }
@@ -20,7 +14,6 @@
     -fx-fill: #a8b0b2; /* Muted Grey */
 }
 
-/* --- BUTTON --- */
 #getStartedBtn {
     -fx-background-color: #1C3849;
     -fx-background-radius: 18;

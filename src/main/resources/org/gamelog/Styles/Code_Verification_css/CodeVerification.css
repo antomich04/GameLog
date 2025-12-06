@@ -2,7 +2,6 @@
     -fx-background-color: #FFFFFF;
 }
 
-/* --- TEXT --- */
 .page-title {
     -fx-font-family: "MS Reference Sans Serif";
     -fx-text-fill: #1C3849;
@@ -25,7 +24,6 @@
     -fx-font-size: 22px;
 }
 
-/* --- INPUTS (OTP) --- */
 .text-field {
     -fx-background-color: #FFFFFF;
     -fx-border-color: #000000;
@@ -57,7 +55,6 @@
     -fx-spacing: 40px;
 }
 
-/* --- BUTTONS --- */
 #backBtn {
     -fx-background-color: #1C3849;
     -fx-text-fill: #ffffff;

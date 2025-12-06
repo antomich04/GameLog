@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="160" prefWidth="320" styleClass="game-card" stylesheets="@../Styles/Game_Cards_css/GameCards_dark.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.GameCardsController">
+<AnchorPane fx:id="rootPane" prefHeight="160" prefWidth="320" styleClass="game-card" stylesheets="@../Styles/Game_Cards_css/GameCards_dark.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.GameCardsController">
 
     <VBox spacing="6" styleClass="card-content" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
 
