@@ -56,6 +56,11 @@ public class ThemeManager {
                 "/org/gamelog/Styles/Game_Cards_css/GameCards.css",
                 "/org/gamelog/Styles/Game_Cards_css/GameCards_dark.css"
         });
+
+        THEME_MAP.put("EditItemPage", new String[]{
+                "/org/gamelog/Styles/Edit_Item_Page_css/EditItemPage.css",
+                "/org/gamelog/Styles/Edit_Item_Page_css/EditItemPage_dark.css"
+        });
     }
 
     //Applies the correct theme to the given root based on SessionManager state.

@@ -24,6 +24,8 @@ import org.gamelog.model.GameInfo;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
 import org.gamelog.utils.RawgClient;
+import org.gamelog.utils.ThemeManager;
+
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -55,6 +57,8 @@ public class EditItemController {
     private ScrollPane achievementsScrollPane;
     @FXML
     private Button toggleAchievementsBtn;
+    @FXML
+    private ImageView dateIcon;
 
     private DetailedBacklogItem currentItem;
     private final DecimalFormat ratingFormat = new DecimalFormat("0.00");
@@ -79,6 +83,12 @@ public class EditItemController {
         toggleAchievementsBtn.setOnMouseClicked(e -> {
             toggleAchievementList();
         });
+
+        ThemeManager.applyTheme(rootPane, "EditItemPage");
+
+        boolean isDark = SessionManager.getInstance().isDarkMode();
+        String iconPath = isDark ? "/org/gamelog/Assets/date_icon_dark.png" : "/org/gamelog/Assets/date_icon.png";
+        dateIcon.setImage(new Image(getClass().getResourceAsStream(iconPath)));
 
         this.currentUsername = SessionManager.getInstance().getUsername();
 

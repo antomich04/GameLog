@@ -51,3 +51,7 @@
     -fx-font-size: 14px;
     -fx-padding: 2px 0;
 }
+
+.check-box:hover .box {
+    -fx-cursor: hand;
+}
