@@ -1,6 +1,10 @@
 package org.gamelog.repository;
 
+import org.gamelog.model.LogEntry;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRepo {
 
@@ -209,6 +213,51 @@ public class UserRepo {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean isAdmin(String username){
+        String query = "SELECT is_admin(?)";
+        try(Connection conn = DatabaseConnection.getInstance().getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query);){
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean(1);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static List<LogEntry> getApplicationLogs(){
+        List<LogEntry> logs = new ArrayList<>();
+
+        String query = "SELECT * FROM get_all_application_logs()";
+
+        try(Connection conn = DatabaseConnection.getInstance().getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query)){
+
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                int logId = rs.getInt(1);
+                String operation = rs.getString(2).trim();
+                String tableName = rs.getString(3);
+                Timestamp timestamp = rs.getTimestamp(4);
+                String actingUser = rs.getString(5);
+                Integer recordId = rs.getObject(6) != null ? rs.getInt(6) : null;
+                String details = rs.getString(7);
+
+                logs.add(new LogEntry(logId, operation, tableName, timestamp, actingUser, recordId, details));
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return logs;
     }
 
 }

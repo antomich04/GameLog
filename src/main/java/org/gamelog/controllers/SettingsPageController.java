@@ -43,6 +43,12 @@ public class SettingsPageController {
     private ToggleButton notificationsToggle;
     @FXML
     private ToggleButton darkModeToggle;
+    @FXML
+    private HBox logsClickableArea;
+    @FXML
+    private ImageView logsIcon;
+    @FXML
+    private Separator logsSeparator;
 
     private SessionManager sessionManager;
 
@@ -86,8 +92,22 @@ public class SettingsPageController {
             handleAccountDeletion(username);
         });
 
-        if (aboutClickableArea != null) {
-            aboutClickableArea.setOnMouseClicked(e -> System.out.println("About clicked"));
+        aboutClickableArea.setOnMouseClicked(event -> {
+            //TODO SHOW ABOUT SECTION
+        });
+
+        boolean isAdmin = UserRepo.isAdmin(username);
+        logsClickableArea.setVisible(isAdmin);
+        logsClickableArea.setManaged(isAdmin);
+        logsIcon.setVisible(isAdmin);
+        logsIcon.setManaged(isAdmin);
+        logsSeparator.setVisible(isAdmin);
+        logsSeparator.setManaged(isAdmin);
+
+        if(logsClickableArea.isVisible()) {
+            logsClickableArea.setOnMouseClicked(event -> {
+                navigateTo("/org/gamelog/Pages/logs_page.fxml", "LogsPage");
+            });
         }
     }
 

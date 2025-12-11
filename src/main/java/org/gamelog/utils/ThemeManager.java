@@ -61,6 +61,11 @@ public class ThemeManager {
                 "/org/gamelog/Styles/Edit_Item_Page_css/EditItemPage.css",
                 "/org/gamelog/Styles/Edit_Item_Page_css/EditItemPage_dark.css"
         });
+
+        THEME_MAP.put("LogsPage", new String[]{
+                "/org/gamelog/Styles/Logs_Page_css/LogsPage.css",
+                "/org/gamelog/Styles/Logs_Page_css/LogsPage_dark.css"
+        });
     }
 
     //Applies the correct theme to the given root based on SessionManager state.

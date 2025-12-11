@@ -1,0 +1,61 @@
+#rootPane {
+    -fx-background-color: #FFFFFF;
+}
+
+.page-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: #1C3849;
+}
+
+.log-table {
+    -fx-background-color: transparent;
+    -fx-border-color: #ddd;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-table-cell-border-color: #cccccc;
+}
+
+
+.log-table .column-header,
+.log-table .column-header .filler,
+.log-table .column-header-background,
+.log-table .column-header-background .filler {
+    -fx-background-color: #f0f0f0 !important;
+}
+
+
+.log-table .column-header {
+    -fx-border-color: transparent #dddddd transparent transparent;
+    -fx-border-width: 0 1px 0 0;
+}
+
+
+.log-table .column-header .label {
+    -fx-text-fill: #1C3849;
+    -fx-font-weight: bold;
+}
+
+
+.table-row-cell {
+    -fx-background-color: #FFFFFF;
+    -fx-cell-hover-color: #e6f0ff;
+    -fx-padding: 0;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f5f5f5;
+}
+
+.table-cell {
+    -fx-text-fill: #333333;
+    -fx-font-size: 13px;
+    -fx-padding:4px;
+}
+#backBtn {
+    -fx-background-color: #1C3849;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 10px;
+}

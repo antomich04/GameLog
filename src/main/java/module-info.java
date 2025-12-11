@@ -17,6 +17,7 @@ module org.gamelog.gamelog {
 
     opens org.gamelog to javafx.fxml;
     exports org.gamelog;
-    exports org.gamelog.controllers;
     opens org.gamelog.controllers to javafx.fxml;
+    exports org.gamelog.controllers;
+    opens org.gamelog.model to javafx.base;
 }

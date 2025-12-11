@@ -104,6 +104,10 @@ Circle {
     -fx-image: url("../../Assets/about_dark_icon.png");
 }
 
+#logsIcon {
+    -fx-image: url("../../Assets/logs_icon_dark.png");
+}
+
 #deleteIcon {
     -fx-image: url("../../Assets/delete_account_icon.png");
 }
