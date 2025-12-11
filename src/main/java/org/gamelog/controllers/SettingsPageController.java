@@ -93,7 +93,7 @@ public class SettingsPageController {
         });
 
         aboutClickableArea.setOnMouseClicked(event -> {
-            //TODO SHOW ABOUT SECTION
+            navigateTo("/org/gamelog/Pages/about-page.fxml", "AboutPage");
         });
 
         boolean isAdmin = UserRepo.isAdmin(username);

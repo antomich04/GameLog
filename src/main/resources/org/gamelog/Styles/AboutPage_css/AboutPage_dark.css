@@ -1,0 +1,49 @@
+#rootPane {
+    -fx-background-color: #0E1C24;
+}
+
+.page-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: #e9f0f1;
+}
+
+#backBtn {
+    -fx-background-color: #195951;
+    -fx-text-fill: #e9f0f1;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 10px;
+}
+
+.about-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.about-scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.about-text-area {
+    -fx-background-color: #0E1C24;
+    -fx-text-fill: #e9f0f1;
+    -fx-font-size: 20px;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.about-text-area .content,
+.about-text-area:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-insets: 0;
+    -fx-border-width: 0;
+}
+
+.about-text-area .content {
+    -fx-background-color: #0E1C24;
+    -fx-padding: 10;
+}

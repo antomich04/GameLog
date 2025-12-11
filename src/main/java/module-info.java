@@ -14,7 +14,6 @@ module org.gamelog.gamelog {
     requires org.controlsfx.controls;
     requires javafx.base;
 
-
     opens org.gamelog to javafx.fxml;
     exports org.gamelog;
     opens org.gamelog.controllers to javafx.fxml;
