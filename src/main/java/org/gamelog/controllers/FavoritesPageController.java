@@ -13,7 +13,6 @@ import org.gamelog.model.BacklogItem;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
 import org.gamelog.utils.ThemeManager;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -38,7 +37,6 @@ public class FavoritesPageController {
 
     @FXML
     public void initialize() {
-        // 1. APPLY THEME
         ThemeManager.applyTheme(rootPane, "Favorites");
 
         setupFilterMenu();
@@ -180,15 +178,14 @@ public class FavoritesPageController {
 
     private void addFavoriteCard(int backlog_id, int gid, String gameName, String platform, int progress, int totalAchievements) {
         try {
-            // FIX: Updated path to match file structure: "game_cards.fxml"
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Components/game_cards.fxml"));
             Node card = loader.load();
             GameCardsController cardController = loader.getController();
 
-            // Pass Theme State
             boolean isDark = SessionManager.getInstance().isDarkMode();
             cardController.setIsDarkMode(isDark);
 
+            cardController.setCallingPageFxml("/org/gamelog/Pages/favorites-page.fxml");
             cardController.setCardData(backlog_id, gid, gameName, platform, progress, totalAchievements);
             cardController.setCardNode(card);
 

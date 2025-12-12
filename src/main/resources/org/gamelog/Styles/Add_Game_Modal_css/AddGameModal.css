@@ -1,7 +1,3 @@
-/* ==============================================
-   LIGHT MODE - ADD GAME MODAL
-   ============================================== */
-
 .modal-root {
     -fx-background-color: white;
     -fx-padding: 25;
@@ -21,7 +17,6 @@
     -fx-text-fill: #333;
 }
 
-/* --- COMBO BOXES --- */
 .combo-box {
     -fx-background-color: #f8f9fa;
     -fx-border-color: #dee2e6;
@@ -51,7 +46,6 @@
     -fx-text-fill: black;
 }
 
-/* --- BUTTONS --- */
 .button {
     -fx-background-radius: 5;
     -fx-font-size: 14;

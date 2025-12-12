@@ -2,7 +2,6 @@
     -fx-background-color: #FFFFFF;
 }
 
-/* --- ADDED: Header Class --- */
 .header-background {
     -fx-background-color: #2A9D8F;
 }
@@ -38,7 +37,6 @@
     -fx-effect: dropshadow(gaussian, rgba(28,56,73,0.1), 4, 0.3, 0, 0);
 }
 
-/* --- BUTTONS --- */
 .confirm-button {
     -fx-background-color: #1C3849;
     -fx-background-radius: 8;

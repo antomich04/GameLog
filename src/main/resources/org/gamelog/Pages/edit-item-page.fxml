@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="rootPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="960.0" stylesheets="@../Styles/Edit_Item_Page_css/EditItemPage.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.gamelog.controllers.EditItemController">
+   <children>
+      <Button id="backBtn" fx:id="backBtn" layoutX="50.0" layoutY="80.0" prefHeight="55.0" prefWidth="55.0" text="&lt;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <AnchorPane fx:id="gameInfoContainer" layoutX="150.0" layoutY="59.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="660.0">
+         <children>
+            <Button id="confirmBtn" fx:id="confirmBtn" layoutX="198.0" layoutY="550.0" prefHeight="50.0" prefWidth="264.0" text="CONFIRM">
+               <font>
+                  <Font name="MS Reference Sans Serif" size="28.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+             <ImageView fx:id="starIcon" fitHeight="24.0" fitWidth="24.0" layoutX="536.0" layoutY="333.0" pickOnBounds="true" preserveRatio="true">
+                 <image>
+                     <Image url="@../Assets/star_icon.png" />
+                 </image>
+             </ImageView>
+             <ImageView fx:id="dateIcon" fitHeight="32.0" fitWidth="32.0" layoutX="472.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
+                 <image>
+                     <Image url="@../Assets/date_icon.png" />
+                 </image>
+             </ImageView>
+             <ImageView fx:id="coverImageContainer" fitHeight="290.0" fitWidth="610.0" layoutX="25.0" layoutY="23.0" pickOnBounds="true" />
+            <Text fx:id="gameRating" layoutX="575.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font name="MS Reference Sans Serif" size="20.0" />
+               </font>
+            </Text>
+             <Text fx:id="gameReleaseDate" layoutX="515.0" layoutY="420.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                 <font>
+                     <Font name="MS Reference Sans Serif" size="20.0" />
+                 </font>
+             </Text>
+
+             <Text fx:id="gameTitle" layoutX="25.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0">
+                 <font>
+                     <Font name="MS Reference Sans Serif" size="20.0" />
+                 </font>
+             </Text>
+            <Text fx:id="gamePlatforms" layoutX="30.0" layoutY="370.0" strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font name="MS Reference Sans Serif" size="12.0" />
+               </font>
+            </Text>
+            <Text fx:id="achievementsCounter" layoutX="30.0" layoutY="508.0" strokeType="OUTSIDE" strokeWidth="0.0">
+               <font>
+                  <Font name="MS Reference Sans Serif" size="20.0" />
+               </font>
+            </Text>
+             <Button fx:id="toggleAchievementsBtn" layoutX="250.0" layoutY="488.0" prefHeight="25.0" prefWidth="25.0" styleClass="toggle-button" text="+" />
+             <ScrollPane fx:id="achievementsScrollPane" hbarPolicy="NEVER" layoutX="30.0" layoutY="525.0" managed="false" prefHeight="150.0" prefWidth="600.0" visible="false">
+                 <VBox fx:id="achievementsListContainer" prefWidth="580.0" spacing="5.0">
+                </VBox>
+             </ScrollPane>
+             <VBox fx:id="loadingOverlay" alignment="CENTER" managed="false" styleClass="loading-overlay" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                 <children>
+                     <ProgressIndicator prefHeight="100" prefWidth="100" />
+                     <Label style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 10 0 0 0;" text="Fetching Game Details..." />
+                 </children>
+             </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

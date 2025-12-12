@@ -1,11 +1,6 @@
-/* ==============================================
-   DARK MODE GAME CARD STYLES
-   Matches Home Page Background: #0E1C24
-   ============================================== */
-
 .game-card {
     /* Slightly lighter than the Home Page (#0E1C24) to create depth */
-    -fx-background-color: #1A2632;
+    -fx-background-color: #293440 !important;
     -fx-background-radius: 20;
     /* Darker, deeper shadow for dark mode */
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 15, 0.3, 0, 4);
@@ -15,7 +10,6 @@
     -fx-padding: 12;
 }
 
-/* --- TEXT COLORS --- */
 .game-title {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
@@ -28,7 +22,6 @@
     -fx-font-size: 13px;
 }
 
-/* --- BUTTONS --- */
 .edit-button {
     /* Lighter Blue to stand out against the dark card */
     -fx-background-color: #2d5a75;
@@ -39,6 +32,7 @@
     /* Add a subtle border to define edges in dark mode */
     -fx-border-color: rgba(255,255,255,0.1);
     -fx-border-radius: 20;
+    -fx-cursor: hand;
 }
 
 .edit-button:hover {
@@ -54,7 +48,6 @@
     -fx-translate-y: -2;
 }
 
-/* --- PROGRESS BAR --- */
 .progress-bar {
     -fx-pref-width: 300;
     -fx-pref-height: 10px;
@@ -83,7 +76,6 @@
     -fx-effect: dropshadow(gaussian, rgba(42, 157, 143, 0.4), 8, 0, 0, 0); /* Glow effect */
 }
 
-/* --- ICON BUTTONS --- */
 .icon-button {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -98,17 +90,9 @@
     -fx-scale-y: 1.1;
 }
 
-/* --- ICON IMAGE SWAPS (CRITICAL) --- */
-/* Target the ImageViews inside the buttons to swap black icons for white ones */
-
 #deleteButton .image-view {
     -fx-image: url("../../Assets/delete_icon.png");
 }
-
-
-/* ==============================================
-   XLARGE CARD STYLES (Overrides)
-   ============================================== */
 .game-card.xlarge {
     -fx-pref-height: 220px;
     -fx-pref-width: 550px;

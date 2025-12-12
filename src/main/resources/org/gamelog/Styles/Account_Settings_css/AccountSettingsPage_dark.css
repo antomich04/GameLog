@@ -1,21 +1,13 @@
-/* ==============================================
-   DARK MODE - ACCOUNT SETTINGS PAGE
-   Unified Teal Color: #195951
-   ============================================== */
-
 #rootPane {
     -fx-background-color: #0E1C24;
 }
 
-/* --- HEADER (UNIFIED TEAL) --- */
-/* UPDATED: Added insets:0 and effect:null to ensure flatness */
 .header-background {
     -fx-background-color: #195951;
     -fx-background-insets: 0;
     -fx-effect: null;
 }
 
-/* --- PROFILE CIRCLE --- */
 #profileCircle {
     -fx-fill: #2f3436;
 }
@@ -25,7 +17,6 @@
     -fx-font-size: 76px;
 }
 
-/* --- TEXT --- */
 .page-title {
     -fx-font-family: "MS Reference Sans Serif";
     -fx-font-size: 32px;
@@ -39,7 +30,6 @@
     -fx-fill: #e9f0f1;
 }
 
-/* --- INPUT FIELDS --- */
 .text-field {
     -fx-background-color: #1A2632;
     -fx-border-color: #455a64;
@@ -56,7 +46,6 @@
     -fx-effect: dropshadow(gaussian, rgba(42, 157, 143, 0.2), 6, 0.3, 0, 0);
 }
 
-/* --- BUTTONS --- */
 .confirm-button {
     -fx-background-color: #1C3849;
     -fx-background-radius: 8;
@@ -83,7 +72,6 @@
     -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.2), 6, 0.3, 0, 2);
 }
 
-/* --- ERRORS --- */
 .error-label {
     -fx-text-fill: #ff4d4f;
     -fx-font-family: "MS Reference Sans Serif";

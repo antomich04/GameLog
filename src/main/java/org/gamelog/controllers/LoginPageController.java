@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -12,9 +13,8 @@ import javafx.stage.Stage;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.AuthRepo;
 import org.gamelog.model.LoginResult;
-import org.gamelog.repository.UserRepo; // Added Import
-import org.gamelog.utils.ThemeManager; // Added Import
-
+import org.gamelog.repository.UserRepo;
+import org.gamelog.utils.ThemeManager;
 import java.io.IOException;
 
 public class LoginPageController {
@@ -22,7 +22,7 @@ public class LoginPageController {
     @FXML
     private TextField usernameInput;
     @FXML
-    private TextField passwordInput;
+    private PasswordField passwordInput;
     @FXML
     private Button loginBtn;
     @FXML
@@ -113,12 +113,10 @@ public class LoginPageController {
 
                 boolean isDark = UserRepo.isDarkModeEnabled(username);
                 SessionManager.getInstance().setDarkMode(isDark);
-                // -------------------------------
 
                 loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/home-page.fxml"));
                 Parent root = loader.load();
 
-                // 3. Apply theme
                 ThemeManager.applyTheme(root, "Home");
 
                 Stage stage = (Stage) rootPane.getScene().getWindow();

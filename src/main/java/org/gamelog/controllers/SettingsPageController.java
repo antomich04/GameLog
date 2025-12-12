@@ -3,7 +3,7 @@ package org.gamelog.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Node; // Import Node
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,11 +15,9 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-import org.gamelog.Main;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.UserRepo;
 import org.gamelog.utils.ThemeManager;
-
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -29,25 +27,28 @@ public class SettingsPageController {
 
     @FXML
     private BorderPane rootPane;
-
     @FXML
     private HBox accountClickableArea;
     @FXML
     private HBox deleteAccountClickableArea;
     @FXML
     private HBox aboutClickableArea;
-
     @FXML
     private Label usernameLabel;
     @FXML
     private Label usernameLetter;
     @FXML
     private Label memberSinceLabel;
-
     @FXML
     private ToggleButton notificationsToggle;
     @FXML
     private ToggleButton darkModeToggle;
+    @FXML
+    private HBox logsClickableArea;
+    @FXML
+    private ImageView logsIcon;
+    @FXML
+    private Separator logsSeparator;
 
     private SessionManager sessionManager;
 
@@ -55,7 +56,6 @@ public class SettingsPageController {
         sessionManager = SessionManager.getInstance();
         String username = sessionManager.getUsername();
 
-        // --- 1. Load User Info ---
         usernameLabel.setText(username);
         if (username != null && !username.isEmpty()) {
             usernameLetter.setText(String.valueOf(Character.toUpperCase(username.charAt(0))));
@@ -67,7 +67,6 @@ public class SettingsPageController {
             memberSinceLabel.setText("Member since: " + date.toString());
         }
 
-        // --- 2. Notifications Logic ---
         boolean isNotifEnabled = UserRepo.isNotificationsEnabled(username);
         notificationsToggle.setSelected(isNotifEnabled);
 
@@ -75,11 +74,9 @@ public class SettingsPageController {
             UserRepo.updateNotificationStatus(username, newValue);
         });
 
-        // --- 3. Dark Mode Logic ---
         boolean isDark = sessionManager.isDarkMode();
         darkModeToggle.setSelected(isDark);
 
-        // Apply theme immediately to this page
         ThemeManager.applyTheme(rootPane, "Settings");
 
         // Handle Toggle Switch
@@ -87,7 +84,6 @@ public class SettingsPageController {
             handleDarkModeSwitch(newVal, username);
         });
 
-        // --- 4. Navigation Handlers ---
         accountClickableArea.setOnMouseClicked(event -> {
             handleAccountClick();
         });
@@ -96,8 +92,22 @@ public class SettingsPageController {
             handleAccountDeletion(username);
         });
 
-        if (aboutClickableArea != null) {
-            aboutClickableArea.setOnMouseClicked(e -> System.out.println("About clicked"));
+        aboutClickableArea.setOnMouseClicked(event -> {
+            navigateTo("/org/gamelog/Pages/about-page.fxml", "AboutPage");
+        });
+
+        boolean isAdmin = UserRepo.isAdmin(username);
+        logsClickableArea.setVisible(isAdmin);
+        logsClickableArea.setManaged(isAdmin);
+        logsIcon.setVisible(isAdmin);
+        logsIcon.setManaged(isAdmin);
+        logsSeparator.setVisible(isAdmin);
+        logsSeparator.setManaged(isAdmin);
+
+        if(logsClickableArea.isVisible()) {
+            logsClickableArea.setOnMouseClicked(event -> {
+                navigateTo("/org/gamelog/Pages/logs_page.fxml", "LogsPage");
+            });
         }
     }
 
@@ -125,7 +135,6 @@ public class SettingsPageController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
 
-            // Apply theme to the NEW page
             ThemeManager.applyTheme(root, themeKey);
 
             Stage stage = (Stage) rootPane.getScene().getWindow();
@@ -142,23 +151,20 @@ public class SettingsPageController {
         confirmation.setHeaderText("Permanent Account Deletion");
         confirmation.setContentText("This will permanently delete your account and all data. This action cannot be undone.");
 
-        // Set Icon
         Window window = confirmation.getDialogPane().getScene().getWindow();
         Stage stage = (Stage) window;
         try {
             stage.getIcons().add(new Image(getClass().getResourceAsStream("/org/gamelog/Assets/Icon.png")));
         } catch (Exception ignored) {}
 
-        // Custom Buttons
         ButtonType deleteButton = new ButtonType("Delete", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
         confirmation.getButtonTypes().setAll(deleteButton, cancelButton);
 
-        // Apply CSS to Dialog (Light or Dark based on Session)
         DialogPane dialogPane = confirmation.getDialogPane();
         try {
             boolean isDark = SessionManager.getInstance().isDarkMode();
-            String cssPath = isDark ? "/org/gamelog/Styles/Dialog_dark.css" : "/org/gamelog/Styles/dialogs.css";
+            String cssPath = isDark ? "/org/gamelog/Styles/Dialogs_css/Dialogs_dark.css" : "/org/gamelog/Styles/Dialogs_css/Dialogs.css";
 
             dialogPane.getStylesheets().add(getClass().getResource(cssPath).toExternalForm());
             dialogPane.getStyleClass().add("confirmation");
@@ -177,7 +183,6 @@ public class SettingsPageController {
                 }
 
                 try {
-                    // Return to Login Screen
                     Parent loginRoot = FXMLLoader.load(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
                     Stage currentStage = (Stage) rootPane.getScene().getWindow();
                     currentStage.setScene(new Scene(loginRoot));
@@ -191,7 +196,7 @@ public class SettingsPageController {
 
     private void showAccountDeletionNotification(String username) {
         try {
-            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/logo.png"));
+            Image iconImage = new Image(getClass().getResourceAsStream("/org/gamelog/Assets/logo.png"));
             ImageView iconView = new ImageView(iconImage);
             iconView.setFitHeight(90);
             iconView.setFitWidth(120);

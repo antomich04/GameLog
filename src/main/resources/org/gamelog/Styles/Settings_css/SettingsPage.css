@@ -1,28 +1,20 @@
-/* ==============================================
-   LIGHT MODE - SETTINGS PAGE
-   ============================================== */
-
-/* --- 1. BACKGROUNDS --- */
 #rootPane {
     -fx-background-color: #FFFFFF;
     -fx-font-family: "Segoe UI", sans-serif;
 }
 
-/* Ensure inner VBoxes are white */
 .main-container,
 .profile-section,
 .settings-section {
     -fx-background-color: #FFFFFF;
 }
 
-/* --- 2. HEADER --- */
 .header-background {
     /* Original Light Mode Teal */
     -fx-background-color: #2A9D8F;
     -fx-background-insets: 0;
 }
 
-/* --- 3. PROFILE CIRCLE --- */
 Circle {
     -fx-fill: #E0E0E0; /* Light Grey */
 }
@@ -31,25 +23,21 @@ Circle {
     -fx-text-fill: #000000;
 }
 
-/* --- 4. TEXT COLORS --- */
 .settings-section Label,
 .profile-section Label {
     -fx-text-fill: #1C3849; /* Dark Blue/Black */
 }
 
-/* Member Since text */
 .profile-section Label[textFill="#555555"] {
     -fx-text-fill: #555555;
 }
 
-/* --- 5. SEPARATORS --- */
 .settings-section Separator .line {
     -fx-border-color: #e6e6e6; /* Light Grey Separator */
     -fx-border-width: 0 0 2 0;
 }
 
 
-/* --- 7. TOGGLE SWITCH --- */
 .toggle-button {
     -fx-background-color: transparent;
 }
@@ -85,16 +73,12 @@ Circle {
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 4, 0, 0, 1);
 }
 
-/* --- 8. DELETE ACCOUNT TEXT --- */
-/* Target the specific label inside the ID */
 #deleteAccountClickableArea Label {
     -fx-text-fill: #dc3545; /* Red */
     -fx-font-weight: bold;
 }
 
-/* --- 9. ICON IMAGE SWAPS (FIX FOR RELOAD ISSUE) --- */
 /* Explicitly set the dark/colored icons for Light Mode so they reload correctly */
-
 #accountIcon {
     -fx-image: url("../../Assets/account_icon.png");
 }
@@ -108,6 +92,10 @@ Circle {
 }
 #aboutIcon {
     -fx-image: url("../../Assets/about_icon.png");
+}
+
+#logsIcon {
+    -fx-image: url("../../Assets/logs_icon.png");
 }
 
 #deleteIcon {

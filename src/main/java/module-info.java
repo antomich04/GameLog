@@ -12,10 +12,11 @@ module org.gamelog.gamelog {
     requires java.naming;
     requires com.fasterxml.jackson.databind;
     requires org.controlsfx.controls;
-
+    requires javafx.base;
 
     opens org.gamelog to javafx.fxml;
     exports org.gamelog;
-    exports org.gamelog.controllers;
     opens org.gamelog.controllers to javafx.fxml;
+    exports org.gamelog.controllers;
+    opens org.gamelog.model to javafx.base;
 }

@@ -1,0 +1,57 @@
+#rootPane{
+    -fx-background-color: #FFFFFF;
+}
+
+#backBtn {
+    -fx-background-color: #1C3849;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 10px;
+}
+
+#toggleAchievementsBtn{
+    -fx-background-color: #1C3849;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-padding: 2px;
+    -fx-background-radius: 10px;
+}
+
+#gameInfoContainer{
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.40), 20, 0.3, 0, 4);
+}
+
+#confirmBtn{
+    -fx-background-color: #1C3849;
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+.clickable-achievement-text {
+    -fx-cursor: hand;
+    -fx-underline: true;
+    -fx-fill: #1C3849;
+}
+
+#achievementsListContainer {
+    -fx-padding: 10px;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-background-color: #f8f8f8;
+}
+
+#achievementsListContainer .check-box {
+    -fx-font-size: 14px;
+    -fx-padding: 2px 0;
+}
+
+.check-box:hover .box {
+    -fx-cursor: hand;
+}

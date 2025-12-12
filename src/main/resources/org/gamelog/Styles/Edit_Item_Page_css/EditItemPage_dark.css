@@ -1,0 +1,94 @@
+#rootPane{
+    -fx-background-color: #0E1C24; /* Root Dark Background */
+}
+
+#backBtn {
+    -fx-background-color: #195951; /* Primary Teal Accent */
+    -fx-text-fill: #e9f0f1; /* Soft White */
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 10px;
+}
+
+#toggleAchievementsBtn{
+    -fx-background-color: #195951; /* Primary Teal Accent */
+    -fx-text-fill: #e9f0f1; /* Soft White */
+    -fx-cursor: hand;
+    -fx-font-size: 14px;
+    -fx-padding: 2px;
+    -fx-background-radius: 10px;
+}
+
+#gameInfoContainer{
+    -fx-background-color: #1A2632; /* Modal Dark Background for elevation */
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.60), 25, 0.4, 0, 5); /* Stronger shadow in dark mode */
+}
+
+#confirmBtn{
+    -fx-background-color: #195951; /* Primary Teal Accent */
+    -fx-background-radius: 8;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+/* Invert default text colors for containers to white */
+#gameInfoContainer Text,
+#gameInfoContainer Label,
+#achievementsListContainer .check-box .label {
+    -fx-fill: #e9f0f1;
+    -fx-text-fill: #e9f0f1;
+}
+
+.clickable-achievement-text {
+    -fx-cursor: hand;
+    -fx-underline: true;
+    -fx-fill: #2a9d8f; /* Teal fill for contrast */
+}
+
+#achievementsListContainer {
+    -fx-padding: 10px;
+    -fx-border-color: #455a64; /* Muted Dark Border */
+    -fx-border-radius: 5px;
+    -fx-border-width: 1px;
+    -fx-background-color: #293440; /* Slightly lighter than container for subtle contrast */
+}
+
+#achievementsListContainer .check-box {
+    -fx-font-size: 14px;
+    -fx-padding: 2px 0;
+}
+
+.vbox.loadingOverlay {
+    -fx-background-color: rgba(14, 28, 36, 0.95); /* Root Dark BG with transparency */
+}
+
+.loading-overlay .label {
+    -fx-text-fill: #e9f0f1;
+}
+
+
+.check-box {
+    -fx-box-border: #b0bec5; /* Light grey border for the box */
+    -fx-mark-color: #2a9d8f; /* Teal color for the checkmark */
+    -fx-border-radius: 3;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #e9f0f1; /* Light background for the box when checked */
+}
+
+.check-box:hover .box {
+    -fx-background-color: #0E1C24; /* Subtle dark hover color */
+    -fx-cursor: hand;
+}
+
+#achievementsListContainer .text {
+    -fx-fill: #e9f0f1;
+}
+
+#achievementsListContainer .hbox {
+    -fx-padding: 2 0;
+}
+

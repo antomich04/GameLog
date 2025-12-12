@@ -1,6 +1,10 @@
 package org.gamelog.repository;
 
+import org.gamelog.model.LogEntry;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRepo {
 
@@ -144,7 +148,6 @@ public class UserRepo {
     }
 
     public static boolean isNotificationsEnabled(String username) {
-        // Assumes a stored function named 'get_notifications_enabled' exists
         String query = "SELECT get_notifications_enabled(?)";
 
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -154,7 +157,6 @@ public class UserRepo {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    // getBoolean returns false if the value is NULL, which is safe here
                     return rs.getBoolean(1);
                 }
             }
@@ -183,7 +185,7 @@ public class UserRepo {
     }
 
     public static boolean isDarkModeEnabled(String username) {
-        String query = "SELECT dark_mode_enabled FROM users WHERE username = ?";
+        String query = "SELECT is_dark_mode_enabled(?)";
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
@@ -191,7 +193,7 @@ public class UserRepo {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return rs.getBoolean("dark_mode_enabled");
+                return rs.getBoolean(1);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -200,17 +202,62 @@ public class UserRepo {
     }
 
     public static void setDarkMode(String username, boolean enabled) {
-        String query = "UPDATE users SET dark_mode_enabled = ? WHERE username = ?";
+        String query = "SELECT set_dark_mode(?, ?)";
         try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setBoolean(1, enabled);
             pstmt.setString(2, username);
-            pstmt.executeUpdate();
+            pstmt.execute();
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static boolean isAdmin(String username){
+        String query = "SELECT is_admin(?)";
+        try(Connection conn = DatabaseConnection.getInstance().getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query);){
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getBoolean(1);
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static List<LogEntry> getApplicationLogs(){
+        List<LogEntry> logs = new ArrayList<>();
+
+        String query = "SELECT * FROM get_all_application_logs()";
+
+        try(Connection conn = DatabaseConnection.getInstance().getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query)){
+
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()){
+                int logId = rs.getInt(1);
+                String operation = rs.getString(2).trim();
+                String tableName = rs.getString(3);
+                Timestamp timestamp = rs.getTimestamp(4);
+                String actingUser = rs.getString(5);
+                Integer recordId = rs.getObject(6) != null ? rs.getInt(6) : null;
+                String details = rs.getString(7);
+
+                logs.add(new LogEntry(logId, operation, tableName, timestamp, actingUser, recordId, details));
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return logs;
     }
 
 }

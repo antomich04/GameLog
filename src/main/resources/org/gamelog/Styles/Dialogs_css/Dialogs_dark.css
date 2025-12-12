@@ -1,0 +1,59 @@
+.dialog-pane {
+    -fx-background-color: #1A2632; /* Darker background for the pane (modal background) */
+    -fx-border-color: #455a64; /* Muted dark border */
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 20, 0, 0, 8);
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #0E1C24; /* Root background for header contrast */
+    -fx-padding: 15 20 15 20;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: #e9f0f1; /* Soft White text */
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+.dialog-pane .content.label {
+    -fx-text-fill: #e9f0f1; /* Soft White text */
+    -fx-font-size: 14px;
+    -fx-wrap-text: true;
+    -fx-padding: 20 20 15 20;
+}
+
+.dialog-pane .button-bar {
+    -fx-padding: 15 20 15 20;
+    -fx-spacing: 12;
+}
+
+.dialog-pane .button-bar .button {
+    -fx-background-radius: 6px;
+    -fx-padding: 8 20 8 20;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+/* Primary Button (Delete Account) */
+.dialog-pane .button-bar .button:default {
+    -fx-background-color: #195951; /* Primary Teal */
+    -fx-text-fill: white;
+}
+
+.dialog-pane .button-bar .button:default:hover {
+    -fx-background-color: #206b61; /* Lighter Teal Hover */
+}
+
+/* Cancel Button */
+.dialog-pane .button-bar .button:cancel {
+    -fx-background-color: #44484a; /* Muted Dark Grey (Cancel button) */
+    -fx-text-fill: white;
+}
+
+.dialog-pane .button-bar .button:cancel:hover {
+    -fx-background-color: #5a6268; /* Muted Dark Grey Hover */
+}

@@ -1,16 +1,13 @@
-/* --- 1. BACKGROUNDS --- */
 #rootPane {
     -fx-background-color: #0E1C24;
 }
 
-/* Ensure inner VBoxes match the dark root */
 .main-container,
 .profile-section,
 .settings-section {
     -fx-background-color: #0E1C24 !important;
 }
 
-/* --- 2. HEADER (UNIFIED TEAL) --- */
 .header-background {
     -fx-background-color: #195951 !important;
     /* Removes default shading to ensure exact color match with toggle */
@@ -18,16 +15,14 @@
     -fx-effect: null;
 }
 
-/* --- 3. PROFILE CIRCLE --- */
 Circle {
-    -fx-fill: #2f3436 !important; /* Dark Grey */
+    -fx-fill: #353A3C !important; /* Dark Grey */
 }
 
 #usernameLetter {
     -fx-text-fill: #ffffff !important;
 }
 
-/* --- 4. TEXT COLORS --- */
 .settings-section Label,
 .profile-section Label {
     -fx-text-fill: #e9f0f1 !important; /* Soft White */
@@ -37,17 +32,14 @@ Circle {
     -fx-text-fill: #a8b0b2 !important; /* Muted Gray */
 }
 
-/* --- 5. SEPARATORS --- */
 .settings-section Separator .line {
     -fx-border-color: #274a52 !important; /* Subtle Teal-Blue */
 }
 
-/* --- 7. TOGGLE BUTTON --- */
 .toggle-button {
     -fx-background-color: transparent;
 }
 
-/* OFF STATE */
 .toggle-button .track {
     -fx-background-color: #44484a; /* Muted Dark Grey */
     -fx-background-radius: 30px;
@@ -61,7 +53,6 @@ Circle {
     -fx-effect: null;
 }
 
-/* ON STATE (UNIFIED TEAL) */
 .toggle-button:selected .track {
     -fx-background-color: #195951;
     /* Removes default inner shadow so it matches the header exactly */
@@ -87,20 +78,16 @@ Circle {
     -fx-fill: #ffffff;
 }
 
-/* --- 8. ICONS & SPECIAL LABELS --- */
 .settings-section ImageView {
     -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.06), 2, 0, 0, 0) !important;
 }
 
-/* DELETE ACCOUNT TEXT RED */
 #deleteAccountClickableArea Label {
-    -fx-text-fill: #dc3545;
+    -fx-text-fill: #dc3545 !important;
     -fx-font-weight: bold;
 }
 
-/* --- 9. ICON IMAGE SWAPS --- */
 /* Swaps black icons for white icons. Ensure these files exist in Assets! */
-
 #accountIcon {
     -fx-image: url("../../Assets/account_dark_icon.png");
 }
@@ -115,6 +102,10 @@ Circle {
 
 #aboutIcon {
     -fx-image: url("../../Assets/about_dark_icon.png");
+}
+
+#logsIcon {
+    -fx-image: url("../../Assets/logs_icon_dark.png");
 }
 
 #deleteIcon {

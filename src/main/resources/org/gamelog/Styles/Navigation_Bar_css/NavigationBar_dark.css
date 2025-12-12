@@ -29,7 +29,6 @@
     -fx-spacing: 6;
 }
 
-/* --- TEXT --- */
 .sidebar-text {
     -fx-fill: #e9f0f1; /* Soft White */
     -fx-font-family: "MS Reference Sans Serif";

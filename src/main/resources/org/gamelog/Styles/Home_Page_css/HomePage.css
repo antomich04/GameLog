@@ -2,7 +2,6 @@
     -fx-background-color: white;
 }
 
-/* --- TEXT STYLES --- */
 .welcome-label {
     -fx-font-weight: bold;
     -fx-text-fill: black;
@@ -20,7 +19,6 @@
     -fx-text-fill: black;
 }
 
-/* --- LOADING --- */
 .loading-overlay {
     -fx-background-color: white;
 }
@@ -31,7 +29,6 @@
     -fx-text-fill: black;
 }
 
-/* --- USER ICON --- */
 #userIconRect {
     -fx-fill: #1C3849; /* Standard Blue */
 }

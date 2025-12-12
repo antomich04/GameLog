@@ -13,8 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.gamelog.repository.AuthRepo;
 import org.gamelog.utils.EmailSender;
-import org.gamelog.utils.ThemeManager; // Import ThemeManager
-
+import org.gamelog.utils.ThemeManager;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -56,7 +55,6 @@ public class CodeVerificationController {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Pages/login-page.fxml"));
                 Parent root = loader.load();
 
-                // 2. APPLY
                 ThemeManager.applyTheme(root, "Login");
 
                 Stage stage =  (Stage) rootPane.getScene().getWindow();
@@ -159,6 +157,14 @@ public class CodeVerificationController {
         //Disables interaction and shows loading
         submitBtn.setDisable(true);
         resendCode.setDisable(true);
+        otp1.clear();
+        otp2.clear();
+        otp3.clear();
+        otp4.clear();
+        otp1.setDisable(true);
+        otp2.setDisable(true);
+        otp3.setDisable(true);
+        otp4.setDisable(true);
         codeErrorMessage.setText("Sending new code...");
         codeErrorMessage.setVisible(true);
 
@@ -178,6 +184,10 @@ public class CodeVerificationController {
 
                 submitBtn.setDisable(false);
                 resendCode.setDisable(false);
+                otp1.setDisable(false);
+                otp2.setDisable(false);
+                otp3.setDisable(false);
+                otp4.setDisable(false);
                 codeErrorMessage.setText("New code sent successfully!");
             }
 

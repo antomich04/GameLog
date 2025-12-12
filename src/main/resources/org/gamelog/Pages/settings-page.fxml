@@ -162,6 +162,33 @@
                     <Pane HBox.hgrow="ALWAYS" />
                 </HBox>
                 <Separator />
+
+                <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-min-height: 32;">
+                    <HBox fx:id="logsClickableArea" alignment="CENTER_LEFT" spacing="15" style="-fx-cursor: hand;">
+                        <ImageView fx:id="logsIcon" fitHeight="30.0" fitWidth="30.0">
+                            <image>
+                                <Image url="@../Assets/logs_icon.png" />
+                            </image>
+                        </ImageView>
+                        <Label style="-fx-font-weight: bold;" text="Logs">
+                            <font><Font size="19.0" /></font>
+                        </Label>
+                        <HBox.margin>
+                            <Insets left="30.0" />
+                        </HBox.margin>
+                        <padding>
+                            <Insets left="20.0" />
+                        </padding>
+                    </HBox>
+                    <Pane HBox.hgrow="ALWAYS" />
+                </HBox>
+
+                <Separator fx:id="logsSeparator">
+                    <VBox.margin>
+                        <Insets bottom="-20.0" />
+                    </VBox.margin>
+                </Separator>
+
             </VBox>
         </VBox>
     </center>

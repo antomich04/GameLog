@@ -1,12 +1,7 @@
-/* ==============================================
-   DARK MODE BACKLOG PAGE STYLES
-   ============================================== */
-
 #rootPane {
     -fx-background-color: #0E1C24;
 }
 
-/* --- TEXT STYLES --- */
 .page-title {
     -fx-font-weight: bold;
     -fx-text-fill: #e9f0f1; /* Soft White */
@@ -17,7 +12,6 @@
     -fx-fill: #a8b0b2; /* Muted Grey (Text objects use -fx-fill) */
 }
 
-/* --- SCROLL PANE --- */
 .scroll-pane {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -27,7 +21,6 @@
     -fx-background-color: transparent;
 }
 
-/* Hide scrollbars (Keep clean look) */
 .scroll-pane .scroll-bar:vertical,
 .scroll-pane .scroll-bar:horizontal {
     -fx-background-color: transparent;
@@ -38,7 +31,6 @@
     -fx-background-color: transparent;
 }
 
-/* --- CLICKABLE ICONS (ADD & FILTER) --- */
 .clickableIcons {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
@@ -60,28 +52,24 @@
     -fx-border-width: 0;
 }
 
-/* Animation Base */
 .clickableIcons .image-view {
     -fx-transition: -fx-scale-x 0.2s, -fx-scale-y 0.2s;
-    /* Apply a faint white glow instead of black shadow for visibility */
+    /* Applies a faint white glow instead of black shadow for visibility */
     -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.2), 5, 0, 0, 0);
 }
 
-/* Animation Hover - Filter Icon */
 .clickableIcons:hover #filterIcon {
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
     -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.4), 8, 0, 0, 0);
 }
 
-/* FIX: Animation Hover - Add Icon (Corrected ID capitalization) */
 .clickableIcons:hover #addIcon {
     -fx-scale-x: 1.4; /* Slightly larger than base 1.2 */
     -fx-scale-y: 1.4;
     -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.4), 8, 0, 0, 0);
 }
 
-/* --- ICON IMAGE SWAPS (CRITICAL) --- */
 
 #addIcon {
     -fx-image: url("../../Assets/add_dark_icon.png");
@@ -93,7 +81,6 @@
     -fx-image: url("../../Assets/filter_dark_icon.png");
 }
 
-/* --- LOADING OVERLAY --- */
 .loading-overlay {
     -fx-background-color: #0E1C24;
 }
@@ -103,4 +90,44 @@
     -fx-font-weight: bold;
     -fx-padding: 10 0 0 0;
     -fx-text-fill: #e9f0f1; /* Soft White */
+}
+
+.context-menu {
+    -fx-background-color: #1A2632; /* Slightly lighter than root for contrast */
+    -fx-border-color: #455a64;
+    -fx-border-width: 1;
+    -fx-background-radius: 5;
+    -fx-padding: 5 0;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0, 0, 5);
+}
+
+.menu-item,
+.radio-menu-item {
+    -fx-padding: 8 15 8 15;
+    -fx-background-color: transparent;
+}
+
+.menu-item .label,
+.radio-menu-item .label {
+    -fx-text-fill: #e9f0f1; /* Soft White */
+}
+
+/* Hover State */
+.menu-item:focused,
+.menu-item:hover,
+.radio-menu-item:focused,
+.radio-menu-item:hover {
+    -fx-background-color: #243542; /* A subtle hover color */
+    -fx-cursor: hand;
+}
+
+/* Selected State (for RadioMenuItem) */
+.radio-menu-item:selected .label {
+    -fx-text-fill: #2a9d8f; /* Teal color for the selected item text */
+    -fx-font-weight: bold;
+}
+
+.radio-menu-item:selected:focused,
+.radio-menu-item:selected:hover {
+    -fx-background-color: #243542; /* Maintain subtle hover background */
 }

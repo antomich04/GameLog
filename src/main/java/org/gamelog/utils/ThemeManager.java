@@ -2,13 +2,12 @@ package org.gamelog.utils;
 
 import javafx.scene.Parent;
 import org.gamelog.model.SessionManager;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class ThemeManager {
 
-    // Map Page Keys to { LightCSS, DarkCSS }
+    //Maps Page Keys
     private static final Map<String, String[]> THEME_MAP = new HashMap<>();
 
     static {
@@ -17,48 +16,68 @@ public class ThemeManager {
                 "/org/gamelog/Styles/Settings_css/SettingsPage.css",
                 "/org/gamelog/Styles/Settings_css/SettingsPage_dark.css"
         });
+
         // Account Settings Page
         THEME_MAP.put("AccountSettings", new String[]{
                 "/org/gamelog/Styles/Account_Settings_css/AccountSettingsPage.css",
                 "/org/gamelog/Styles/Account_Settings_css/AccountSettingsPage_dark.css"
         });
+
         // Home Page
         THEME_MAP.put("Home", new String[]{
                 "/org/gamelog/Styles/Home_Page_css/HomePage.css",
                 "/org/gamelog/Styles/Home_Page_css/HomePage_dark.css"
         });
+
         // Backlog Page
         THEME_MAP.put("Backlog", new String[]{
                 "/org/gamelog/Styles/Backlog_Page_css/BackLogPage.css",
                 "/org/gamelog/Styles/Backlog_Page_css/BackLogPage_dark.css"
         });
+
         // Favorites Page
         THEME_MAP.put("Favorites", new String[]{
                 "/org/gamelog/Styles/Favorites_Page_css/FavoritesPage.css",
                 "/org/gamelog/Styles/Favorites_Page_css/FavoritesPage_dark.css"
         });
+
         // Navigation Bar
         THEME_MAP.put("NavBar", new String[]{
                 "/org/gamelog/Styles/Navigation_Bar_css/NavigationBar.css",
                 "/org/gamelog/Styles/Navigation_Bar_css/NavigationBar_dark.css"
         });
+
         THEME_MAP.put("AddGameModal", new String[]{
                 "/org/gamelog/Styles/Add_Game_Modal_css/AddGameModal.css",
                 "/org/gamelog/Styles/Add_Game_Modal_css/AddGameModal_dark.css"
         });
+
         THEME_MAP.put("GameCard", new String[]{
                 "/org/gamelog/Styles/Game_Cards_css/GameCards.css",
                 "/org/gamelog/Styles/Game_Cards_css/GameCards_dark.css"
         });
+
+        THEME_MAP.put("EditItemPage", new String[]{
+                "/org/gamelog/Styles/Edit_Item_Page_css/EditItemPage.css",
+                "/org/gamelog/Styles/Edit_Item_Page_css/EditItemPage_dark.css"
+        });
+
+        THEME_MAP.put("LogsPage", new String[]{
+                "/org/gamelog/Styles/Logs_Page_css/LogsPage.css",
+                "/org/gamelog/Styles/Logs_Page_css/LogsPage_dark.css"
+        });
+
+        THEME_MAP.put("AboutPage", new String[]{
+                "/org/gamelog/Styles/AboutPage_css/AboutPage.css",
+                "/org/gamelog/Styles/AboutPage_css/AboutPage_dark.css"
+        });
     }
 
-    /**
-     * Applies the correct theme to the given root based on SessionManager state.
-     */
+    //Applies the correct theme to the given root based on SessionManager state.
     public static void applyTheme(Parent root, String pageKey) {
         if (root == null || !THEME_MAP.containsKey(pageKey)) return;
 
-        // SAFE CHECK: Use default Light Mode if session is null (User not logged in)
+        //Uses default Light Mode if session is null
         boolean isDark = false;
         if (SessionManager.getInstance() != null) {
             isDark = SessionManager.getInstance().isDarkMode();
@@ -67,14 +86,12 @@ public class ThemeManager {
         String[] paths = THEME_MAP.get(pageKey);
         String cssPath = isDark ? paths[1] : paths[0];
 
-        // Clear existing sheets to avoid conflicts
+        //Clears existing sheets to avoid conflicts
         root.getStylesheets().clear();
 
-        // Add the new stylesheet
+        //Adds the new stylesheet
         if (ThemeManager.class.getResource(cssPath) != null) {
             root.getStylesheets().add(ThemeManager.class.getResource(cssPath).toExternalForm());
-        } else {
-            System.err.println("ThemeManager: CSS file not found -> " + cssPath);
         }
     }
 }

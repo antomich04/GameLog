@@ -3,9 +3,13 @@ package org.gamelog.controllers;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.RadioMenuItem;
@@ -17,12 +21,15 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+import org.gamelog.Main;
 import org.gamelog.model.BacklogItem;
 import org.gamelog.model.SearchResult;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
+import org.gamelog.repository.UserRepo;
 import org.gamelog.utils.ThemeManager;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -48,7 +55,6 @@ public class BackLogPageController {
     private String currentSortCriteria = "Newest first";
 
     public void initialize() {
-        // 1. APPLY THEME
         ThemeManager.applyTheme(rootPane, "Backlog");
 
         //Initializes the filtering options
@@ -174,10 +180,10 @@ public class BackLogPageController {
                 cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getBacklogId));
                 break;
             case "Progress (0% - 100%)":
-                cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getProgress));
+                cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getSortableProgressScore));
                 break;
             case "Progress (100% - 0%)":
-                cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getProgress).reversed());
+                cachedBacklogItems.sort(Comparator.comparingInt(BacklogItem::getSortableProgressScore).reversed());
                 break;
             default:
                 break;
@@ -232,10 +238,13 @@ public class BackLogPageController {
 
                 //Conditional Reload based on insertion success
                 if(success){    //The new item is now in the database
+
+                    showGameAdditionNotification(gameName, selectedPlatform);
                     loadBacklogData();
                     updateEmptyState();
-                }else{  //To be changed with an error message in UI level
-                    javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
+
+                }else{
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Adding Game");
                     alert.setHeaderText(null);
                     alert.setContentText("This game and platform combination is already in your backlog, or a database error occurred. Please try again or check your existing list.");
@@ -248,17 +257,45 @@ public class BackLogPageController {
         }
     }
 
+    private void showGameAdditionNotification(String gameName, String platform) {
+        // Check If Notifications Are Enabled
+        if (!UserRepo.isNotificationsEnabled(username)) {
+            return;
+        }
+
+        try {
+            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/Logo.png"));
+            ImageView iconView = new ImageView(iconImage);
+            iconView.setFitHeight(90);
+            iconView.setFitWidth(120);
+
+            Notifications.create()
+                    .title("Game Added")
+                    .text("\"" + gameName + "\" added to your backlog (" + platform + ")")
+                    .graphic(iconView)
+                    .position(Pos.BOTTOM_RIGHT)
+                    .hideAfter(Duration.seconds(5))
+                    .show();
+        } catch (Exception e) {
+            Notifications.create()
+                    .title("Game Added")
+                    .text("\"" + gameName + "\" added to your backlog (" + platform + ")")
+                    .position(Pos.BOTTOM_RIGHT)
+                    .hideAfter(Duration.seconds(5))
+                    .show();
+        }
+    }
+
     private void addGameCard(int backlog_id, int gid, String gameName, String platform, int progress, int totalAchievements) {
         try {
-            // FIX: Changed "game-card.fxml" to "game_cards.fxml" to match your file structure
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/gamelog/Components/game_cards.fxml"));
             Node card = loader.load();
             GameCardsController cardController = loader.getController();
 
-            // CRITICAL: Pass Theme State to the card so icons render correctly
             boolean isDark = SessionManager.getInstance().isDarkMode();
             cardController.setIsDarkMode(isDark);
 
+            cardController.setCallingPageFxml("/org/gamelog/Pages/backlog-page.fxml");
             cardController.setCardData(backlog_id, gid, gameName, platform, progress, totalAchievements);
             cardController.setCardNode(card);
 

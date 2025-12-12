@@ -1,0 +1,93 @@
+#rootPane {
+    -fx-background-color: #0E1C24;
+}
+
+.page-title {
+    -fx-font-weight: bold;
+    -fx-text-fill: #e9f0f1; /* Soft White */
+}
+
+.log-table {
+    -fx-background-color: #1A2632;
+    -fx-border-color: #455a64;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-table-cell-border-color: #455a64;
+}
+
+.log-table .column-header,
+.log-table .column-header .filler,
+.log-table .column-header-background,
+.log-table .column-header-background .filler {
+    -fx-background-color: #293440 !important;
+}
+
+
+.log-table .column-header {
+    -fx-border-color: transparent #607D8B transparent transparent;
+    -fx-border-width: 0 1px 0 0;
+}
+
+.log-table .column-header .label {
+    -fx-text-fill: #e9f0f1;
+    -fx-font-weight: bold;
+}
+
+
+.table-row-cell {
+    -fx-background-color: #1A2632;
+    -fx-cell-hover-color: #243542; /* Subtle dark hover */
+    -fx-padding: 0;
+}
+
+
+.table-row-cell:odd {
+    -fx-background-color: #16212B; /* Slightly darker than base for stripe effect */
+}
+
+.table-cell {
+    -fx-text-fill: #e9f0f1;
+    -fx-font-size: 13px;
+    -fx-padding:4px;
+}
+
+#backBtn {
+    -fx-background-color: #195951;
+    -fx-text-fill: #e9f0f1;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-background-radius: 10px;
+}
+
+.log-table .scroll-bar:vertical,
+.log-table .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.log-table .scroll-bar:vertical .track,
+.log-table .scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.log-table .scroll-bar:vertical .thumb,
+.log-table .scroll-bar:horizontal .thumb {
+    -fx-background-color: #455a64; /* Muted Dark color for visibility */
+    -fx-background-insets: 0;
+    -fx-background-radius: 5;
+}
+
+.log-table .scroll-bar:vertical .thumb:hover,
+.log-table .scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #607d8b; /* Lighter on hover */
+}
+
+/* Removes default buttons */
+.log-table .scroll-bar:vertical .increment-button,
+.log-table .scroll-bar:vertical .decrement-button,
+.log-table .scroll-bar:horizontal .increment-button,
+.log-table .scroll-bar:horizontal .decrement-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+}

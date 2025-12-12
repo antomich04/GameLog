@@ -1,7 +1,3 @@
-/* ==============================================
-   DARK MODE - ADD GAME MODAL
-   ============================================== */
-
 .modal-root {
     /* Slightly lighter than root #0E1C24 to pop out */
     -fx-background-color: #1A2632;
@@ -26,7 +22,6 @@
     -fx-text-fill: #b0bec5; /* Light Grey */
 }
 
-/* --- COMBO BOXES --- */
 .combo-box {
     -fx-background-color: #0E1C24; /* Darker than modal */
     -fx-border-color: #455a64;
@@ -36,7 +31,6 @@
     -fx-font-size: 14;
 }
 
-/* The text inside the combo box editor */
 .combo-box .text-input {
     -fx-text-fill: white;
     -fx-background-color: transparent;
@@ -47,7 +41,6 @@
     -fx-effect: dropshadow(gaussian, rgba(42, 157, 143, 0.2), 5, 0.3, 0, 0);
 }
 
-/* Arrow button area */
 .combo-box .arrow-button {
     -fx-background-color: transparent;
 }
@@ -56,7 +49,6 @@
     -fx-background-color: #b0bec5;
 }
 
-/* Dropdown List */
 .combo-box .list-view {
     -fx-background-color: #0E1C24;
     -fx-border-color: #455a64;
@@ -73,7 +65,6 @@
     -fx-text-fill: white;
 }
 
-/* --- BUTTONS --- */
 .button {
     -fx-background-radius: 5;
     -fx-font-size: 14;

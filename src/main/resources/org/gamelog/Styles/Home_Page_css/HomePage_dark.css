@@ -2,7 +2,6 @@
     -fx-background-color: #0E1C24; /* Dark Background */
 }
 
-/* --- TEXT STYLES --- */
 .welcome-label {
     -fx-font-weight: bold;
     -fx-text-fill: #e9f0f1; /* Soft White */
@@ -20,7 +19,6 @@
     -fx-text-fill: #a8b0b2;
 }
 
-/* --- LOADING --- */
 .loading-overlay {
     -fx-background-color: #0E1C24; /* Match background */
 }
@@ -32,9 +30,8 @@
     -fx-text-fill: #e9f0f1;
 }
 
-/* --- USER ICON --- */
 #userIconRect {
-    -fx-fill: #2f3436; /* Dark Grey (Matches Settings Profile) */
+    -fx-fill: #353A3C; /* Dark Grey (Matches Settings Profile) */
     -fx-stroke-width: 1;
 }
 

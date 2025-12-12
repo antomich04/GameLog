@@ -1,7 +1,3 @@
-/* ==============================================
-   LIGHT MODE - NAVIGATION BAR
-   ============================================== */
-
 #navMenu {
     -fx-background-color: #1C3849;
     -fx-alignment: center;
@@ -28,7 +24,6 @@
     -fx-spacing: 6;
 }
 
-/* --- TEXT --- */
 .sidebar-text {
     -fx-fill: white;
     -fx-font-family: "MS Reference Sans Serif";

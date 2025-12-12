@@ -7,28 +7,21 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.skin.ComboBoxListViewSkin;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import org.gamelog.repository.UserRepo;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javafx.util.StringConverter;
-import org.controlsfx.control.Notifications;
-import org.gamelog.Main;
 import org.gamelog.model.SearchResult;
 import org.gamelog.model.SessionManager;
 import org.gamelog.repository.GamesRepo;
 import org.gamelog.utils.RawgClient;
-import org.gamelog.utils.ThemeManager; // Import ThemeManager
-
+import org.gamelog.utils.ThemeManager;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -40,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 public class AddGameModalController implements Initializable {
 
     @FXML
-    private VBox rootPane; // Ensure your FXML root element has fx:id="rootPane"
+    private VBox rootPane;
     @FXML
     private ComboBox<SearchResult> gameSearchComboBox;
     @FXML
@@ -64,10 +57,24 @@ public class AddGameModalController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // 1. APPLY THEME
+
         ThemeManager.applyTheme(rootPane, "AddGameModal");
 
         platformComboBox.setDisable(true); //Disables until a game is selected
+
+        //Clears error state once it gains focus or changes state
+        gameSearchComboBox.focusedProperty().addListener((obs, oldVal, isFocused) -> {
+            if (isFocused) {
+                clearErrorStyle(gameSearchComboBox);
+            }
+        });
+
+        //Clears error state once a value is selected
+        platformComboBox.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                clearErrorStyle(platformComboBox);
+            }
+        });
 
         //Setups Game Search Listener
         setupGameSearch();
@@ -86,12 +93,13 @@ public class AddGameModalController implements Initializable {
                 confirmed = true;
                 searchExecutor.shutdownNow();
                 stage.close();
-
-                //  Notification call
-                String gameName = selectedGame != null ? selectedGame.toString() : "Unknown Game";
-                showGameAdditionNotification(gameName, selectedPlatform);
             }
         });
+    }
+
+    private void clearErrorStyle(ComboBox<?> comboBox) {
+        // Clears the red border styling applied by validation
+        comboBox.setStyle("");
     }
 
     private void setupPlatformFetcher() {
@@ -115,7 +123,8 @@ public class AddGameModalController implements Initializable {
                         }else{
                             //Handles case where no platforms are found (e.g., set error message)
                             platformComboBox.setPromptText("No platforms found for this game.");
-                            platformComboBox.setStyle("-fx-text-fill: red; -fx-border-color: red;");
+                            platformComboBox.setStyle("-fx-text-fill: red;");
+                            platformComboBox.setStyle("-fx-border-color: red;");
                         }
 
                     });
@@ -130,44 +139,13 @@ public class AddGameModalController implements Initializable {
         });
     }
 
-    private void showGameAdditionNotification(String gameName, String platform) {
-        // Check If Notifications Are Enabled
-        if (!UserRepo.isNotificationsEnabled(username)) {
-            return;
-        }
-
-        try {
-            Image iconImage = new Image(Main.class.getResourceAsStream("/org/gamelog/Assets/logo.png"));
-            ImageView iconView = new ImageView(iconImage);
-            iconView.setFitHeight(90);
-            iconView.setFitWidth(120);
-
-            Notifications.create()
-                    .title("Game Added")
-                    .text("\"" + gameName + "\" added to your backlog (" + platform + ")")
-                    .graphic(iconView)
-                    .position(Pos.BOTTOM_RIGHT)
-                    .hideAfter(Duration.seconds(5))
-                    .show();
-        } catch (Exception e) {
-            Notifications.create()
-                    .title("Game Added")
-                    .text("\"" + gameName + "\" added to your backlog (" + platform + ")")
-                    .position(Pos.BOTTOM_RIGHT)
-                    .hideAfter(Duration.seconds(5))
-                    .show();
-        }
-    }
-
-
-
     private void setupGameSearch() {
 
         //Blocks SPACE in popup listview
         gameSearchComboBox.skinProperty().addListener((obs, oldSkin, newSkin) -> {
 
             if (newSkin instanceof ComboBoxListViewSkin<?> skin) {
-                javafx.scene.Node popupContent = skin.getPopupContent();
+                Node popupContent = skin.getPopupContent();
 
                 if (popupContent instanceof ListView<?> listView) {
                     EventHandler<KeyEvent> blockSpace = e -> {

@@ -1,7 +1,6 @@
 package org.gamelog.utils;
 
 import io.github.cdimascio.dotenv.Dotenv;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
